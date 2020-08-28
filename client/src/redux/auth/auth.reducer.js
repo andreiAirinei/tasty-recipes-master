@@ -14,6 +14,7 @@ import {
 const INITIAL_STATE = {
   token: localStorage.getItem('token'),
   isAuthenticated: null,
+  authSuccess: false,
   loading: true,
   user: null,
   error: null
@@ -36,6 +37,7 @@ const authReducer = (state = INITIAL_STATE, action) => {
         ...state,
         ...action.payload,
         isAuthenticated: true,
+        authSuccess: true,
         loading: false
       }
 
@@ -52,6 +54,7 @@ const authReducer = (state = INITIAL_STATE, action) => {
         ...state,
         token: null,
         isAuthenticated: false,
+        authSuccess: false,
         loading: false,
         user: null,
         error: action.payload

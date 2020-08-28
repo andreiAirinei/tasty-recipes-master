@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { ReactComponent as IconDashboard } from '../../assets/dashboard.svg';
 
 // Redux
@@ -19,15 +19,19 @@ import Col from 'react-bootstrap/Col';
 
 import ReactLogo from '../../assets/hamburger_menu.svg';
 
-const Header = ({ openMobileMenu, closeMobileMenu, isShowingMobileMenu }) => {
+const Header = ({ openMobileMenu, closeMobileMenu, isShowingMobileMenu, authSuccess, history }) => {
   const [classes, setClasses] = useState({
     header: '',
     logo: ''
   });
 
   useEffect(() => {
+    // Why 'authSuccess' instead of 'isAuthenticated' for redirecting on login/register ?
+    // Because 'authSuccess' state will change ONLY on successful Login/Register
+    // 'isAuthenticated' state changes only when 'localStorage.token' is changing
+    authSuccess && history.push('/dashboard');
     window.addEventListener('scroll', handleScroll);
-  }, []);
+  }, [authSuccess]);
 
   const handleScroll = () => {
     if (window.scrollY > 100) {
@@ -98,7 +102,8 @@ const Header = ({ openMobileMenu, closeMobileMenu, isShowingMobileMenu }) => {
 }
 
 const mapStateToProps = state => ({
-  isShowingMobileMenu: state.ui.isShowingMobileMenu
+  isShowingMobileMenu: state.ui.isShowingMobileMenu,
+  authSuccess: state.auth.authSuccess
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -106,4 +111,4 @@ const mapDispatchToProps = dispatch => ({
   closeMobileMenu: () => dispatch(closeMobileMenu()),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));

@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { withRouter } from 'react-router-dom';
 import { ReactComponent as UserIcon } from '../../assets/user_profile.svg';
 
 // Redux
@@ -14,7 +15,7 @@ import {
 // Bootstrap
 import Button from 'react-bootstrap/Button';
 
-const LoginRegisterButtons = ({ openModalCredentials, setTopicLogin, isAuthenticated, logout, clearBookmarks, clearFavorites }) => {
+const LoginRegisterButtons = ({ openModalCredentials, setTopicLogin, isAuthenticated, logout, clearBookmarks, clearFavorites, history }) => {
 
   const handleClick = (e) => {
     e.target.id === 'registerBtn' ? setTopicLogin(false) : setTopicLogin(true);
@@ -23,6 +24,7 @@ const LoginRegisterButtons = ({ openModalCredentials, setTopicLogin, isAuthentic
 
   const onLogout = () => {
     logout();
+    history.push('/');
     clearBookmarks();
     clearFavorites();
   }
@@ -65,4 +67,4 @@ const mapDispatchToProps = dispatch => ({
   clearFavorites: () => dispatch(clearFavorites())
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginRegisterButtons);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(LoginRegisterButtons));
