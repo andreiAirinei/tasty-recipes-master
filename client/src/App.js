@@ -22,7 +22,7 @@ import RecipesDirectory from './pages/RecipesDirectory';
 import IngredientsPage from './pages/IngredientsPage';
 import DashboardPage from './pages/DashboardPage';
 
-// If exists, set token on global headers
+// If exists, set token on default global headers
 if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
@@ -50,13 +50,9 @@ const App = ({ getLatestRecipes, loadUser }) => {
   );
 }
 
-const mapStateToProps = state => ({
-  // isAuthenticated: state.auth.isAuthenticated
-});
-
 const mapDispatchToProps = dispatch => ({
   loadUser: () => dispatch(loadUser()),
   getLatestRecipes: () => dispatch(getLatestRecipes())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(null, mapDispatchToProps)(App);

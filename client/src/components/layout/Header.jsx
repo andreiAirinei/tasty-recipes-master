@@ -8,6 +8,7 @@ import {
   openMobileMenu,
   closeMobileMenu
 } from '../../redux/ui/ui.actions';
+import { openModalCredentials } from '../../redux/modals/credentialsModal/credentialsModal.actions';
 
 // Components
 import LoginRegisterButtons from '../LoginRegisterButtons/LoginRegisterButtons';
@@ -19,7 +20,7 @@ import Col from 'react-bootstrap/Col';
 
 import ReactLogo from '../../assets/hamburger_menu.svg';
 
-const Header = ({ openMobileMenu, closeMobileMenu, isShowingMobileMenu, authSuccess, history }) => {
+const Header = ({ openMobileMenu, closeMobileMenu, openModalCredentials, isAuthenticated, isShowingMobileMenu, authSuccess, history }) => {
   const [classes, setClasses] = useState({
     header: '',
     logo: ''
@@ -47,6 +48,14 @@ const Header = ({ openMobileMenu, closeMobileMenu, isShowingMobileMenu, authSucc
     }
   }
 
+  const handleDashboardLink = e => {
+    closeMobileMenu();
+    if (!isAuthenticated) {
+      e.preventDefault();
+      openModalCredentials();
+    }
+  }
+
   return (
     <Fragment>
       <nav className={`header-navbar sticky-top bg-white mt-lg-4 ${classes.header}`}>
@@ -61,10 +70,12 @@ const Header = ({ openMobileMenu, closeMobileMenu, isShowingMobileMenu, authSucc
               </Link>
             </Col>
             <Col xs={4} lg={{ order: 3, span: 4 }} className='text-right p-xl-0 d-flex align-items-center justify-content-end'>
-              <Link to='/dashboard' className='navbar-item text-dark font-weight-bolder text-decoration-none l-spacing-1 text-size-09 mr-5 d-flex align-items-center'>
-                <IconDashboard className='icon-small' />
-                <p className='p-0 m-0 ml-1'>Dashboard</p>
-              </Link>
+              <div className="d-none d-sm-block">
+                <Link to='/dashboard' onClick={handleDashboardLink} className='navbar-item text-dark font-weight-bolder text-decoration-none l-spacing-1 text-size-09 mr-2 mr-lg-5 d-flex align-items-center'>
+                  <IconDashboard className='icon-small' />
+                  <p className='p-0 m-0 ml-1'>Dashboard</p>
+                </Link>
+              </div>
               <LoginRegisterButtons />
               <button onClick={openMobileMenu} className='btn btn-link d-block d-lg-none'>
                 <img src={ReactLogo} alt='Menu Toggler' />
@@ -95,6 +106,9 @@ const Header = ({ openMobileMenu, closeMobileMenu, isShowingMobileMenu, authSucc
         <hr className='mr-3' />
         <Link to='/ingredients' onClick={closeMobileMenu} className='d-block text-decoration-none'><h5 className='text-dark l-spacing-1'>&rsaquo; Ingredients</h5></Link>
         <hr className='mr-3' />
+        <Link to='/dashboard' onClick={handleDashboardLink} className='d-block text-decoration-none'><h5 className='text-dark l-spacing-1'>&rsaquo; Dashboard</h5>
+        </Link>
+        <hr className='mr-3' />
       </div>
 
     </Fragment>
@@ -103,12 +117,14 @@ const Header = ({ openMobileMenu, closeMobileMenu, isShowingMobileMenu, authSucc
 
 const mapStateToProps = state => ({
   isShowingMobileMenu: state.ui.isShowingMobileMenu,
-  authSuccess: state.auth.authSuccess
+  authSuccess: state.auth.authSuccess,
+  isAuthenticated: state.auth.isAuthenticated
 });
 
 const mapDispatchToProps = dispatch => ({
   openMobileMenu: () => dispatch(openMobileMenu()),
   closeMobileMenu: () => dispatch(closeMobileMenu()),
+  openModalCredentials: () => dispatch(openModalCredentials())
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));

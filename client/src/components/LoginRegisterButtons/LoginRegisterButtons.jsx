@@ -31,13 +31,13 @@ const LoginRegisterButtons = ({ openModalCredentials, setTopicLogin, isAuthentic
 
   const guestLinks = (
     <>
-      <Button onClick={handleClick} id='loginBtn' variant='light' className='mr-1' size='sm'>Login</Button>
-      <Button onClick={handleClick} id='registerBtn' variant='outline-danger' size='sm' className='text-dark'>Register</Button>
+      <Button onClick={handleClick} id='loginBtn' variant='outline-dark' className='mr-1' size='sm'>Login</Button>
+      <Button onClick={handleClick} id='registerBtn' variant='dark' size='sm' className=''>Register</Button>
     </>
   );
 
   const authLinks = (
-    <Button onClick={onLogout} variant='outline-danger' size='sm'>Logout</Button>
+    <Button onClick={onLogout} variant='outline-dark' size='sm'>Logout</Button>
   )
 
   return (
