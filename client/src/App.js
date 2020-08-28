@@ -27,7 +27,7 @@ if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
 
-const App = ({ getLatestRecipes }) => {
+const App = ({ getLatestRecipes, loadUser }) => {
   useEffect(() => {
     loadUser();
     getLatestRecipes();
@@ -55,6 +55,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  loadUser: () => dispatch(loadUser()),
   getLatestRecipes: () => dispatch(getLatestRecipes())
 });
 

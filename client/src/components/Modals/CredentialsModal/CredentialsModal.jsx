@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { withRouter } from 'react-router-dom'
 
 // Redux
 import { connect } from 'react-redux';
@@ -11,11 +12,14 @@ import Register from './Register';
 // Bootstrap
 import Modal from 'react-bootstrap/Modal';
 
-const CredentialsModal = ({ isActive, topicLogin, closeModalCredentials, isAuthenticated }) => {
+const CredentialsModal = ({ isActive, topicLogin, closeModalCredentials, isAuthenticated, history }) => {
 
   useEffect(() => {
-    isAuthenticated && closeModalCredentials();
-  });
+    if (isAuthenticated) {
+      closeModalCredentials();
+      history.push('/dashboard');
+    }
+  }, [isAuthenticated, history]);
 
   const handleClosingModal = () => {
     closeModalCredentials();
@@ -52,4 +56,4 @@ const mapDispatchToProps = dispatch => ({
   closeModalCredentials: () => dispatch(closeModalCredentials())
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(CredentialsModal);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CredentialsModal));
