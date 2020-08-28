@@ -3,7 +3,8 @@ import axios from 'axios';
 import {
   ADD_FAVORITE,
   FETCH_FAVORITES,
-  REMOVE_FAVORITE
+  REMOVE_FAVORITE,
+  CLEAR_FAVORITES
 } from './favorites.types';
 
 // Fetch user's favorite recipes
@@ -52,4 +53,9 @@ export const removeFavorite = id => async dispatch => {
   } catch (err) {
     console.error(err.message);
   }
+}
+
+// Clear everything related to Favorites
+export const clearFavorites = () => dispatch => {
+  dispatch({ type: CLEAR_FAVORITES });
 }

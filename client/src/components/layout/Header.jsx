@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { ReactComponent as IconDashboard } from '../../assets/dashboard.svg';
 
 // Redux
 import { connect } from 'react-redux';
@@ -56,7 +57,10 @@ const Header = ({ openMobileMenu, closeMobileMenu, isShowingMobileMenu }) => {
               </Link>
             </Col>
             <Col xs={4} lg={{ order: 3, span: 4 }} className='text-right p-xl-0 d-flex align-items-center justify-content-end'>
-              <Link to='/dashboard' className='navbar-item text-dark font-weight-bold text-decoration-none l-spacing-1 text-size-09 mr-5'>Dashboard</Link>
+              <Link to='/dashboard' className='navbar-item text-dark font-weight-bolder text-decoration-none l-spacing-1 text-size-09 mr-5 d-flex align-items-center'>
+                <IconDashboard className='icon-small' />
+                <p className='p-0 m-0 ml-1'>Dashboard</p>
+              </Link>
               <LoginRegisterButtons />
               <button onClick={openMobileMenu} className='btn btn-link d-block d-lg-none'>
                 <img src={ReactLogo} alt='Menu Toggler' />

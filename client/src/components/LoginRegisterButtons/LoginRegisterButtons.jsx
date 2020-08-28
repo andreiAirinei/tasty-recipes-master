@@ -4,6 +4,8 @@ import { ReactComponent as UserIcon } from '../../assets/user_profile.svg';
 // Redux
 import { connect } from 'react-redux';
 import { logout } from '../../redux/auth/auth.actions';
+import { clearFavorites } from '../../redux/private/favorites/favorites.actions';
+import { clearBookmarks } from '../../redux/private/bookmarks/bookmarks.actions';
 import {
   openModalCredentials,
   setTopicLogin
@@ -12,11 +14,17 @@ import {
 // Bootstrap
 import Button from 'react-bootstrap/Button';
 
-const LoginRegisterButtons = ({ openModalCredentials, setTopicLogin, isAuthenticated, logout }) => {
+const LoginRegisterButtons = ({ openModalCredentials, setTopicLogin, isAuthenticated, logout, clearBookmarks, clearFavorites }) => {
 
   const handleClick = (e) => {
     e.target.id === 'registerBtn' ? setTopicLogin(false) : setTopicLogin(true);
     openModalCredentials();
+  }
+
+  const onLogout = () => {
+    logout();
+    clearBookmarks();
+    clearFavorites();
   }
 
   const guestLinks = (
@@ -27,7 +35,7 @@ const LoginRegisterButtons = ({ openModalCredentials, setTopicLogin, isAuthentic
   );
 
   const authLinks = (
-    <Button onClick={logout} variant='outline-danger' size='sm'>Logout</Button>
+    <Button onClick={onLogout} variant='outline-danger' size='sm'>Logout</Button>
   )
 
   return (
@@ -52,7 +60,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   setTopicLogin: topic => dispatch(setTopicLogin(topic)),
   openModalCredentials: () => dispatch(openModalCredentials()),
-  logout: () => dispatch(logout())
+  logout: () => dispatch(logout()),
+  clearBookmarks: () => dispatch(clearBookmarks()),
+  clearFavorites: () => dispatch(clearFavorites())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginRegisterButtons);

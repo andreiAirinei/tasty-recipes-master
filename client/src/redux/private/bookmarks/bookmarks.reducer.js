@@ -1,7 +1,8 @@
 import {
   ADD_BOOKMARK,
   REMOVE_BOOKMARK,
-  FETCH_BOOKMARKS
+  FETCH_BOOKMARKS,
+  CLEAR_BOOKMARKS
 } from './bookmarks.types';
 
 const INITIAL_STATE = {
@@ -29,6 +30,13 @@ const bookmarksReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         bookmarks: [...filteredBookmarks]
+      }
+
+    case CLEAR_BOOKMARKS:
+      return {
+        ...state,
+        current: null,
+        bookmarks: null
       }
 
     default:

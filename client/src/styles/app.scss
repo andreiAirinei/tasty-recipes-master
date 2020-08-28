@@ -195,8 +195,13 @@ body {
 
   .navbar-item:hover {
     color: var(--danger) !important;
-  }
 
+    .icon-small {
+      g path {
+        fill: var(--danger) !important;
+      }
+    }
+  }
 }
 
 .header-on-scroll {

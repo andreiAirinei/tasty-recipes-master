@@ -1,7 +1,8 @@
 import {
   ADD_FAVORITE,
   FETCH_FAVORITES,
-  REMOVE_FAVORITE
+  REMOVE_FAVORITE,
+  CLEAR_FAVORITES
 } from './favorites.types';
 
 const INITIAL_STATE = {
@@ -30,6 +31,13 @@ const favoritesReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         favorites: [...filteredFavorites]
+      }
+
+    case CLEAR_FAVORITES:
+      return {
+        ...state,
+        current: null,
+        favorites: null
       }
 
     default:

@@ -3,7 +3,8 @@ import axios from 'axios';
 import {
   ADD_BOOKMARK,
   REMOVE_BOOKMARK,
-  FETCH_BOOKMARKS
+  FETCH_BOOKMARKS,
+  CLEAR_BOOKMARKS
 } from './bookmarks.types';
 
 // Fetch user's bookmarks
@@ -53,3 +54,8 @@ export const removeBookmark = id => async dispatch => {
     console.error(err.message);
   }
 }
+
+// CLEAR EVERYTHING
+export const clearBookmarks = () => dispatch => {
+  dispatch({ type: CLEAR_BOOKMARKS });
+};
