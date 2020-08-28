@@ -13,16 +13,12 @@ import {
 
 // Load User
 export const loadUser = () => async dispatch => {
-  console.log('HERE 1');
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
-  console.log('HERE 2');
   try {
-    console.log('HERE 3');
     const res = await axios.get('/api/auth');
     dispatch({ type: USER_LOADED, payload: res.data });
-    console.log('HERE 4');
 
   } catch (err) {
     dispatch({ type: AUTH_ERROR });
@@ -80,6 +76,7 @@ export const login = formData => async dispatch => {
 // Logout
 export const logout = () => dispatch => {
   dispatch({ type: LOGOUT });
+  dispatch(loadUser());
 }
 
 // Clear Errors

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Image from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
 
-const FavoritesItem = ({ recipe, handleRemove }) => {
+const TabListItem = ({ recipe, handleRemove }) => {
   const [warning, setWarning] = useState(false);
 
   const { _id, recipeID, recipeName, recipeImageUrl } = recipe;
@@ -49,4 +49,4 @@ const FavoritesItem = ({ recipe, handleRemove }) => {
   )
 }
 
-export default FavoritesItem;
+export default TabListItem;

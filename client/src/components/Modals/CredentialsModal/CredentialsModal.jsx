@@ -14,8 +14,6 @@ import Modal from 'react-bootstrap/Modal';
 const CredentialsModal = ({ isActive, topicLogin, closeModalCredentials, isAuthenticated }) => {
 
   useEffect(() => {
-    console.log('CREDENTIALS MODAL');
-    console.log(isAuthenticated);
     isAuthenticated && closeModalCredentials();
   });
 

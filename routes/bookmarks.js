@@ -43,7 +43,7 @@ router.post('/', auth, async (req, res) => {
     res.json(bookmark);
 
   } catch (err) {
-    console.error(err.message);
+    console.log(err.message);
     res.status(500).send('Server Error');
   }
 });

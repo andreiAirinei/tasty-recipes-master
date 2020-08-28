@@ -6,14 +6,13 @@ import { connect } from 'react-redux';
 // Components
 import DashboardNavigation from './DashboardNavigation';
 import TabCreate from './Tabs/TabCreate/TabCreate';
-import TabMyRecipes from './Tabs/TabMyRecipes';
+import TabMyRecipes from './Tabs/TabMyRecipes/TabMyRecipes';
 import TabFavorites from './Tabs/TabFavorites/TabFavorites';
 import TabBookmarks from './Tabs/TabBookmarks/TabBookmarks';
 
 // Bootstrap
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-
 
 const DashboardDirectory = ({ activeTab }) => {
   return (

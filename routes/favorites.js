@@ -28,7 +28,7 @@ router.post('/', auth, async (req, res) => {
     let fav = await Favorites.findOne({ recipeID });
 
     if (fav) {
-      return res.status(400).json({ msg: 'Recipe already in favorites list!' });
+      return res.status(400).json({ msg: 'Recipe already in Favorites list!' });
     }
 
     // Create the fav object and save it to DB

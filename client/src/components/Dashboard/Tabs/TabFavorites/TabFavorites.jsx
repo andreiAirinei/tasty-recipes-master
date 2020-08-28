@@ -8,7 +8,7 @@ import {
 } from '../../../../redux/private/favorites/favorites.actions';
 
 // Components
-import FavoritesItem from './FavoritesItem';
+import TabListItem from '../TabListItem';
 
 // Bootstrap
 import Row from 'react-bootstrap/Row';
@@ -29,11 +29,12 @@ const TabFavorites = ({ fetchFavorites, favorites, removeFavorite }) => {
   return (
     <div className='tab-favorites'>
       <h1>Favorites</h1>
+      <hr />
       <Row>
         {
           favorites && favorites.map(fav => (
             <Col xs={6} sm={4} key={fav._id}>
-              <FavoritesItem
+              <TabListItem
                 recipe={fav}
                 handleRemove={handleRemove} />
             </Col>

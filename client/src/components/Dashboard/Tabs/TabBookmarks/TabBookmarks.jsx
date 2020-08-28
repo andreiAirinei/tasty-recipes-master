@@ -8,7 +8,7 @@ import {
 } from '../../../../redux/private/bookmarks/bookmarks.actions';
 
 // Components
-import FavoritesItem from './../TabFavorites/FavoritesItem';
+import TabListItem from '../TabListItem';
 
 // Bootstrap
 import Row from 'react-bootstrap/Row';
@@ -29,11 +29,12 @@ const TabBookmarks = ({ fetchBookmarks, bookmarks, removeBookmark }) => {
   return (
     <div className='tab-bookmarks'>
       <h1>Bookmarks</h1>
+      <hr />
       <Row>
         {
           bookmarks && bookmarks.map(bm => (
             <Col xs={6} sm={4} key={bm._id}>
-              <FavoritesItem
+              <TabListItem
                 recipe={bm}
                 handleRemove={handleRemove} />
             </Col>

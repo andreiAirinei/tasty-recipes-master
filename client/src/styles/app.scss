@@ -58,6 +58,10 @@ body {
   background: #418327 !important;
 }
 
+.bg-dark {
+  background: #343A40 !important;
+}
+
 .width-120 {
   width: 120px;
 }
@@ -842,6 +846,7 @@ body {
       position: relative;
       border-radius: 10px;
       width: 100%;
+      height: inherit;
 
       .favorite,
       .bookmark {

@@ -20,6 +20,6 @@ export const createRecipe = recipe => async dispatch => {
       payload: res.data
     })
   } catch (err) {
-    console.log(err);
+    console.log(err.response.data.msg);
   }
 };

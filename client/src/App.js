@@ -7,6 +7,7 @@ import setAuthToken from './utils/setAuthToken';
 
 // Redux
 import { connect } from 'react-redux';
+import { loadUser } from './redux/auth/auth.actions';
 import { getLatestRecipes } from './redux/recipes/recipes.actions';
 
 // Components
@@ -28,8 +29,9 @@ if (localStorage.token) {
 
 const App = ({ getLatestRecipes }) => {
   useEffect(() => {
+    loadUser();
     getLatestRecipes();
-  }, [getLatestRecipes]);
+  }, [getLatestRecipes, loadUser]);
 
   return (
     <Fragment>
@@ -48,8 +50,12 @@ const App = ({ getLatestRecipes }) => {
   );
 }
 
+const mapStateToProps = state => ({
+  // isAuthenticated: state.auth.isAuthenticated
+});
+
 const mapDispatchToProps = dispatch => ({
   getLatestRecipes: () => dispatch(getLatestRecipes())
 });
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

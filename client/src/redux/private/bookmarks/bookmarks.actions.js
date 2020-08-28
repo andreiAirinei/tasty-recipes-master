@@ -16,7 +16,7 @@ export const fetchBookmarks = () => async dispatch => {
       payload: res.data
     })
   } catch (err) {
-    console.log(err.message);
+    console.log(err.response.data.msg);
   }
 }
 
@@ -36,7 +36,7 @@ export const addBookmark = bm => async dispatch => {
       payload: res.data
     });
   } catch (err) {
-    console.error(err.message);
+    console.log(err.response.data.msg);
   }
 };
 

@@ -25,7 +25,8 @@ const TabCreate = ({ createRecipe }) => {
 
   return (
     <div className='tab-create'>
-      <h1>CREATE</h1>
+      <h1>Create new recipe</h1>
+      <hr />
       <form onSubmit={handleSubmit} >
         <input onChange={handleChange} type="text" name="name" required />
         <input onChange={handleChange} type="text" name='category' required />

@@ -1,3 +1,5 @@
+import setAuthToken from '../../utils/setAuthToken';
+
 import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
@@ -41,7 +43,11 @@ const authReducer = (state = INITIAL_STATE, action) => {
     case LOGIN_FAIL:
     case LOGOUT:
     case AUTH_ERROR:
+      // Remove Token from local storage
       localStorage.removeItem('token');
+      // Delete 'x-auth-token' from default headers
+      setAuthToken(false);
+
       return {
         ...state,
         token: null,
