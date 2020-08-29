@@ -12,11 +12,11 @@ import CallToActionCard from '../components/CallToActionCard/CallToActionCard';
 // Bootstrap
 import Container from 'react-bootstrap/Container';
 
-const IngredientsPage = ({ fetchAllIngredients }) => {
+const IngredientsPage = ({ fetchAllIngredients, ingredientsList }) => {
   useEffect(() => {
-    fetchAllIngredients();
+    !ingredientsList && fetchAllIngredients();
     // eslint-disable-next-line
-  }, []);
+  }, [ingredientsList]);
 
   return (
     <div className='page-ingredients'>
@@ -32,4 +32,8 @@ const IngredientsPage = ({ fetchAllIngredients }) => {
   )
 }
 
-export default connect(null, { fetchAllIngredients })(IngredientsPage);
+const mapStateToProps = state => ({
+  ingredientsList: state.ingredients.list
+});
+
+export default connect(mapStateToProps, { fetchAllIngredients })(IngredientsPage);
