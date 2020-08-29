@@ -2,9 +2,14 @@ import { createSelector } from 'reselect';
 
 const selectIngredients = state => state.ingredients;
 
-export const selectIngredientsGroupedAlphabetically = createSelector(
+export const selectIngredientsList = createSelector(
   [selectIngredients],
-  selectIngredients => {
+  ingredients => ingredients.list
+);
+
+export const selectIngredientsGroupedAlphabetically = createSelector(
+  [selectIngredientsList],
+  ingredientsList => {
     // Create an empty object
     const groupedList = {};
 
@@ -14,10 +19,23 @@ export const selectIngredientsGroupedAlphabetically = createSelector(
       groupedList[String.fromCharCode(i)] = [];
     }
 
-    selectIngredients.list && selectIngredients.list.forEach(ingredient => {
+    ingredientsList && ingredientsList.forEach(ingredient => {
       groupedList[ingredient.strIngredient.charAt(0).toUpperCase()].push(ingredient);
     })
 
     return groupedList;
   }
-)
+);
+
+// ####### Selectors for REACT-SELECT input values
+export const selectIngredientsSearchList = createSelector(
+  [selectIngredientsList],
+  ingredientsList => ingredientsList ? ingredientsList.map(el => ({
+    value: el.strIngredient,
+    label: el.strIngredient,
+    target: {
+      name: 'ingredient',
+      value: el.strIngredient
+    }
+  })) : []
+);

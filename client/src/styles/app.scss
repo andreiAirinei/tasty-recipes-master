@@ -58,12 +58,16 @@ body {
   background: #418327 !important;
 }
 
+.bg-tasty-secondary {
+  background: #e4eee5 !important;
+}
+
 .bg-dark {
   background: #343A40 !important;
 }
 
 .width-120 {
-  width: 120px;
+  width: 120px !important;
 }
 
 .icon-small {
@@ -99,12 +103,12 @@ body {
 }
 
 .outline-none {
-  outline: none;
-  box-shadow: none;
+  outline: none !important;
+  box-shadow: none !important;
 
   &:focus {
-    outline: none;
-    box-shadow: none;
+    outline: none !important;
+    box-shadow: none !important;
   }
 }
 
@@ -965,6 +969,54 @@ body {
 
   .dropdown-flag {  
     height: 14px;
+  }
+}
+
+// Dashboard.jsx
+// TabCreate.jsx
+.tab-create {
+  .input-group-text {
+    background: #e4eee5;
+  }
+
+  .form-control:focus,
+  .css-2b097c-container:focus,
+  .css-1pahdxg-control,
+  .select__control:focus,
+  .select__value-container:focus {
+    border-color: var(--success) !important;
+    // box-shadow: none !important;
+    box-shadow: inset 0 1px 1px rgba(65, 136, 68, 0.075), 0 0 8px rgba(128, 192, 131, 0.6);
+  }
+}
+
+// #################### INGREDIENTS 
+.ingredients__list {
+  border: 1px solid #f1f1f1;
+  border-radius: 10px;
+  width: 100%;
+  padding: 20px;
+  background: rgba(255, 120, 81, 0.05);
+  min-height: 100px;
+
+  li {
+    // border: 1px solid #d3d3d3;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  
+    img { width: 40px; }
+    
+    .ingredient { width: 150px; }
+  
+    &:hover {
+      background: var(--light);
+      cursor: pointer;
+  
+      .ingredient { 
+        text-decoration: underline;
+      }
+    }
   }
 }
 
