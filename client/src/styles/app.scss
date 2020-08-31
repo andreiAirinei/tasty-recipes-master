@@ -1016,6 +1016,10 @@ body {
   }
 }
 
+textarea {
+  min-height: 170px;
+}
+
 // IngredientModal.jsx
 .ingredient-modal {
   .modal-image img {

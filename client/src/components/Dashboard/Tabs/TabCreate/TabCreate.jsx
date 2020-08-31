@@ -47,10 +47,12 @@ const TabCreate = ({
     }, {
       name: 'Salmon',
       qty: '3 filetts'
-    }]
+    }],
+    step: '',
+    steps: []
   });
 
-  const { name, category, area, youtubeURL, ingredient, quantity, ingredientsCollection } = recipe;
+  const { name, category, area, youtubeURL, ingredient, quantity, ingredientsCollection, step, steps } = recipe;
 
   useEffect(() => {
     fetchDishTypes();
@@ -78,11 +80,18 @@ const TabCreate = ({
     })
   };
 
-  const handleRemoveIngredient = () => {
-    // setRecipe({
-    //   ...recipe,
-    //   ingredientsCollection: 
-    // })
+  const handleRemoveIngredient = ingredient => {
+    setRecipe({
+      ...recipe,
+      ingredientsCollection: ingredientsCollection.filter(el => el.name !== ingredient)
+    })
+  }
+
+  const handleAddStep = () => {
+    setRecipe({
+      ...recipe,
+      steps: [...steps, { text: step }]
+    })
   }
 
   const handleSubmit = e => {
@@ -221,7 +230,7 @@ const TabCreate = ({
           </InputGroup>
 
           {/* Submit Ingredient */}
-          <button onClick={handleAddIngredient} className='btn btn-dark outline-none text-size-08'>Add ingredient</button>
+          <button onClick={handleAddIngredient} className='btn btn-dark outline-none text-size-08'>ADD INGREDIENT</button>
         </div>
 
         <ul className='ingredients__list list-unstyled'>
@@ -243,6 +252,17 @@ const TabCreate = ({
           }
         </ul>
       </div>
+
+      {/* How to make it */}
+      <h4 className='bg-light text-center py-1 mt-5 mb-3'>How to make it</h4>
+      <InputGroup>
+        <InputGroup.Prepend>
+          <InputGroup.Text>Step 1</InputGroup.Text>
+        </InputGroup.Prepend>
+        <FormControl as="textarea" name="step" aria-label="Step" value={recipe.step} onChange={handleInputChange} />
+      </InputGroup>
+
+      <button onClick={handleAddStep} className='btn btn-dark outline-none text-size-08 mx-auto d-block my-3'>ADD STEP</button>
     </div>
   )
 }
