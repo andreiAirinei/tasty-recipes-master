@@ -15,6 +15,8 @@ import { selectIngredientsSearchList } from '../../../../redux/ingredients/ingre
 // Bootstrap
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 const TabCreate = ({
   createRecipe,
@@ -65,15 +67,23 @@ const TabCreate = ({
     })
   };
 
+  // Add ingredient at the start of the array
   const handleAddIngredient = () => {
     setRecipe({
       ...recipe,
-      ingredientsCollection: [...ingredientsCollection, {
+      ingredientsCollection: [{
         name: ingredient,
         qty: quantity
-      }]
+      }, ...ingredientsCollection]
     })
   };
+
+  const handleRemoveIngredient = () => {
+    // setRecipe({
+    //   ...recipe,
+    //   ingredientsCollection: 
+    // })
+  }
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -216,9 +226,18 @@ const TabCreate = ({
 
         <ul className='ingredients__list list-unstyled'>
           {
-            ingredientsCollection.map(ing => (
-              <li className='text-dark bg-white'>
-                <em>{ing.name}</em> ---> {ing.qty}
+            ingredientsCollection.map((ing, idx) => (
+              <li key={idx} className='text-dark bg-white'>
+                <div
+                  className="d-flex flex-sm-column flex-md-row align-items-center py-1"
+                >
+                  <div className="d-flex align-items-center">
+                    <img src={`https://www.themealdb.com/images/ingredients/${ing.name}-Small.png`} className='mr-1' />
+                    <p className='ingredient m-0 ml-1'><em>{ing.name}</em></p>
+                  </div>
+                  <p className='m-0'><strong>{ing.qty}</strong></p>
+                  <button onClick={() => handleRemoveIngredient(ing.name)} className='btn btn-link outline-none text-danger ml-auto'>&times;</button>
+                </div>
               </li>
             ))
           }

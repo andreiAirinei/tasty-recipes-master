@@ -15,7 +15,7 @@ const RecipePage = ({ match }) => {
           render={() => <Redirect to='/' />}
         />
         <Route
-          exact
+          // exact
           path={`${match.url}/:recipeID`}
           component={RecipeOverview}
         />

@@ -996,26 +996,22 @@ body {
   border-radius: 10px;
   width: 100%;
   padding: 20px;
-  background: rgba(255, 120, 81, 0.05);
+  background: var(--light);
   min-height: 100px;
 
   li {
-    // border: 1px solid #d3d3d3;
+    border: 1px solid #d3d3d3;
     padding: 10px;
     margin-bottom: 10px;
     border-radius: 5px;
   
     img { width: 40px; }
     
-    .ingredient { width: 150px; }
+    .ingredient { width: 170px; }
   
     &:hover {
-      background: var(--light);
+      background: var(--light) !important;
       cursor: pointer;
-  
-      .ingredient { 
-        text-decoration: underline;
-      }
     }
   }
 }
