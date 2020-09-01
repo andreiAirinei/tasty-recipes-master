@@ -988,10 +988,25 @@ body {
     // box-shadow: none !important;
     box-shadow: inset 0 1px 1px rgba(65, 136, 68, 0.075), 0 0 8px rgba(128, 192, 131, 0.6);
   }
+
+  .recipe-steps {
+    textarea {
+      border-bottom-left-radius: 0.4rem !important;
+      border-top-right-radius: 0px !important; 
+      border-bottom-right-radius: 0.4rem !important;
+      border-top: none;
+    }
+
+    span {
+      border-top-right-radius: .4rem !important; 
+      border-bottom-left-radius: 0px !important;
+      border-bottom: none;
+    }
+  }
 }
 
 // #################### INGREDIENTS 
-.ingredients__list {
+.ingredients-table {
   border: 1px solid #f1f1f1;
   border-radius: 10px;
   width: 100%;
@@ -999,19 +1014,22 @@ body {
   background: var(--light);
   min-height: 100px;
 
-  li {
-    border: 1px solid #d3d3d3;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-  
-    img { width: 40px; }
+  .ingredients__list {
+    background: var(--light);
+    li {
+      border: 1px solid #d3d3d3;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
     
-    .ingredient { width: 170px; }
-  
-    &:hover {
-      background: var(--light) !important;
-      cursor: pointer;
+      img { width: 40px; }
+      
+      .ingredient { width: 170px; }
+    
+      &:hover {
+        background: var(--light) !important;
+        cursor: pointer;
+      }
     }
   }
 }

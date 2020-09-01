@@ -1,8 +1,17 @@
 import axios from 'axios';
 
 import {
-  CREATE_RECIPE
+  CREATE_RECIPE,
+  SET_RECIPE_FIELD_VALUES
 } from './privateRecipes.types';
+
+// Dynamically set form field values
+export const setRecipeFieldValue = name => dispatch => {
+  dispatch({
+    type: SET_RECIPE_FIELD_VALUES,
+    payload: name
+  })
+}
 
 // ADD RECIPE
 export const createRecipe = recipe => async dispatch => {

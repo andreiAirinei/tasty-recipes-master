@@ -49,8 +49,10 @@ const RecipeInstructions = ({
 
           </div>
 
-          <div className="step my-4">
-            <h5 className='d-inline bg-white pr-3 text-info'>Step 1</h5>
+          <div className="instructions">
+            <div className="step my-4">
+              <h5 className='d-inline bg-white pr-3 text-info'>Step 1</h5>
+            </div>
           </div>
           <div className="instructions text-justify mb-5" dangerouslySetInnerHTML={handleInstructions(singleRecipe.strInstructions)} />
         </>
