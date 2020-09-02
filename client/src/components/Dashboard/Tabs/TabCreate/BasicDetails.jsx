@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 
 // Redux
 import { connect } from 'react-redux';
 import { fetchDishTypes, fetchCountries } from '../../../../redux/category/category.actions';
-import { setRecipeFieldValue } from '../../../../redux/private/recipes/privateRecipes.actions';
+import { setBasicFieldValue } from '../../../../redux/private/recipes/privateRecipes.actions';
 
 // Selectors 
 import {
@@ -20,33 +20,93 @@ import FormControl from 'react-bootstrap/FormControl';
 const BasicDetails = ({
   fetchCountries,
   fetchDishTypes,
-  setRecipeFieldValue,
+  setBasicFieldValue,
   recipe,
   dishTypes,
   countries
 }) => {
+  const { name, area, category, youtubeURL } = recipe;
+
+  const [state, setState] = useState({
+    inputValue: '',
+    value: ''
+  })
+
+  const handleSelectorChange = (input, { action }) => {
+    switch (action) {
+      case 'select-option':
+        console.log(action, input);
+        setBasicFieldValue({
+          value: input.target.value,
+          fieldName: input.target.name
+        });
+        return;
+
+      case 'clear':
+
+        return;
+
+      case 'remove-value':
+      case 'deselect-option':
+      case 'pop-value':
+      case 'create-option':
+      case 'set-value':
+      case 'create-option':
+        console.log('-------------->>>  ', action);
+        return;
+
+      default:
+        return;
+    }
+  }
+
+  const onInputChange = (inputValue, { action }) => {
+    console.log('onInputChange --->', inputValue, action);
+    switch (action) {
+      case 'input-change':
+        setState({ inputValue });
+        return;
+
+      case 'set-value':
+        console.log('Set value ---', inputValue);
+        return;
+
+      case 'menu-close':
+        console.log(state.inputValue);
+        let menuIsOpen = undefined;
+        if (state.inputValue) {
+          menuIsOpen = true;
+        }
+        setState({
+          menuIsOpen
+        });
+        return;
+      default:
+        return;
+    }
+  }
 
   useEffect(() => {
     fetchDishTypes();
     fetchCountries();
+    console.log('updated');
   }, []);
-
-  const { name, area, category, youtubeURL } = recipe;
 
   // Dynamically set form field values
   const handleInputChange = e => {
-    setRecipeFieldValue({
+    console.log(e);
+    e && setBasicFieldValue({
       value: e.target.value,
       fieldName: e.target.name
     });
   }
 
   // Re-establishing inputs of REACT-SELECT components 
-  const categoryIdx = category && dishTypes.map(el => el.value).indexOf(category);
-  const areaIdx = area && countries.map(el => el.value).indexOf(area);
+  const categoryIdx = category ? dishTypes.map(el => el.value).indexOf(category) : '';
+  const areaIdx = area ? countries.map(el => el.value).indexOf(area) : '';
 
   return (
-    <>
+    <section className='tab-create-section shadow'>
       <h4 className='bg-light text-center py-1 mt-4 mb-4'>Details</h4>
       <div className="d-flex flex-column flex-lg-row">
         {/* Recipe name */}
@@ -78,8 +138,12 @@ const BasicDetails = ({
               name='area'
               options={countries}
               placeholder='choose...'
-              onChange={handleInputChange}
-              defaultValue={countries[areaIdx]}
+              isClearable={true}
+              isSearchable={true}
+              onChange={handleSelectorChange}
+              inputValue={area}
+              onInputChange={onInputChange}
+              // defaultInputValue={areaIdx && countries[areaIdx]}
               className='border-0 form-control p-0 m-0'
             />
           }
@@ -101,7 +165,7 @@ const BasicDetails = ({
               options={dishTypes}
               placeholder='choose...'
               onChange={handleInputChange}
-              defaultValue={dishTypes[categoryIdx]}
+              defaultInputValue={categoryIdx ? dishTypes[categoryIdx] : ''}
               className='form-control p-0 m-0 border-0'
             />
           }
@@ -124,7 +188,7 @@ const BasicDetails = ({
           />
         </InputGroup>
       </div>
-    </>
+    </section>
   )
 }
 
@@ -135,9 +199,9 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  setRecipeFieldValue: fieldVal => dispatch(setRecipeFieldValue(fieldVal)),
+  setBasicFieldValue: fieldVal => dispatch(setBasicFieldValue(fieldVal)),
   fetchDishTypes: () => dispatch(fetchDishTypes()),
-  fetchCountries: () => dispatch(fetchCountries()),
+  fetchCountries: () => dispatch(fetchCountries())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(BasicDetails);

@@ -34,7 +34,7 @@ export const selectIngredientsSearchList = createSelector(
     value: el.strIngredient,
     label: el.strIngredient,
     target: {
-      name: 'ingredient',
+      name: 'name',
       value: el.strIngredient
     }
   })) : []

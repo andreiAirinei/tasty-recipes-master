@@ -1003,6 +1003,14 @@ body {
       border-bottom: none;
     }
   }
+
+  &-section {
+    // border: 1px solid #343A40;
+    border-radius: 10px;
+    margin: 50px 0 100px 0;
+    padding: 20px;
+    background: rgba(255, 229, 201, 0.07);
+  }
 }
 
 // #################### INGREDIENTS 
@@ -1015,8 +1023,8 @@ body {
   min-height: 100px;
 
   .ingredients__list {
-    background: var(--light);
     li {
+      background: #fff;
       border: 1px solid #d3d3d3;
       padding: 10px;
       margin-bottom: 10px;
