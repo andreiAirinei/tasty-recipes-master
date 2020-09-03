@@ -989,27 +989,48 @@ body {
     box-shadow: inset 0 1px 1px rgba(65, 136, 68, 0.075), 0 0 8px rgba(128, 192, 131, 0.6);
   }
 
+  // .recipe-steps {
+  //   textarea {
+  //     border-bottom-left-radius: 0.4rem !important;
+  //     border-top-right-radius: 0px !important; 
+  //     border-bottom-right-radius: 0.4rem !important;
+  //     border-top: none;
+  //   }
+
+  //   span {
+  //     border-top-right-radius: .4rem !important; 
+  //     border-bottom-left-radius: 0px !important;
+  //     border-bottom: none;
+  //   }
+  // }
+
   .recipe-steps {
     textarea {
-      border-bottom-left-radius: 0.4rem !important;
-      border-top-right-radius: 0px !important; 
+      border-top-right-radius: 0.4rem !important;
       border-bottom-right-radius: 0.4rem !important;
-      border-top: none;
-    }
-
-    span {
-      border-top-right-radius: .4rem !important; 
-      border-bottom-left-radius: 0px !important;
-      border-bottom: none;
     }
   }
 
   &-section {
-    // border: 1px solid #343A40;
+    position: relative;
     border-radius: 10px;
     margin: 50px 0 100px 0;
     padding: 20px;
     background: rgba(255, 229, 201, 0.07);
+
+    &::before {
+      position: absolute;
+      content: '';
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 7px;
+      border-top-right-radius: 10px;
+      border-top-left-radius: 10px;
+      background: #418327;
+    }
+
+    // h4 { border-bottom: 1px solid #d7d7d7;}
   }
 }
 

@@ -22,7 +22,7 @@ const Instructions = ({ addStep, steps, currentStep, setCurrentStepValue }) => {
   return (
     <div className='tab-create-section shadow'>
       {/* How to make it */}
-      <h4 className='bg-light text-center py-1 mt-5 mb-3'>How to make it</h4>
+      <h4 className='text-center py-3 mb-3'>How to make it</h4>
 
       {
         steps.map((step, idx) => (
@@ -42,9 +42,6 @@ const Instructions = ({ addStep, steps, currentStep, setCurrentStepValue }) => {
       }
 
       <InputGroup className='recipe-steps flex-column border-none'>
-        <InputGroup.Prepend className='w-100 d-block'>
-          <InputGroup.Text></InputGroup.Text>
-        </InputGroup.Prepend>
         <FormControl as="textarea" name="step" aria-label="Step" value={currentStep} onChange={handleTextareaChange} placeholder='Write here cooking steps...' />
       </InputGroup>
 

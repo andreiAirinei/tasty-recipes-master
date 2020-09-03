@@ -107,7 +107,7 @@ const BasicDetails = ({
 
   return (
     <section className='tab-create-section shadow'>
-      <h4 className='bg-light text-center py-1 mt-4 mb-4'>Details</h4>
+      <h4 className='text-center py-3 mb-3'>Details</h4>
       <div className="d-flex flex-column flex-lg-row">
         {/* Recipe name */}
         <InputGroup className="mb-3 mr-5">
@@ -129,7 +129,7 @@ const BasicDetails = ({
         <InputGroup className="mb-3">
           <InputGroup.Prepend>
             <InputGroup.Text className='width-120 text-size-09'>
-              Area
+              Cuisine
             </InputGroup.Text>
           </InputGroup.Prepend>
           {

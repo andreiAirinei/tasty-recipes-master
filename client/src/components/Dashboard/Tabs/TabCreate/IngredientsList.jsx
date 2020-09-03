@@ -56,8 +56,7 @@ const IngredientsList = ({
   return (
     <div className='tab-create-section shadow'>
       {/* Ingredients */}
-      <h4 className='text-center py-1 mt-4 mb-3'>Ingredients</h4>
-
+      <h4 className='text-center py-3 mb-3'>Ingredients</h4>
       <div className="d-flex">
         <div className="mr-5 w-100 pt-4">
           {/* Ingredient name */}
@@ -83,7 +82,7 @@ const IngredientsList = ({
           <InputGroup className="mb-3">
             <InputGroup.Prepend>
               <InputGroup.Text id="ingredient-quantity" className='width-120 text-size-09'>
-                Quantity
+                Qty/Measures
               </InputGroup.Text>
             </InputGroup.Prepend>
             <FormControl
@@ -97,6 +96,7 @@ const IngredientsList = ({
           </InputGroup>
 
           {/* Submit Ingredient */}
+          <p>Quantity 2 separate fields </p>
           <button onClick={handleAddIngredient} className='btn btn-dark outline-none text-size-08'>ADD INGREDIENT</button>
         </div>
 

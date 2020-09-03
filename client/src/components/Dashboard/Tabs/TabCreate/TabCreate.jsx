@@ -32,10 +32,9 @@ const TabCreate = ({
       <BasicDetails />
       <IngredientsList />
       <Instructions />
-      <hr />
       <div className="text-center">
-        <Button size='lg' variant='success mr-3'>SAVE RECIPE</Button>
-        <Button onClick={resetAllFields} size='lg' variant='outline-secondary'>RESET FIELDS</Button>
+        <Button variant='success mr-3'>SAVE RECIPE</Button>
+        <Button onClick={resetAllFields} variant='outline-secondary'>RESET FIELDS</Button>
       </div>
     </div>
   )
