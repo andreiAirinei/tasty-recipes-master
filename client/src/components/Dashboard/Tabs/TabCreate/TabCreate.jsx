@@ -9,6 +9,7 @@ import {
 
 // Components
 import BasicDetails from './BasicDetails';
+import RecipeImage from './RecipeImage';
 import IngredientsList from './IngredientsList';
 import Instructions from './Instructions';
 

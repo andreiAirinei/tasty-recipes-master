@@ -9,8 +9,8 @@ const INITIAL_STATE = {
     type: 'All',
     isCountry: false
   },
-  countriesList: null,
-  dishTypes: null,
+  countriesList: [],
+  dishTypes: [],
   popular: [
     {
       id: 0,

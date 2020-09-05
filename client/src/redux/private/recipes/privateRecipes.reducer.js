@@ -7,6 +7,10 @@ import {
   SET_CURRENT_STEP_VALUE,
   ADD_RECIPE_STEP,
   REMOVE_RECIPE_STEP,
+  SET_STEP_TO_EDIT,
+  EDIT_STEP_VALUE,
+  SAVE_STEP_CHANGES,
+  CANCEL_STEP_CHANGES,
   CLEAR_RECIPE_STEPS,
   RESET_ALL_FIELDS
 } from './privateRecipes.types';
@@ -20,20 +24,28 @@ const INITIAL_STATE = {
     area: '',
     youtubeURL: '',
     ingredients: [{
+      id: 'ingr1',
       name: 'Avocado',
       quantity: 'half'
     }, {
+      id: 'ingr2',
       name: 'Salmon',
       quantity: '3 filetts'
     }, {
+      id: 'ingr3',
       name: 'Bay Leaf',
       quantity: '2'
     }, {
+      id: 'ingr4',
       name: 'Cajun',
       quantity: '100g'
     }],
     currentStep: '',
-    steps: []
+    steps: [],
+    editStep: {
+      id: null,
+      value: ''
+    }
   },
   current: null
 };
@@ -56,7 +68,12 @@ const privateRecipesReducer = (state = INITIAL_STATE, action) => {
           ...state.recipe,
           ingredients: [
             // similar to UNSHIFT method
-            action.payload, ...state.recipe.ingredients
+            // spread the ingredient object and add an unique ID
+            {
+              ...action.payload,
+              id: uuid()
+            },
+            ...state.recipe.ingredients
           ]
         }
       }
@@ -66,7 +83,7 @@ const privateRecipesReducer = (state = INITIAL_STATE, action) => {
         ...state,
         recipe: {
           ...state.recipe,
-          ingredients: state.recipe.ingredients.filter(ing => ing.name !== action.payload)
+          ingredients: state.recipe.ingredients.filter(ing => ing.id !== action.payload)
         }
       }
 
@@ -88,6 +105,59 @@ const privateRecipesReducer = (state = INITIAL_STATE, action) => {
         }
       }
 
+    case SET_STEP_TO_EDIT:
+      return {
+        ...state,
+        recipe: {
+          ...state.recipe,
+          editStep: {
+            ...state.recipe.editStep,
+            id: action.payload.id,
+            value: action.payload.value
+          }
+        }
+      }
+
+    case EDIT_STEP_VALUE:
+      return {
+        ...state,
+        recipe: {
+          ...state.recipe,
+          editStep: {
+            ...state.recipe.editStep,
+            value: action.payload
+          }
+        }
+      }
+
+    case SAVE_STEP_CHANGES:
+      return {
+        ...state,
+        recipe: {
+          ...state.recipe,
+          steps: state.recipe.steps.map(step => {
+            step.id === state.recipe.editStep.id && (step.value = state.recipe.editStep.value);
+            return step;
+          }),
+          editStep: {
+            id: null,
+            value: ''
+          }
+        }
+      }
+
+    case CANCEL_STEP_CHANGES:
+      return {
+        ...state,
+        recipe: {
+          ...state.recipe,
+          editStep: {
+            id: null,
+            value: ''
+          }
+        }
+      }
+
     case ADD_RECIPE_STEP:
       return {
         ...state,
@@ -95,8 +165,18 @@ const privateRecipesReducer = (state = INITIAL_STATE, action) => {
           ...state.recipe,
           steps: [...state.recipe.steps, {
             id: uuid(),
-            step: state.recipe.currentStep
-          }]
+            value: state.recipe.currentStep
+          }],
+          currentStep: ''
+        }
+      }
+
+    case REMOVE_RECIPE_STEP:
+      return {
+        ...state,
+        recipe: {
+          ...state.recipe,
+          steps: state.recipe.steps.filter(step => step.id !== action.payload)
         }
       }
 
@@ -117,7 +197,11 @@ const privateRecipesReducer = (state = INITIAL_STATE, action) => {
           youtubeURL: '',
           ingredients: [],
           currentStep: '',
-          steps: []
+          steps: [],
+          editStep: {
+            id: null,
+            value: ''
+          }
         }
       }
 

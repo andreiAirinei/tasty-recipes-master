@@ -12,7 +12,6 @@ export const setActiveCategory = category => dispatch => {
 }
 
 export const fetchCountries = () => async dispatch => {
-  console.log('fetching');
   try {
     const res = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/list.php?a=list`);
     const data = await res.json();
@@ -39,7 +38,3 @@ export const fetchDishTypes = () => async dispatch => {
     console.log('API fetching error!');
   }
 }
-
-// export const getCategories = dispatch => {
-//   dispatch(GET_CATEGORIES);
-// }

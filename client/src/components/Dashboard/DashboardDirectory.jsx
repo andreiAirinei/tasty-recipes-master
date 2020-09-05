@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 // Redux
 import { connect } from 'react-redux';
+import { setActiveTab } from '../../redux/dashboard/dashboard.actions';
 
 // Components
 import DashboardNavigation from './DashboardNavigation';
@@ -14,7 +15,15 @@ import TabBookmarks from './Tabs/TabBookmarks/TabBookmarks';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-const DashboardDirectory = ({ activeTab }) => {
+const DashboardDirectory = ({ activeTab, setActiveTab }) => {
+
+  useEffect(() => {
+    // Replicating componentWillUnmount
+    return () => {
+      setActiveTab('create');
+    }
+  }, [])
+
   return (
     <div className='dashboard-directory mt-3 mt-md-5'>
       <Row>
@@ -39,4 +48,8 @@ const mapStateToProps = state => ({
   activeTab: state.dashboard.activeTab
 });
 
-export default connect(mapStateToProps)(DashboardDirectory);
+const mapDispatchToprops = dispatch => ({
+  setActiveTab: tab => dispatch(setActiveTab(tab))
+});
+
+export default connect(mapStateToProps, mapDispatchToprops)(DashboardDirectory);

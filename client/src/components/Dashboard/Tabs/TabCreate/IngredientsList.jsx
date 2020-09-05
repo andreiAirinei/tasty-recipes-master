@@ -38,19 +38,19 @@ const IngredientsList = ({
 
   // Dynamically set form field values
   const handleInputChange = e => {
-    console.log(e.target.name, ' -> ', e.target.value);
-    setIngredient({
+    e !== null && setIngredient({
       ...ingredient,
       [e.target.name]: e.target.value
     })
   };
 
   const handleAddIngredient = () => {
-    addIngredient(ingredient);
+    // Check if ingredient is selected
+    ingredient.name && addIngredient(ingredient);
   };
 
-  const handleRemoveIngredient = name => {
-    removeIngredient(name);
+  const handleRemoveIngredient = id => {
+    removeIngredient(id);
   }
 
   return (
@@ -73,6 +73,7 @@ const IngredientsList = ({
                 options={list}
                 placeholder='choose...'
                 onChange={handleInputChange}
+                isClearable
                 className='form-control p-0 m-0 border-0'
               />
             }
@@ -96,15 +97,14 @@ const IngredientsList = ({
           </InputGroup>
 
           {/* Submit Ingredient */}
-          <p>Quantity 2 separate fields </p>
           <button onClick={handleAddIngredient} className='btn btn-dark outline-none text-size-08'>ADD INGREDIENT</button>
         </div>
 
         <div className="ingredients-table shadow-sm">
           <ul className='ingredients__list list-unstyled'>
             {
-              ingredients.map((ing, idx) => (
-                <li key={idx} className='text-dark shadow-sm'>
+              ingredients.map(ing => (
+                <li key={ing.id} className='text-dark shadow-sm'>
                   <div
                     className="d-flex flex-sm-column flex-md-row align-items-center py-1"
                   >
@@ -113,7 +113,7 @@ const IngredientsList = ({
                       <p className='ingredient m-0 ml-1'><em>{ing.name}</em></p>
                     </div>
                     <p className='m-0'><strong>{ing.quantity}</strong></p>
-                    <button onClick={() => handleRemoveIngredient(ing.name)} className='btn btn-link outline-none text-danger ml-auto'>&times;</button>
+                    <button onClick={() => handleRemoveIngredient(ing.id)} className='btn btn-link outline-none text-danger ml-auto'>&times;</button>
                   </div>
                 </li>
               ))
@@ -136,7 +136,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   addIngredient: ing => dispatch(addIngredient(ing)),
-  removeIngredient: name => dispatch(removeIngredient(name)),
+  removeIngredient: id => dispatch(removeIngredient(id)),
   clearIngredients: () => dispatch(clearIngredients()),
   fetchAllIngredients: () => dispatch(fetchAllIngredients())
 });
