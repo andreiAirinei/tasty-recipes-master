@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import Select from 'react-select';
+import YouTubePlayer from 'react-player/lib/players/YouTube';
 
 // Redux
 import { connect } from 'react-redux';
 import { fetchDishTypes, fetchCountries } from '../../../../redux/category/category.actions';
 import { setBasicFieldValue } from '../../../../redux/private/recipes/privateRecipes.actions';
+import { modalOpen, setVideoURL } from '../../../../redux/modals/videoModal/videoModal.actions';
 
 // Selectors 
 import {
@@ -19,6 +20,7 @@ import Form from 'react-bootstrap/Form';
 import RecipeImage from './RecipeImage';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
 
 const BasicDetails = ({
   fetchCountries,
@@ -26,7 +28,9 @@ const BasicDetails = ({
   setBasicFieldValue,
   recipe,
   dishTypes,
-  countries
+  countries,
+  modalOpen,
+  setVideoURL
 }) => {
   const { name, area, category, youtubeURL } = recipe;
 
@@ -41,6 +45,11 @@ const BasicDetails = ({
       value: e.target.value,
       fieldName: e.target.name
     });
+  }
+
+  const handleYoutubeBtn = () => {
+    setVideoURL(youtubeURL);
+    modalOpen();
   }
 
   return (
@@ -102,18 +111,28 @@ const BasicDetails = ({
           <InputGroup className="mb-3">
             <InputGroup.Prepend>
               <InputGroup.Text id="youtube-url" className='width-120 text-size-09'>
-                Youtube URL
+                YouTube URL
           </InputGroup.Text>
             </InputGroup.Prepend>
             <FormControl
               name="youtubeURL"
               value={youtubeURL}
-              placeholder="full link here... (not required)"
+              placeholder="full link here..."
               onChange={handleInputChange}
               aria-label="youtubeURL"
               aria-describedby="youtube-url"
             />
           </InputGroup>
+
+          {/* Youtube player button */}
+          <button className='youtube-button border-0' onClick={handleYoutubeBtn} >
+            <div className='d-flex flex-row align-items-center'>
+              <div className="youtube-link">
+                <img src={require('../../../../assets/youtube.svg')} alt="Youtube Link" />
+              </div>
+              <p className='m-0 ml-2'>Play Video</p>
+            </div>
+          </button>
         </Col>
         <Col xs={12} lg={6}>
           <RecipeImage />
@@ -133,7 +152,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   setBasicFieldValue: fieldVal => dispatch(setBasicFieldValue(fieldVal)),
   fetchDishTypes: () => dispatch(fetchDishTypes()),
-  fetchCountries: () => dispatch(fetchCountries())
+  fetchCountries: () => dispatch(fetchCountries()),
+  modalOpen: () => dispatch(modalOpen()),
+  setVideoURL: url => dispatch(setVideoURL(url))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(BasicDetails);

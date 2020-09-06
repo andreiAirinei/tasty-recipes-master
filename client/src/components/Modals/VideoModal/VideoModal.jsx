@@ -1,5 +1,6 @@
 import React from 'react';
 import YouTubePlayer from 'react-player/lib/players/YouTube';
+import ReactPlayer from 'react-player';
 
 // Redux
 import { connect } from 'react-redux';
@@ -38,14 +39,21 @@ const VideoModal = ({ isActive, videoURL, modalClose }) => {
             <img src={ReactLogo} alt="Button Close" />
           </button>
         </div>
-        <YouTubePlayer
-          url={videoURL}
-          playing={true}
-          controls
-          volume={0.2}
-          width='auto'
-          height='500px'
-        />
+        {
+          ReactPlayer.canPlay(videoURL) ?
+            <YouTubePlayer
+              url={videoURL}
+              playing={true}
+              controls
+              volume={0.2}
+              width='auto'
+              height='500px'
+            /> :
+            <div className='text-center py-4'>
+              <h6 className='mb-2'>Ooops, something went wrong :(</h6>
+              <h6>YouTube link provided is not working</h6>
+            </div>
+        }
       </Modal.Body>
     </Modal>
   )

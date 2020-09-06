@@ -11,6 +11,9 @@ import {
   CLEAR_ERRORS
 } from './auth.types';
 
+// Used in 'logout' function
+import { RESET_ALL_FIELDS } from '../private/recipes/privateRecipes.types';
+
 // Load User
 export const loadUser = () => async dispatch => {
   if (localStorage.token) {
@@ -75,7 +78,10 @@ export const login = formData => async dispatch => {
 
 // Logout
 export const logout = () => dispatch => {
+  // Remove token from LocalStorage
   dispatch({ type: LOGOUT });
+  // Remove USER dashboard details from Redux
+  dispatch({ type: RESET_ALL_FIELDS });
   dispatch(loadUser());
 }
 

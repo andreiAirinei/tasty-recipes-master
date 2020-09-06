@@ -1,6 +1,10 @@
 import {
   CREATE_RECIPE,
   SET_BASIC_FIELD_VALUES,
+  SET_LOCAL_IMAGE,
+  REMOVE_LOCAL_IMAGE,
+  SET_IMGBB_IMAGE,
+  REMOVE_IMGBB_IMAGE,
   ADD_INGREDIENT,
   REMOVE_INGREDIENT,
   CLEAR_INGREDIENTS,
@@ -12,8 +16,16 @@ import {
   SAVE_STEP_CHANGES,
   CANCEL_STEP_CHANGES,
   CLEAR_RECIPE_STEPS,
+  POPULATE_FROM_LOCALSTORAGE,
   RESET_ALL_FIELDS
 } from './privateRecipes.types';
+
+import {
+  setImage,
+  removeImage,
+  addIngredient,
+  populateFromLS
+} from './privateRecipes.utils';
 
 import { v4 as uuid } from 'uuid';
 
@@ -23,23 +35,9 @@ const INITIAL_STATE = {
     category: '',
     area: '',
     youtubeURL: '',
-    ingredients: [{
-      id: 'ingr1',
-      name: 'Avocado',
-      quantity: 'half'
-    }, {
-      id: 'ingr2',
-      name: 'Salmon',
-      quantity: '3 filetts'
-    }, {
-      id: 'ingr3',
-      name: 'Bay Leaf',
-      quantity: '2'
-    }, {
-      id: 'ingr4',
-      name: 'Cajun',
-      quantity: '100g'
-    }],
+    imageFromLocal: '',
+    imageFromIMGBB: '',
+    ingredients: [],
     currentStep: '',
     steps: [],
     editStep: {
@@ -61,6 +59,42 @@ const privateRecipesReducer = (state = INITIAL_STATE, action) => {
         }
       }
 
+    case SET_LOCAL_IMAGE:
+      return {
+        ...state,
+        recipe: {
+          ...state.recipe,
+          imageFromLocal: setImage(action.payload)
+        }
+      }
+
+    case REMOVE_LOCAL_IMAGE:
+      return {
+        ...state,
+        recipe: {
+          ...state.recipe,
+          imageFromLocal: removeImage()
+        }
+      }
+
+    case SET_IMGBB_IMAGE:
+      return {
+        ...state,
+        recipe: {
+          ...state.recipe,
+          imageFromIMGBB: action.payload
+        }
+      }
+
+    case REMOVE_IMGBB_IMAGE:
+      return {
+        ...state,
+        recipe: {
+          ...state.recipe,
+          imageFromIMGBB: null
+        }
+      }
+
     case ADD_INGREDIENT:
       return {
         ...state,
@@ -69,10 +103,10 @@ const privateRecipesReducer = (state = INITIAL_STATE, action) => {
           ingredients: [
             // similar to UNSHIFT method
             // spread the ingredient object and add an unique ID
-            {
+            addIngredient({
               ...action.payload,
               id: uuid()
-            },
+            }),
             ...state.recipe.ingredients
           ]
         }
@@ -187,6 +221,13 @@ const privateRecipesReducer = (state = INITIAL_STATE, action) => {
       }
 
     case RESET_ALL_FIELDS:
+      const user = JSON.parse(localStorage.getItem('privateUser'));
+
+      localStorage.setItem('privateUser', JSON.stringify({
+        ...user,
+        recipe: {}
+      }));
+
       return {
         ...state,
         recipe: {
@@ -195,6 +236,8 @@ const privateRecipesReducer = (state = INITIAL_STATE, action) => {
           category: '',
           area: '',
           youtubeURL: '',
+          imageFromLocal: null,
+          imageFromIMGBB: null,
           ingredients: [],
           currentStep: '',
           steps: [],
@@ -202,6 +245,15 @@ const privateRecipesReducer = (state = INITIAL_STATE, action) => {
             id: null,
             value: ''
           }
+        }
+      }
+
+    case POPULATE_FROM_LOCALSTORAGE:
+      return {
+        ...state,
+        recipe: {
+          ...state.recipe,
+          ...populateFromLS()
         }
       }
 

@@ -3,6 +3,10 @@ import axios from 'axios';
 import {
   CREATE_RECIPE,
   SET_BASIC_FIELD_VALUES,
+  SET_LOCAL_IMAGE,
+  REMOVE_LOCAL_IMAGE,
+  SET_IMGBB_IMAGE,
+  REMOVE_IMGBB_IMAGE,
   ADD_INGREDIENT,
   REMOVE_INGREDIENT,
   CLEAR_INGREDIENTS,
@@ -14,7 +18,8 @@ import {
   CANCEL_STEP_CHANGES,
   CLEAR_RECIPE_STEPS,
   RESET_ALL_FIELDS,
-  EDIT_STEP_VALUE
+  EDIT_STEP_VALUE,
+  POPULATE_FROM_LOCALSTORAGE
 } from './privateRecipes.types';
 
 // Dynamically set form field values
@@ -22,6 +27,25 @@ export const setBasicFieldValue = name => dispatch => {
   dispatch({
     type: SET_BASIC_FIELD_VALUES,
     payload: name
+  })
+};
+
+// Set recipe image locally
+export const setLocalImage = img => dispatch => {
+  dispatch({
+    type: SET_LOCAL_IMAGE,
+    payload: img
+  })
+};
+
+// Remove recipe image
+export const removeLocalImage = () => ({ type: REMOVE_LOCAL_IMAGE });
+
+// Set recipe image on IMGBB 
+export const setImgbbImage = img => dispatch => {
+  dispatch({
+    type: SET_IMGBB_IMAGE,
+    payload: img
   })
 };
 
@@ -73,6 +97,9 @@ export const editStepValue = input => ({
 export const saveStepChanges = () => ({ type: SAVE_STEP_CHANGES });
 
 export const cancelStepChanges = () => ({ type: CANCEL_STEP_CHANGES });
+
+// Populate fields from local storage
+export const populateFieldsFromLS = () => ({ type: POPULATE_FROM_LOCALSTORAGE });
 
 // RESET all fields
 export const resetAllFields = () => ({ type: RESET_ALL_FIELDS })

@@ -93,6 +93,13 @@ body {
   }
 }
 
+.youtube-link { 
+  border: none;
+  background: inherit;
+  padding: 0;
+  width: 40px;
+}
+
 .opacity-02 {
   opacity: 0.2 !important;
 }
@@ -732,14 +739,6 @@ body {
 .recipe-content {
   .recipe-steps {
     line-height: 2rem;
-    .how-to {
-      .youtube-link { 
-        border: none;
-        background: inherit;
-        padding: 0;
-        width: 40px;
-      }
-    }
     .instructions {
       .step {
         position: relative;
@@ -1019,6 +1018,13 @@ body {
     textarea {
       min-height: 170px;
     }
+
+    .youtube-button {
+      background: none !important;
+      &:hover {
+        p { color: red;}
+      }
+    }
   }
 }
 
@@ -1060,7 +1066,6 @@ body {
     cursor: pointer;
   }
 }
-
 
 // #################### INGREDIENTS 
 .ingredients-table {
