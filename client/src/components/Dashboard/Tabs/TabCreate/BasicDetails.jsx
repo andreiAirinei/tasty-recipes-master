@@ -37,6 +37,7 @@ const BasicDetails = ({
   useEffect(() => {
     fetchDishTypes();
     fetchCountries();
+    console.log('BASIC DETAILS RENDERED');
   }, []);
 
   // Dynamically set form field values
@@ -117,7 +118,7 @@ const BasicDetails = ({
             <FormControl
               name="youtubeURL"
               value={youtubeURL}
-              placeholder="full link here..."
+              placeholder="full link here... (optional)"
               onChange={handleInputChange}
               aria-label="youtubeURL"
               aria-describedby="youtube-url"

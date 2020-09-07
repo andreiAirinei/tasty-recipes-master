@@ -29,7 +29,6 @@ const DashboardPage = () => {
       <Container fluid='xl'>
         <DashboardDirectory />
       </Container>
-      <div className="white-space"></div>
     </div>
   )
 }

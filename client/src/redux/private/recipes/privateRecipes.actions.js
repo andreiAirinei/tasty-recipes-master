@@ -18,7 +18,7 @@ import {
   CANCEL_STEP_CHANGES,
   CLEAR_RECIPE_STEPS,
   RESET_ALL_FIELDS,
-  EDIT_STEP_VALUE,
+  SET_EDIT_INPUT_VALUE,
   POPULATE_FROM_LOCALSTORAGE
 } from './privateRecipes.types';
 
@@ -89,8 +89,8 @@ export const setStepToEdit = step => ({
   payload: step
 });
 
-export const editStepValue = input => ({
-  type: EDIT_STEP_VALUE,
+export const setEditInputValue = input => ({
+  type: SET_EDIT_INPUT_VALUE,
   payload: input
 });
 

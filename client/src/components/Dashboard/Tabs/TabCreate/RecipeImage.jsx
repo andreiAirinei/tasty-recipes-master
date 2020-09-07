@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 
 // Redux
@@ -12,18 +12,9 @@ import {
 import Image from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
 
-const RecipeImage = ({ imageFromLocal, setLocalImage, removeLocalImage }) => {
+const RecipeImage = ({ localImage, setLocalImage, removeLocalImage }) => {
 
   const [imageFromIMGBB, setImageFromIMGBB] = useState(null);
-
-  useEffect(() => {
-    // When it's called without an argument it will look in LocalStorage for the image
-    setLocalImage();
-
-    return () => {
-      localStorage.setItem('saved', 'abc1223');
-    }
-  }, []);
 
   // Handle Drag&Drop field
   const handleImageFile = e => {
@@ -66,23 +57,23 @@ const RecipeImage = ({ imageFromLocal, setLocalImage, removeLocalImage }) => {
     <div className='mb-3'>
       <div className="drop-panel d-flex align-items-center justify-content-center">
         {
-          !imageFromLocal && <div className="drop-panel--text">
+          !localImage && <div className="drop-panel--text">
             <p className='m-0 p-0 text-center'><em>Drag &amp; Drop image</em></p>
             <p className='m-0 p-0'><em>(or click to Browse)</em></p>
           </div>
         }
         <input type="file" className='hidden-input' onChange={handleImageFile} accept="image/*" />
-        <Image src={imageFromLocal} fluid rounded />
+        <Image src={localImage} fluid rounded />
       </div>
       {
-        imageFromLocal && <Button onClick={removeLocalImage} size='sm' variant='outline-secondary' className='mt-2 d-block mx-auto border-0'>Remove image</Button>
+        localImage && <Button onClick={removeLocalImage} size='sm' variant='outline-secondary' className='mt-2 d-block mx-auto border-0'>Remove image</Button>
       }
     </div>
   )
 }
 
 const mapStateToProps = state => ({
-  imageFromLocal: state.privateRecipes.recipe.imageFromLocal
+  localImage: state.privateRecipes.recipe.localImage
 });
 
 const mapDispatchToProps = dispatch => ({

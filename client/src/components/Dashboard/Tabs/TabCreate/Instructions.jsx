@@ -9,7 +9,7 @@ import {
   setCurrentStepValue,
   saveStepChanges,
   cancelStepChanges,
-  editStepValue
+  setEditInputValue
 } from '../../../../redux/private/recipes/privateRecipes.actions';
 
 // Bootstrap
@@ -18,7 +18,7 @@ import FormControl from 'react-bootstrap/FormControl';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 
-const Instructions = ({ addStep, editStep, editStepValue, cancelStepChanges, saveStepChanges, removeStep, steps, setStepToEdit, currentStep, setCurrentStepValue }) => {
+const Instructions = ({ addStep, editStep, setEditInputValue, cancelStepChanges, saveStepChanges, removeStep, steps, setStepToEdit, currentStep, setCurrentStepValue }) => {
 
   const handleTextareaChange = e => {
     setCurrentStepValue(e.target.value);
@@ -33,13 +33,13 @@ const Instructions = ({ addStep, editStep, editStepValue, cancelStepChanges, sav
   }
 
   const handleInputEdit = e => {
-    editStepValue(e.target.value);
+    setEditInputValue(e.target.value);
   }
 
   return (
     <div className='tab-create-section shadow'>
       {/* How to make it */}
-      <h4 className='text-center py-3 mb-3'>How to make it</h4>
+      <h4 className='text-center py-3 mb-3'>Cooking steps</h4>
 
       {
         steps.map((step, idx) => (
@@ -94,7 +94,7 @@ const mapDispatchToProps = dispatch => ({
   addStep: () => dispatch(addStep()),
   removeStep: id => dispatch(removeStep(id)),
   setStepToEdit: id => dispatch(setStepToEdit(id)),
-  editStepValue: input => dispatch(editStepValue(input)),
+  setEditInputValue: input => dispatch(setEditInputValue(input)),
   saveStepChanges: () => dispatch(saveStepChanges()),
   cancelStepChanges: () => dispatch(cancelStepChanges())
 });

@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 // Redux
 import { connect } from 'react-redux';
 import {
   createRecipe,
+  populateFieldsFromLS,
   resetAllFields
 } from '../../../../redux/private/recipes/privateRecipes.actions';
 
@@ -16,10 +17,11 @@ import Instructions from './Instructions';
 // Bootstrap
 import Button from 'react-bootstrap/Button';
 
-const TabCreate = ({
-  createRecipe,
-  resetAllFields
-}) => {
+const TabCreate = ({ createRecipe, populateFieldsFromLS, resetAllFields }) => {
+
+  useEffect(() => {
+    populateFieldsFromLS();
+  }, []);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -43,6 +45,7 @@ const TabCreate = ({
 
 const mapDispatchToProps = dispatch => ({
   createRecipe: () => dispatch(createRecipe()),
+  populateFieldsFromLS: () => dispatch(populateFieldsFromLS()),
   resetAllFields: () => dispatch(resetAllFields())
 });
 

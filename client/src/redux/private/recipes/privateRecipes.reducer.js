@@ -12,7 +12,7 @@ import {
   ADD_RECIPE_STEP,
   REMOVE_RECIPE_STEP,
   SET_STEP_TO_EDIT,
-  EDIT_STEP_VALUE,
+  SET_EDIT_INPUT_VALUE,
   SAVE_STEP_CHANGES,
   CANCEL_STEP_CHANGES,
   CLEAR_RECIPE_STEPS,
@@ -21,10 +21,18 @@ import {
 } from './privateRecipes.types';
 
 import {
-  setImage,
-  removeImage,
-  addIngredient,
-  populateFromLS
+  setFieldValueToLocalStorage,
+  addIngredientToLocalStorage,
+  addStepToLocalStorage,
+  removeStepFromLocalStorage,
+  populateFromLocalStorage,
+  setStepToEditToLocalStorage,
+  setEditInputValueToLS,
+  removeIngredientFromLocalStorage,
+  clearIngredientFromLocalStorage,
+  saveStepChangesToLocalStorage,
+  cancelStepChangesFromLocalStorage,
+  resetFieldsFromLocalStorage
 } from './privateRecipes.utils';
 
 import { v4 as uuid } from 'uuid';
@@ -35,7 +43,7 @@ const INITIAL_STATE = {
     category: '',
     area: '',
     youtubeURL: '',
-    imageFromLocal: '',
+    localImage: '',
     imageFromIMGBB: '',
     ingredients: [],
     currentStep: '',
@@ -49,35 +57,45 @@ const INITIAL_STATE = {
 };
 
 const privateRecipesReducer = (state = INITIAL_STATE, action) => {
+
   switch (action.type) {
     case SET_BASIC_FIELD_VALUES:
+      const { fieldName, value } = action.payload;
+      setFieldValueToLocalStorage({
+        fieldName,
+        value
+      });
       return {
         ...state,
         recipe: {
           ...state.recipe,
-          [action.payload.fieldName]: action.payload.value
+          [fieldName]: value
         }
       }
 
     case SET_LOCAL_IMAGE:
+      // setImageToLocalStorage(action.payload);
+      setFieldValueToLocalStorage({ fieldName: 'localImage', value: action.payload });
       return {
         ...state,
         recipe: {
           ...state.recipe,
-          imageFromLocal: setImage(action.payload)
+          localImage: action.payload
         }
       }
 
     case REMOVE_LOCAL_IMAGE:
+      setFieldValueToLocalStorage({ fieldName: 'localImage', value: null });
       return {
         ...state,
         recipe: {
           ...state.recipe,
-          imageFromLocal: removeImage()
+          localImage: null
         }
       }
 
     case SET_IMGBB_IMAGE:
+      setFieldValueToLocalStorage({ fieldName: 'imageFromIMGBB', value: action.payload });
       return {
         ...state,
         recipe: {
@@ -87,15 +105,18 @@ const privateRecipesReducer = (state = INITIAL_STATE, action) => {
       }
 
     case REMOVE_IMGBB_IMAGE:
+      setFieldValueToLocalStorage({ fieldName: 'imageFromIMGBB', value: '' });
       return {
         ...state,
         recipe: {
           ...state.recipe,
-          imageFromIMGBB: null
+          imageFromIMGBB: ''
         }
       }
 
-    case ADD_INGREDIENT:
+    case ADD_INGREDIENT: {
+      const id = uuid();
+      addIngredientToLocalStorage({ ...action.payload, id })
       return {
         ...state,
         recipe: {
@@ -103,16 +124,15 @@ const privateRecipesReducer = (state = INITIAL_STATE, action) => {
           ingredients: [
             // similar to UNSHIFT method
             // spread the ingredient object and add an unique ID
-            addIngredient({
-              ...action.payload,
-              id: uuid()
-            }),
+            { ...action.payload, id },
             ...state.recipe.ingredients
           ]
         }
       }
+    }
 
     case REMOVE_INGREDIENT:
+      removeIngredientFromLocalStorage(action.payload);
       return {
         ...state,
         recipe: {
@@ -122,6 +142,7 @@ const privateRecipesReducer = (state = INITIAL_STATE, action) => {
       }
 
     case CLEAR_INGREDIENTS:
+      clearIngredientFromLocalStorage();
       return {
         ...state,
         recipe: {
@@ -131,6 +152,7 @@ const privateRecipesReducer = (state = INITIAL_STATE, action) => {
       }
 
     case SET_CURRENT_STEP_VALUE:
+      setFieldValueToLocalStorage({ fieldName: 'currentStep', value: action.payload });
       return {
         ...state,
         recipe: {
@@ -139,7 +161,34 @@ const privateRecipesReducer = (state = INITIAL_STATE, action) => {
         }
       }
 
+    case ADD_RECIPE_STEP: {
+      const id = uuid();
+      addStepToLocalStorage({ id, value: state.recipe.currentStep });
+      return {
+        ...state,
+        recipe: {
+          ...state.recipe,
+          steps: [...state.recipe.steps, {
+            id: id,
+            value: state.recipe.currentStep
+          }],
+          currentStep: ''
+        }
+      }
+    }
+
+    case REMOVE_RECIPE_STEP:
+      removeStepFromLocalStorage(action.payload);
+      return {
+        ...state,
+        recipe: {
+          ...state.recipe,
+          steps: state.recipe.steps.filter(step => step.id !== action.payload)
+        }
+      }
+
     case SET_STEP_TO_EDIT:
+      setStepToEditToLocalStorage(action.payload);
       return {
         ...state,
         recipe: {
@@ -152,7 +201,8 @@ const privateRecipesReducer = (state = INITIAL_STATE, action) => {
         }
       }
 
-    case EDIT_STEP_VALUE:
+    case SET_EDIT_INPUT_VALUE:
+      setEditInputValueToLS(action.payload);
       return {
         ...state,
         recipe: {
@@ -165,14 +215,17 @@ const privateRecipesReducer = (state = INITIAL_STATE, action) => {
       }
 
     case SAVE_STEP_CHANGES:
+      const modifiedSteps = state.recipe.steps.map(step => {
+        step.id === state.recipe.editStep.id && (step.value = state.recipe.editStep.value);
+        return step;
+      });
+      saveStepChangesToLocalStorage(modifiedSteps);
+
       return {
         ...state,
         recipe: {
           ...state.recipe,
-          steps: state.recipe.steps.map(step => {
-            step.id === state.recipe.editStep.id && (step.value = state.recipe.editStep.value);
-            return step;
-          }),
+          steps: modifiedSteps,
           editStep: {
             id: null,
             value: ''
@@ -181,6 +234,7 @@ const privateRecipesReducer = (state = INITIAL_STATE, action) => {
       }
 
     case CANCEL_STEP_CHANGES:
+      cancelStepChangesFromLocalStorage();
       return {
         ...state,
         recipe: {
@@ -192,42 +246,15 @@ const privateRecipesReducer = (state = INITIAL_STATE, action) => {
         }
       }
 
-    case ADD_RECIPE_STEP:
-      return {
-        ...state,
-        recipe: {
-          ...state.recipe,
-          steps: [...state.recipe.steps, {
-            id: uuid(),
-            value: state.recipe.currentStep
-          }],
-          currentStep: ''
-        }
-      }
-
-    case REMOVE_RECIPE_STEP:
-      return {
-        ...state,
-        recipe: {
-          ...state.recipe,
-          steps: state.recipe.steps.filter(step => step.id !== action.payload)
-        }
-      }
-
     case CREATE_RECIPE:
+      resetFieldsFromLocalStorage();
       return {
         ...state,
         current: action.payload
       }
 
-    case RESET_ALL_FIELDS:
-      const user = JSON.parse(localStorage.getItem('privateUser'));
-
-      localStorage.setItem('privateUser', JSON.stringify({
-        ...user,
-        recipe: {}
-      }));
-
+    case RESET_ALL_FIELDS: {
+      resetFieldsFromLocalStorage();
       return {
         ...state,
         recipe: {
@@ -236,8 +263,8 @@ const privateRecipesReducer = (state = INITIAL_STATE, action) => {
           category: '',
           area: '',
           youtubeURL: '',
-          imageFromLocal: null,
-          imageFromIMGBB: null,
+          localImage: null,
+          imageFromIMGBB: '',
           ingredients: [],
           currentStep: '',
           steps: [],
@@ -247,13 +274,14 @@ const privateRecipesReducer = (state = INITIAL_STATE, action) => {
           }
         }
       }
+    }
 
     case POPULATE_FROM_LOCALSTORAGE:
       return {
         ...state,
         recipe: {
           ...state.recipe,
-          ...populateFromLS()
+          ...populateFromLocalStorage()
         }
       }
 

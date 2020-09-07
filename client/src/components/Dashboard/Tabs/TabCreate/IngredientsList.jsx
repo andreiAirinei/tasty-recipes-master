@@ -90,7 +90,7 @@ const IngredientsList = ({
               name="quantity"
               value={quantity}
               onChange={handleInputChange}
-              placeholder="e.g. 3 tsp..."
+              placeholder="e.g. 3 tsp... (optional)"
               aria-label="ingredientQuantity"
               aria-describedby="ingredient-quantity"
             />
