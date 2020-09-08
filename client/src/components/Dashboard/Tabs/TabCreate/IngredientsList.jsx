@@ -28,7 +28,7 @@ const IngredientsList = ({
   const [ingredient, setIngredient] = useState({
     name: '',
     quantity: ''
-  })
+  });
 
   useEffect(() => {
     fetchAllIngredients();
@@ -44,7 +44,7 @@ const IngredientsList = ({
     })
   };
 
-  const handleAddIngredient = () => {
+  const handleAddIngredient = (e) => {
     // Check if ingredient is selected
     ingredient.name && addIngredient(ingredient);
   };
@@ -97,7 +97,13 @@ const IngredientsList = ({
           </InputGroup>
 
           {/* Submit Ingredient */}
-          <button onClick={handleAddIngredient} className='btn btn-dark outline-none text-size-08'>ADD INGREDIENT</button>
+          <button
+            onClick={handleAddIngredient}
+            type='button'
+            className='btn btn-dark outline-none text-size-08'
+          >
+            ADD INGREDIENT
+          </button>
         </div>
 
         <div className="ingredients-table shadow-sm">

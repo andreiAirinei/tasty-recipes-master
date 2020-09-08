@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import YouTubePlayer from 'react-player/lib/players/YouTube';
+import React, { useEffect } from 'react';
 
 // Redux
 import { connect } from 'react-redux';
@@ -20,7 +19,6 @@ import Form from 'react-bootstrap/Form';
 import RecipeImage from './RecipeImage';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
 
 const BasicDetails = ({
   fetchCountries,
@@ -71,6 +69,7 @@ const BasicDetails = ({
               onChange={handleInputChange}
               aria-label="Name"
               aria-describedby="recipe-name"
+              required
             />
           </InputGroup>
 
@@ -81,7 +80,12 @@ const BasicDetails = ({
                 Cuisine
             </InputGroup.Text>
             </InputGroup.Prepend>
-            <FormControl as="select" name="area" value={area} onChange={handleInputChange}>
+            <FormControl
+              as="select"
+              name="area"
+              value={area}
+              onChange={handleInputChange}
+              required>
               <option value=''>choose...</option>
               {
                 !countries.length < 1 && countries.map((country, idx) => (
@@ -98,7 +102,12 @@ const BasicDetails = ({
                 Category
             </InputGroup.Text>
             </InputGroup.Prepend>
-            <Form.Control as="select" name="category" value={category} onChange={handleInputChange}>
+            <Form.Control
+              as="select"
+              name="category"
+              value={category}
+              onChange={handleInputChange}
+              required>
               <option value=''>choose...</option>
               {
                 !dishTypes.length < 1 && dishTypes.map((dish, idx) => (
@@ -121,8 +130,7 @@ const BasicDetails = ({
               placeholder="full link here... (optional)"
               onChange={handleInputChange}
               aria-label="youtubeURL"
-              aria-describedby="youtube-url"
-            />
+              aria-describedby="youtube-url" />
           </InputGroup>
 
           {/* Youtube player button */}

@@ -4,6 +4,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+html  {
+  // This property fixes the problem in which window is scrolling on to the 'required' Input under sticky navbar
+  scroll-padding-top: 200px;
+}
+
 body {
   overflow-x: hidden !important;
 }
