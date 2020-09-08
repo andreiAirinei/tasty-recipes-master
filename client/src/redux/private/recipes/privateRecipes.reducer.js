@@ -85,12 +85,12 @@ const privateRecipesReducer = (state = INITIAL_STATE, action) => {
       }
 
     case REMOVE_LOCAL_IMAGE:
-      setFieldValueToLocalStorage({ fieldName: 'localImage', value: null });
+      setFieldValueToLocalStorage({ fieldName: 'localImage', value: '' });
       return {
         ...state,
         recipe: {
           ...state.recipe,
-          localImage: null
+          localImage: ''
         }
       }
 
@@ -263,7 +263,7 @@ const privateRecipesReducer = (state = INITIAL_STATE, action) => {
           category: '',
           area: '',
           youtubeURL: '',
-          localImage: null,
+          localImage: '',
           imageFromIMGBB: '',
           ingredients: [],
           currentStep: '',

@@ -58,13 +58,13 @@ const Instructions = ({ addStep, editStep, setEditInputValue, cancelStepChanges,
                 {
                   editStep.id === step.id ?
                     <>
-                      <Button onClick={() => handleStepSave(step.id)} size='sm' variant="success" className='mr-3'>SAVE CHANGES</Button>
-                      <Button onClick={cancelStepChanges} size='sm' variant="outline-dark" className='mr-3'>CANCEL</Button>
+                      <Button onClick={() => handleStepSave(step.id)} size='sm' variant="success" className='mr-3' type="button">SAVE CHANGES</Button>
+                      <Button onClick={cancelStepChanges} size='sm' variant="outline-dark" className='mr-3' type="button">CANCEL</Button>
                     </>
                     :
                     <>
-                      <Button onClick={() => handleStepEdit(step.id, step.value)} size='sm' variant="outline-success" className='mr-3'>EDIT</Button>
-                      <Button onClick={() => removeStep(step.id)} size='sm' variant="outline-secondary">REMOVE</Button>
+                      <Button onClick={() => handleStepEdit(step.id, step.value)} size='sm' variant="outline-success" className='mr-3' type="button">EDIT</Button>
+                      <Button onClick={() => removeStep(step.id)} size='sm' variant="outline-secondary" type="button">REMOVE</Button>
                     </>
                 }
 
@@ -78,7 +78,7 @@ const Instructions = ({ addStep, editStep, setEditInputValue, cancelStepChanges,
         <FormControl as="textarea" name="step" aria-label="Step" value={currentStep} onChange={handleTextareaChange} placeholder='Add here cooking steps...' />
       </InputGroup>
 
-      <button onClick={addStep} className='btn btn-dark outline-none text-size-08 mx-auto d-block my-3'>ADD STEP</button>
+      <button onClick={addStep} type="button" className='btn btn-dark outline-none text-size-08 mx-auto d-block my-3'>ADD STEP</button>
     </div>
   )
 };

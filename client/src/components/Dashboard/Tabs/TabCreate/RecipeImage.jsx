@@ -5,16 +5,15 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import {
   setLocalImage,
-  removeLocalImage
+  setImgbbImage,
+  removeImage
 } from '../../../../redux/private/recipes/privateRecipes.actions';
 
 // Bootstrap
 import Image from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
 
-const RecipeImage = ({ localImage, setLocalImage, removeLocalImage }) => {
-
-  const [imageFromIMGBB, setImageFromIMGBB] = useState(null);
+const RecipeImage = ({ localImage, setLocalImage, setImgbbImage, removeImage }) => {
 
   // Handle Drag&Drop field
   const handleImageFile = e => {
@@ -24,34 +23,8 @@ const RecipeImage = ({ localImage, setLocalImage, removeLocalImage }) => {
 
     e.target.files[0] && reader.readAsDataURL(e.target.files[0]);
 
-    // There is a CORS error while 'x-auth-token' is included in the Headers when trying to do a request to IMGUR API 
-    // I could have used 'fetch' instead of 'axios' in order to avoid this problem, same as I have used 'fetch' for TheMealDB API
-    const fetchImage = async () => {
-      const formData = new FormData();
-      formData.append("image", e.target.files[0]);
-      // Create a new AXIOS instance just for this API call in order to send a request without 'x-auth-token' in Headers
-      const instance = axios.create({ timeout: 10000 });
-      delete instance.defaults.headers.common['x-auth-token'];
-
-      const res = await instance.post('https://api.imgbb.com/1/upload', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        },
-        params: {
-          key: '96160400f12c723fdc5b4ab51b320251',
-        }
-      });
-
-      // setImageFromIMGBB(res.data.data.medium.url);
-    }
-    fetchImage();
+    setImgbbImage(e.target.files[0]);
   }
-
-  // const handleRemove = () => {
-  //   setImageUploaded(null);
-  //   // Attention! Image URL is added to state before the remove (async)
-  //   setImageFromIMGBB(null);
-  // }
 
   return (
     <div className='mb-3'>
@@ -66,7 +39,7 @@ const RecipeImage = ({ localImage, setLocalImage, removeLocalImage }) => {
         <Image src={localImage} fluid rounded />
       </div>
       {
-        localImage && <Button onClick={removeLocalImage} size='sm' variant='outline-secondary' className='mt-2 d-block mx-auto border-0'>Remove image</Button>
+        localImage && <Button onClick={removeImage} type="button" size='sm' variant='outline-secondary' className='mt-2 d-block mx-auto border-0'>Remove image</Button>
       }
     </div>
   )
@@ -78,7 +51,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   setLocalImage: img => dispatch(setLocalImage(img)),
-  removeLocalImage: () => dispatch(removeLocalImage())
+  setImgbbImage: img => dispatch(setImgbbImage(img)),
+  removeImage: () => dispatch(removeImage())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecipeImage);

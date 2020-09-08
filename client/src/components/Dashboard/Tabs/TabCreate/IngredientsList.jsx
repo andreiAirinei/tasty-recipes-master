@@ -119,14 +119,14 @@ const IngredientsList = ({
                       <p className='ingredient m-0 ml-1'><em>{ing.name}</em></p>
                     </div>
                     <p className='m-0'><strong>{ing.quantity}</strong></p>
-                    <button onClick={() => handleRemoveIngredient(ing.id)} className='btn btn-link outline-none text-danger ml-auto'>&times;</button>
+                    <button onClick={() => handleRemoveIngredient(ing.id)} className='btn btn-link outline-none text-danger ml-auto' type="button">&times;</button>
                   </div>
                 </li>
               ))
             }
           </ul>
           {
-            ingredients.length > 0 ? <Button onClick={clearIngredients} size='sm' variant='outline-secondary mx-auto d-block border-0'>CLEAR INGREDIENTS</Button>
+            ingredients.length > 0 ? <Button onClick={clearIngredients} size='sm' variant='outline-secondary mx-auto d-block border-0' type="button">CLEAR INGREDIENTS</Button>
               : <h6 className='text-center'><em>No ingredients selected!</em></h6>
           }
         </div>

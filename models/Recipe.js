@@ -15,16 +15,26 @@ const RecipeSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  // area: {
-  //   type: String,
-  //   required: true
-  // },
-  // youtube: {
-  //   type: String,
-  //   required: true
-  // },
-  // ingredients
-  // image / thumb
+  area: {
+    type: String,
+    required: true
+  },
+  youtubeURL: {
+    type: String,
+    required: true
+  },
+  ingredients: {
+    type: Array,
+    required: true
+  },
+  steps: {
+    type: Array,
+    required: true
+  },
+  imageFromIMGBB: {
+    type: String,
+    required: true
+  },
   date: {
     type: Date,
     default: Date.now

@@ -17,7 +17,9 @@ import Instructions from './Instructions';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-const TabCreate = ({ createRecipe, populateFieldsFromLS, resetAllFields, ingredients, steps }) => {
+const TabCreate = ({ createRecipe, populateFieldsFromLS, resetAllFields, recipe }) => {
+
+  const { ingredients, steps } = recipe;
 
   useEffect(() => {
     populateFieldsFromLS();
@@ -40,8 +42,9 @@ const TabCreate = ({ createRecipe, populateFieldsFromLS, resetAllFields, ingredi
       console.log('Atleast 1 cooking step needed');
       window.scrollTo(0, 1400);
     };
-    console.log('FORM SUBMITED')
-    // createRecipe();
+    console.log('FORM SUBMITED');
+    console.log(recipe);
+    createRecipe(recipe);
   };
 
   return (
@@ -62,12 +65,11 @@ const TabCreate = ({ createRecipe, populateFieldsFromLS, resetAllFields, ingredi
 }
 
 const mapStateToProps = state => ({
-  ingredients: state.privateRecipes.recipe.ingredients,
-  steps: state.privateRecipes.recipe.steps
+  recipe: state.privateRecipes.recipe
 })
 
 const mapDispatchToProps = dispatch => ({
-  createRecipe: () => dispatch(createRecipe()),
+  createRecipe: recipe => dispatch(createRecipe(recipe)),
   populateFieldsFromLS: () => dispatch(populateFieldsFromLS()),
   resetAllFields: () => dispatch(resetAllFields())
 });

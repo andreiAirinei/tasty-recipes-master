@@ -39,13 +39,33 @@ export const setLocalImage = img => dispatch => {
 };
 
 // Remove recipe image
-export const removeLocalImage = () => ({ type: REMOVE_LOCAL_IMAGE });
+export const removeImage = () => dispatch => {
+  dispatch({ type: REMOVE_LOCAL_IMAGE });
+  dispatch({ type: REMOVE_IMGBB_IMAGE });
+};
 
-// Set recipe image on IMGBB 
-export const setImgbbImage = img => dispatch => {
+// Set recipe image on IMGBB API
+export const setImgbbImage = file => async dispatch => {
+  // There is a CORS error while 'x-auth-token' is included in the Headers when trying to do a request to IMGUR API 
+  // I could have used 'fetch' instead of 'axios' in order to avoid this problem, same as I have used 'fetch' for TheMealDB API
+  const formData = new FormData();
+  formData.append("image", file);
+  // Create a new AXIOS instance just for this API call in order to send a request without 'x-auth-token' in Headers
+  const instance = axios.create({ timeout: 10000 });
+  delete instance.defaults.headers.common['x-auth-token'];
+
+  const res = await instance.post('https://api.imgbb.com/1/upload', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    },
+    params: {
+      key: `${process.env.REACT_APP_IMGBB_KEY}`
+    }
+  });
+
   dispatch({
     type: SET_IMGBB_IMAGE,
-    payload: img
+    payload: res.data.data.image.url
   })
 };
 
@@ -111,9 +131,20 @@ export const createRecipe = recipe => async dispatch => {
       'Content-Type': 'application/json'
     }
   };
+  const { name, category, area, youtubeURL, imageFromIMGBB, ingredients, steps } = recipe;
+
+  const toPost = {
+    name,
+    category,
+    area,
+    youtubeURL,
+    imageFromIMGBB,
+    ingredients,
+    steps
+  };
 
   try {
-    const res = await axios.post('/api/recipes', recipe, config);
+    const res = await axios.post('/api/recipes', toPost, config);
 
     dispatch({
       type: CREATE_RECIPE,

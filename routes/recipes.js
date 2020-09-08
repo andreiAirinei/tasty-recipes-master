@@ -3,7 +3,6 @@ const router = express.Router();
 const auth = require('../middleware/auth');
 const { check, validationResult } = require('express-validator');
 
-const User = require('../models/User');
 const Recipe = require('../models/Recipe');
 
 // @route   GET api/recipes
@@ -32,13 +31,18 @@ router.post('/', [auth, [
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const { name, category } = req.body;
+  const { name, category, area, youtubeURL, imageFromIMGBB, ingredients, steps } = req.body;
 
   try {
     const newRecipe = new Recipe({
       user: req.user.id,
       name,
-      category
+      category,
+      area,
+      youtubeURL,
+      imageFromIMGBB,
+      ingredients,
+      steps
     });
 
     const recipe = await newRecipe.save();
