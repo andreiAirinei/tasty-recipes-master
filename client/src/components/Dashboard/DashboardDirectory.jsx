@@ -31,9 +31,6 @@ const DashboardDirectory = ({ activeTab, setActiveTab }) => {
           <DashboardNavigation />
         </Col>
         <Col md={9} lg={10}>
-          <div className="tab-overview mt-4 mt-md-0">
-
-          </div>
           {activeTab === 'create' && <TabCreate />}
           {activeTab === 'myrecipes' && <TabMyRecipes />}
           {activeTab === 'favorites' && <TabFavorites />}

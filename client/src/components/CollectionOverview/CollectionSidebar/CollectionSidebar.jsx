@@ -21,6 +21,8 @@ import {
 import SidebarButton from './SidebarButton';
 import ExpandableList from '../../ExpandableList/ExpandableList';
 
+import Button from 'react-bootstrap/Button';
+
 const CollectionSidebar = ({
   setActiveCategory,
   fetchCountries,
@@ -104,6 +106,9 @@ const CollectionSidebar = ({
                 ))
               }
             </ExpandableList>
+            <div className="mt-5">
+              <Button variant='outline-danger'>Create your own!</Button>
+            </div>
           </div>
         )
       }

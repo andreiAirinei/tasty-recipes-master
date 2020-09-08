@@ -78,10 +78,10 @@ export const login = formData => async dispatch => {
 
 // Logout
 export const logout = () => dispatch => {
-  // Remove token from LocalStorage
-  dispatch({ type: LOGOUT });
   // Remove USER dashboard details from Redux
   dispatch({ type: RESET_ALL_FIELDS });
+  // Remove token from LocalStorage
+  dispatch({ type: LOGOUT });
   dispatch(loadUser());
 }
 

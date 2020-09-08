@@ -9,8 +9,8 @@ import {
 } from '../../../../redux/private/recipes/privateRecipes.actions';
 
 // Components
+import SectionTitle from '../../../layout/SectionTitle';
 import BasicDetails from './BasicDetails';
-import RecipeImage from './RecipeImage';
 import IngredientsList from './IngredientsList';
 import Instructions from './Instructions';
 
@@ -22,6 +22,12 @@ const TabCreate = ({ createRecipe, populateFieldsFromLS, resetAllFields }) => {
   useEffect(() => {
     populateFieldsFromLS();
   }, []);
+
+
+  const handleResetButton = () => {
+    resetAllFields();
+    window.scrollTo(0, 400);
+  }
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -37,7 +43,7 @@ const TabCreate = ({ createRecipe, populateFieldsFromLS, resetAllFields }) => {
       <Instructions />
       <div className="text-center">
         <Button variant='success mr-3'>SAVE RECIPE</Button>
-        <Button onClick={resetAllFields} variant='outline-secondary'>RESET FIELDS</Button>
+        <Button onClick={handleResetButton} variant='outline-secondary'>RESET FIELDS</Button>
       </div>
     </div>
   )
