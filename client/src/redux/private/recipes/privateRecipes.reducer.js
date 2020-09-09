@@ -15,7 +15,6 @@ import {
   SET_EDIT_INPUT_VALUE,
   SAVE_STEP_CHANGES,
   CANCEL_STEP_CHANGES,
-  CLEAR_RECIPE_STEPS,
   POPULATE_FROM_LOCALSTORAGE,
   RESET_ALL_FIELDS
 } from './privateRecipes.types';
@@ -247,7 +246,6 @@ const privateRecipesReducer = (state = INITIAL_STATE, action) => {
       }
 
     case CREATE_RECIPE:
-      resetFieldsFromLocalStorage();
       return {
         ...state,
         current: action.payload

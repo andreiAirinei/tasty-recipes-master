@@ -22,7 +22,11 @@ router.get('/', auth, async (req, res) => {
 // @desc    Add new recipe
 // @access  Private
 router.post('/', [auth, [
-  check('name', 'Recipe name is required!').not().isEmpty()
+  check('name', 'Recipe name is required!').not().isEmpty(),
+  check('category', 'Recipe category is required!').not().isEmpty(),
+  check('area', 'Recipe area is required!').not().isEmpty(),
+  check('ingredients', 'Atleast 1 ingredient is required!').not().isEmpty(),
+  check('steps', 'Atleast 1 step is required!').not().isEmpty()
 ]], async (req, res) => {
   // Get errors if any
   const errors = validationResult(req);

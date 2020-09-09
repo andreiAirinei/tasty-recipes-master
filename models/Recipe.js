@@ -20,8 +20,7 @@ const RecipeSchema = mongoose.Schema({
     required: true
   },
   youtubeURL: {
-    type: String,
-    required: true
+    type: String
   },
   ingredients: {
     type: Array,
@@ -32,8 +31,7 @@ const RecipeSchema = mongoose.Schema({
     required: true
   },
   imageFromIMGBB: {
-    type: String,
-    required: true
+    type: String
   },
   date: {
     type: Date,

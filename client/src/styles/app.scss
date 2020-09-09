@@ -13,6 +13,9 @@ body {
   overflow-x: hidden !important;
 }
 
+// Variables
+$tasty: #418327;
+
 // Utility classes
 
 .white-space {
@@ -56,11 +59,11 @@ body {
 }
 
 .text-tasty {
-  color: #418327 !important;
+  color: $tasty !important;
 }
 
 .bg-tasty {
-  background: #418327 !important;
+  background: $tasty !important;
 }
 
 .bg-tasty-secondary {
@@ -977,6 +980,13 @@ body {
 }
 
 // Dashboard.jsx
+// DashboardNavigation.jsx
+.dashboard-navigation {
+  .dashboard-link {
+    &:hover { color: $tasty !important; }
+  }
+}
+
 // TabCreate.jsx
 .tab-create {
   .input-group-text {

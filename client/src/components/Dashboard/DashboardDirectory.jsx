@@ -1,8 +1,5 @@
 import React, { useEffect } from 'react';
-
-// Redux
-import { connect } from 'react-redux';
-import { setActiveTab } from '../../redux/dashboard/dashboard.actions';
+import { Switch, Route, withRouter } from 'react-router-dom';
 
 // Components
 import DashboardNavigation from './DashboardNavigation';
@@ -15,14 +12,7 @@ import TabBookmarks from './Tabs/TabBookmarks/TabBookmarks';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-const DashboardDirectory = ({ activeTab, setActiveTab }) => {
-
-  useEffect(() => {
-    // Replicating componentWillUnmount
-    return () => {
-      setActiveTab('create');
-    }
-  }, [])
+const DashboardDirectory = ({ match }) => {
 
   return (
     <div className='dashboard-directory mt-3 mt-md-5'>
@@ -31,22 +21,16 @@ const DashboardDirectory = ({ activeTab, setActiveTab }) => {
           <DashboardNavigation />
         </Col>
         <Col md={9} lg={10}>
-          {activeTab === 'create' && <TabCreate />}
-          {activeTab === 'myrecipes' && <TabMyRecipes />}
-          {activeTab === 'favorites' && <TabFavorites />}
-          {activeTab === 'bookmarks' && <TabBookmarks />}
+          <Switch>
+            <Route exact path={`${match.url}/create`} component={TabCreate} />
+            <Route exact path={`${match.url}/my-recipes`} component={TabMyRecipes} />
+            <Route exact path={`${match.url}/favorites`} component={TabFavorites} />
+            <Route exact path={`${match.url}/bookmarks`} component={TabBookmarks} />
+          </Switch>
         </Col>
       </Row>
     </div>
   )
 }
 
-const mapStateToProps = state => ({
-  activeTab: state.dashboard.activeTab
-});
-
-const mapDispatchToprops = dispatch => ({
-  setActiveTab: tab => dispatch(setActiveTab(tab))
-});
-
-export default connect(mapStateToProps, mapDispatchToprops)(DashboardDirectory);
+export default withRouter(DashboardDirectory);

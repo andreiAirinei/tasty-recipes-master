@@ -41,7 +41,9 @@ const TabCreate = ({ createRecipe, populateFieldsFromLS, resetAllFields, recipe 
     if (!steps.length > 0) {
       console.log('Atleast 1 cooking step needed');
       window.scrollTo(0, 1400);
+      return;
     };
+
     console.log('FORM SUBMITED');
     console.log(recipe);
     createRecipe(recipe);
