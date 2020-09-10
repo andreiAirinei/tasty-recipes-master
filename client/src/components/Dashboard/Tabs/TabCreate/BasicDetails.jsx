@@ -35,7 +35,6 @@ const BasicDetails = ({
   useEffect(() => {
     fetchDishTypes();
     fetchCountries();
-    console.log('BASIC DETAILS RENDERED');
   }, []);
 
   // Dynamically set form field values
@@ -52,12 +51,12 @@ const BasicDetails = ({
   }
 
   return (
-    <section className='tab-create-section shadow'>
+    <section className='tab-create tab-create-section shadow'>
       <h4 className='text-center py-3 mb-3'>Details</h4>
       <Row>
         <Col xs={12} lg={6}>
           {/* Recipe name */}
-          <InputGroup className="mb-3 mr-5">
+          <InputGroup className="mb-3 mr-5 theme-edit">
             <InputGroup.Prepend>
               <InputGroup.Text id="recipe--name" className='width-120 text-size-09'>
                 Name
@@ -70,6 +69,7 @@ const BasicDetails = ({
               aria-label="Name"
               aria-describedby="recipe-name"
               required
+              className='theme-edit'
             />
           </InputGroup>
 

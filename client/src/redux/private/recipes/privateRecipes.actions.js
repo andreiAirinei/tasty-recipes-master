@@ -18,8 +18,16 @@ import {
   CANCEL_STEP_CHANGES,
   RESET_ALL_FIELDS,
   SET_EDIT_INPUT_VALUE,
-  POPULATE_FROM_LOCALSTORAGE
+  POPULATE_FROM_LOCALSTORAGE,
+  FETCH_USER_RECIPES,
+  REMOVE_RECIPE_BY_ID,
+  EDIT_RECIPE_BY_ID,
+  UPDATE_RECIPE,
+  TOGGLE_EDIT_MODE
 } from './privateRecipes.types';
+
+// ###################################################################################
+// ##################################### CREATE RECIPE ###############################
 
 // Dynamically set form field values
 export const setBasicFieldValue = name => dispatch => {
@@ -153,3 +161,80 @@ export const createRecipe = recipe => async dispatch => {
     console.log(err.response.data.msg);
   }
 };
+
+// ###################################################################################
+// ############################### MY RECIPES ########################################
+
+// Fetch users's recipes
+export const fetchUserRecipes = () => async dispatch => {
+  console.log('FETCHING USER RECIPES');
+  try {
+    const res = await axios.get('/api/recipes');
+
+    dispatch({
+      type: FETCH_USER_RECIPES,
+      payload: res.data
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export const updateRecipe = recipe => async dispatch => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+  const { id, name, category, area, youtubeURL, imageFromIMGBB, ingredients, steps } = recipe;
+
+  const toPost = {
+    name,
+    category,
+    area,
+    youtubeURL,
+    imageFromIMGBB,
+    ingredients,
+    steps
+  };
+
+  try {
+    const res = await axios.put(`/api/recipes/${id}`, toPost, config);
+
+    dispatch({
+      type: UPDATE_RECIPE,
+      payload: res.data
+    })
+  } catch (err) {
+    console.log(err.response.data.msg);
+  }
+}
+
+export const removeRecipeById = id => async dispatch => {
+  try {
+    const res = await axios.delete(`/api/recipes/${id}`);
+
+    dispatch({
+      type: REMOVE_RECIPE_BY_ID,
+      payload: id
+    })
+
+    console.log(res);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export const editRecipeById = id => dispatch => {
+  dispatch({
+    type: EDIT_RECIPE_BY_ID,
+    payload: id
+  })
+}
+
+export const toggleEditMode = value => dispatch => {
+  dispatch({
+    type: TOGGLE_EDIT_MODE,
+    payload: value
+  })
+}

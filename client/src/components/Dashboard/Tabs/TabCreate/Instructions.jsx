@@ -37,7 +37,7 @@ const Instructions = ({ addStep, editStep, setEditInputValue, cancelStepChanges,
   }
 
   return (
-    <div className='tab-create-section shadow'>
+    <div className='tab-create tab-create-section shadow'>
       {/* How to make it */}
       <h4 className='text-center py-3 mb-3'>Cooking steps</h4>
 

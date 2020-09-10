@@ -62,11 +62,20 @@ router.post('/', [auth, [
 // @desc    Update/Edit recipe
 // @access  Private
 router.put('/:id', auth, async (req, res) => {
-  const { name } = req.body;
+  const { name, category, area, youtubeURL, imageFromIMGBB, ingredients, steps } = req.body;
 
   // Build recipe object
-  const recipeFields = {};
-  if (name) recipeFields.name = name;
+  const recipeFields = {
+    name,
+    category,
+    area,
+    youtubeURL,
+    imageFromIMGBB,
+    ingredients,
+    steps
+  };
+
+  // if (name) recipeFields.name = name;
 
   try {
     let recipe = await Recipe.findById(req.params.id);

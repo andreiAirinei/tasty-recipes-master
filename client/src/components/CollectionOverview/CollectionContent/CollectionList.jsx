@@ -46,7 +46,6 @@ const CollectionList = ({ infinityList, infinityListSettings, setInfinityListSet
       {
         infinityList.data &&
         <InfiniteScroll
-          // className='d-flex flex-row flex-wrap justify-content-center'
           className='overflow-hidden'
           dataLength={infinityList.data.length}
           hasMore={infinityList.hasMore}

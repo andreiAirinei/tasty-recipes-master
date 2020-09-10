@@ -4,8 +4,10 @@ import React, { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import {
   createRecipe,
+  updateRecipe,
   populateFieldsFromLS,
-  resetAllFields
+  resetAllFields,
+  toggleEditMode
 } from '../../../../redux/private/recipes/privateRecipes.actions';
 
 // Components
@@ -17,13 +19,19 @@ import Instructions from './Instructions';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-const TabCreate = ({ createRecipe, populateFieldsFromLS, resetAllFields, recipe }) => {
+const TabCreate = ({ createRecipe, updateRecipe, populateFieldsFromLS, resetAllFields, editMode, toggleEditMode, recipe }) => {
 
   const { ingredients, steps } = recipe;
 
   useEffect(() => {
-    populateFieldsFromLS();
-  }, []);
+    console.log(editMode);
+    !editMode && populateFieldsFromLS();
+
+    return () => {
+      console.log('Unmounting TabCreate');
+      toggleEditMode(false);
+    }
+  }, [editMode, toggleEditMode, populateFieldsFromLS]);
 
 
   const handleResetButton = () => {
@@ -43,37 +51,46 @@ const TabCreate = ({ createRecipe, populateFieldsFromLS, resetAllFields, recipe 
       window.scrollTo(0, 1400);
       return;
     };
-
-    console.log('FORM SUBMITED');
     console.log(recipe);
-    createRecipe(recipe);
+    !editMode ? createRecipe(recipe) : updateRecipe(recipe);
   };
 
   return (
-    <div className='tab-create'>
-      <h1>Create new recipe</h1>
+    <div className={`tab-create ${editMode && 'theme-edit'}`}>
+
+      {!editMode ? <h1>Create new recipe</h1> : <h1>Edit Recipe</h1>}
       <hr />
       <Form onSubmit={handleSubmit}>
         <BasicDetails />
         <IngredientsList />
         <Instructions />
-        <div className="text-center">
-          <Button type='submit' variant='success mr-3'>SAVE RECIPE</Button>
-          <Button onClick={handleResetButton} variant='outline-secondary'>RESET FIELDS</Button>
-        </div>
+        {
+          !editMode ?
+            <div className="text-center">
+              <Button type='submit' variant='success mr-3'>SAVE RECIPE</Button>
+              <Button onClick={handleResetButton} variant='outline-secondary'>RESET FIELDS</Button>
+            </div>
+            : <div className="text-center">
+              <Button type='submit' variant='success mr-3'>UPDATE RECIPE</Button>
+              <Button onClick={() => window.history.back()} variant='outline-dark'>CANCEL</Button>
+            </div>
+        }
       </Form>
     </div>
   )
 }
 
 const mapStateToProps = state => ({
-  recipe: state.privateRecipes.recipe
+  recipe: state.privateRecipes.recipe,
+  editMode: state.privateRecipes.editMode
 })
 
 const mapDispatchToProps = dispatch => ({
   createRecipe: recipe => dispatch(createRecipe(recipe)),
+  updateRecipe: recipe => dispatch(updateRecipe(recipe)),
   populateFieldsFromLS: () => dispatch(populateFieldsFromLS()),
-  resetAllFields: () => dispatch(resetAllFields())
+  resetAllFields: () => dispatch(resetAllFields()),
+  toggleEditMode: value => dispatch(toggleEditMode(value))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TabCreate);

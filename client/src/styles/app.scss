@@ -983,7 +983,12 @@ $tasty: #418327;
 // DashboardNavigation.jsx
 .dashboard-navigation {
   .dashboard-link {
+    border: 2px solid #fff;
     &:hover { color: $tasty !important; }
+  }
+
+  .withBorder {
+    border: 2px solid $tasty !important;
   }
 }
 
@@ -1043,16 +1048,34 @@ $tasty: #418327;
   }
 }
 
+// THEMES
+.theme-edit {
+  .tab-create {
+    .input-group-text {
+      background: #c7ca191c !important;
+    }
+  
+    .form-control:focus,
+    .css-2b097c-container:focus,
+    .css-1pahdxg-control,
+    .select__control:focus,
+    .select__value-container:focus {
+      border-color: var(--warning) !important;
+      box-shadow: inset 0 1px 1px rgba(65, 136, 68, 0.075), 0 0 8px rgba(180, 192, 128, 0.6) !important;
+    }
+  
+    &-section {
+      &::before {
+        background: #ccc12a !important;
+      }
+    }
+  }
+}
+
 // RecipeImage.jsx
 .image-form {
   input {
-    // border: 1px solid #ced4da;
-    // border-radius: 5px;
-    // padding: 2px 4px;
     cursor: pointer;
-    // background: #fff;
-    // max-width: 297px;
-
     button {
       border: 0;
     }
@@ -1108,6 +1131,21 @@ $tasty: #418327;
         cursor: pointer;
       }
     }
+  }
+}
+
+// Private recipe - RecipesItem.jsx
+.myrecipe {
+  &-item {
+    border-radius: 10px;
+    height: 95%;
+    overflow: hidden;
+  }
+
+  &-thumbnail {
+    height: 200px;
+    overflow: hidden;
+    object-fit: cover;
   }
 }
 

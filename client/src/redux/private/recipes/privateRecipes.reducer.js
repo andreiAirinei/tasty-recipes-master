@@ -16,7 +16,12 @@ import {
   SAVE_STEP_CHANGES,
   CANCEL_STEP_CHANGES,
   POPULATE_FROM_LOCALSTORAGE,
-  RESET_ALL_FIELDS
+  RESET_ALL_FIELDS,
+  FETCH_USER_RECIPES,
+  REMOVE_RECIPE_BY_ID,
+  EDIT_RECIPE_BY_ID,
+  UPDATE_RECIPE,
+  TOGGLE_EDIT_MODE
 } from './privateRecipes.types';
 
 import {
@@ -52,6 +57,8 @@ const INITIAL_STATE = {
       value: ''
     }
   },
+  recipes: [],
+  editMode: false,
   current: null
 };
 
@@ -60,7 +67,7 @@ const privateRecipesReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case SET_BASIC_FIELD_VALUES:
       const { fieldName, value } = action.payload;
-      setFieldValueToLocalStorage({
+      !state.editMode && setFieldValueToLocalStorage({
         fieldName,
         value
       });
@@ -73,8 +80,7 @@ const privateRecipesReducer = (state = INITIAL_STATE, action) => {
       }
 
     case SET_LOCAL_IMAGE:
-      // setImageToLocalStorage(action.payload);
-      setFieldValueToLocalStorage({ fieldName: 'localImage', value: action.payload });
+      !state.editMode && setFieldValueToLocalStorage({ fieldName: 'localImage', value: action.payload });
       return {
         ...state,
         recipe: {
@@ -84,7 +90,7 @@ const privateRecipesReducer = (state = INITIAL_STATE, action) => {
       }
 
     case REMOVE_LOCAL_IMAGE:
-      setFieldValueToLocalStorage({ fieldName: 'localImage', value: '' });
+      !state.editMode && setFieldValueToLocalStorage({ fieldName: 'localImage', value: '' });
       return {
         ...state,
         recipe: {
@@ -94,7 +100,7 @@ const privateRecipesReducer = (state = INITIAL_STATE, action) => {
       }
 
     case SET_IMGBB_IMAGE:
-      setFieldValueToLocalStorage({ fieldName: 'imageFromIMGBB', value: action.payload });
+      !state.editMode && setFieldValueToLocalStorage({ fieldName: 'imageFromIMGBB', value: action.payload });
       return {
         ...state,
         recipe: {
@@ -104,7 +110,7 @@ const privateRecipesReducer = (state = INITIAL_STATE, action) => {
       }
 
     case REMOVE_IMGBB_IMAGE:
-      setFieldValueToLocalStorage({ fieldName: 'imageFromIMGBB', value: '' });
+      !state.editMode && setFieldValueToLocalStorage({ fieldName: 'imageFromIMGBB', value: '' });
       return {
         ...state,
         recipe: {
@@ -115,7 +121,7 @@ const privateRecipesReducer = (state = INITIAL_STATE, action) => {
 
     case ADD_INGREDIENT: {
       const id = uuid();
-      addIngredientToLocalStorage({ ...action.payload, id })
+      !state.editMode && addIngredientToLocalStorage({ ...action.payload, id });
       return {
         ...state,
         recipe: {
@@ -131,7 +137,7 @@ const privateRecipesReducer = (state = INITIAL_STATE, action) => {
     }
 
     case REMOVE_INGREDIENT:
-      removeIngredientFromLocalStorage(action.payload);
+      !state.editMode && removeIngredientFromLocalStorage(action.payload);
       return {
         ...state,
         recipe: {
@@ -141,7 +147,7 @@ const privateRecipesReducer = (state = INITIAL_STATE, action) => {
       }
 
     case CLEAR_INGREDIENTS:
-      clearIngredientFromLocalStorage();
+      !state.editMode && clearIngredientFromLocalStorage();
       return {
         ...state,
         recipe: {
@@ -151,7 +157,7 @@ const privateRecipesReducer = (state = INITIAL_STATE, action) => {
       }
 
     case SET_CURRENT_STEP_VALUE:
-      setFieldValueToLocalStorage({ fieldName: 'currentStep', value: action.payload });
+      !state.editMode && setFieldValueToLocalStorage({ fieldName: 'currentStep', value: action.payload });
       return {
         ...state,
         recipe: {
@@ -162,7 +168,7 @@ const privateRecipesReducer = (state = INITIAL_STATE, action) => {
 
     case ADD_RECIPE_STEP: {
       const id = uuid();
-      addStepToLocalStorage({ id, value: state.recipe.currentStep });
+      !state.editMode && addStepToLocalStorage({ id, value: state.recipe.currentStep });
       return {
         ...state,
         recipe: {
@@ -177,7 +183,7 @@ const privateRecipesReducer = (state = INITIAL_STATE, action) => {
     }
 
     case REMOVE_RECIPE_STEP:
-      removeStepFromLocalStorage(action.payload);
+      !state.editMode && removeStepFromLocalStorage(action.payload);
       return {
         ...state,
         recipe: {
@@ -187,7 +193,7 @@ const privateRecipesReducer = (state = INITIAL_STATE, action) => {
       }
 
     case SET_STEP_TO_EDIT:
-      setStepToEditToLocalStorage(action.payload);
+      !state.editMode && setStepToEditToLocalStorage(action.payload);
       return {
         ...state,
         recipe: {
@@ -201,7 +207,7 @@ const privateRecipesReducer = (state = INITIAL_STATE, action) => {
       }
 
     case SET_EDIT_INPUT_VALUE:
-      setEditInputValueToLS(action.payload);
+      !state.editMode && setEditInputValueToLS(action.payload);
       return {
         ...state,
         recipe: {
@@ -218,7 +224,7 @@ const privateRecipesReducer = (state = INITIAL_STATE, action) => {
         step.id === state.recipe.editStep.id && (step.value = state.recipe.editStep.value);
         return step;
       });
-      saveStepChangesToLocalStorage(modifiedSteps);
+      !state.editMode && saveStepChangesToLocalStorage(modifiedSteps);
 
       return {
         ...state,
@@ -233,7 +239,7 @@ const privateRecipesReducer = (state = INITIAL_STATE, action) => {
       }
 
     case CANCEL_STEP_CHANGES:
-      cancelStepChangesFromLocalStorage();
+      !state.editMode && cancelStepChangesFromLocalStorage();
       return {
         ...state,
         recipe: {
@@ -252,7 +258,7 @@ const privateRecipesReducer = (state = INITIAL_STATE, action) => {
       }
 
     case RESET_ALL_FIELDS: {
-      resetFieldsFromLocalStorage();
+      !state.editMode && resetFieldsFromLocalStorage();
       return {
         ...state,
         recipe: {
@@ -281,6 +287,50 @@ const privateRecipesReducer = (state = INITIAL_STATE, action) => {
           ...state.recipe,
           ...populateFromLocalStorage()
         }
+      }
+
+    case FETCH_USER_RECIPES:
+      return {
+        ...state,
+        recipes: action.payload
+      }
+
+    case REMOVE_RECIPE_BY_ID:
+      return {
+        ...state,
+        recipes: state.recipes.filter(recipe => recipe._id !== action.payload)
+      }
+
+    case EDIT_RECIPE_BY_ID:
+      const toEdit = state.recipes.find(recipe => recipe._id === action.payload);
+      const { _id, name, category, area, imageFromIMGBB, youtubeURL, ingredients, steps } = toEdit;
+      return {
+        ...state,
+        recipe: {
+          ...state.recipe,
+          id: _id,
+          name,
+          category,
+          area,
+          localImage: imageFromIMGBB,
+          imageFromIMGBB,
+          youtubeURL,
+          ingredients,
+          steps
+        },
+        editMode: true
+      }
+
+    case UPDATE_RECIPE:
+      return {
+        ...state,
+        current: action.payload
+      }
+
+    case TOGGLE_EDIT_MODE:
+      return {
+        ...state,
+        editMode: action.payload
       }
 
     default:

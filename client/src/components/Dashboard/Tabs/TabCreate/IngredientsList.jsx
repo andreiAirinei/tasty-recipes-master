@@ -47,6 +47,7 @@ const IngredientsList = ({
   const handleAddIngredient = (e) => {
     // Check if ingredient is selected
     ingredient.name && addIngredient(ingredient);
+    setIngredient({ name: '', quantity: '' });
   };
 
   const handleRemoveIngredient = id => {
@@ -54,7 +55,7 @@ const IngredientsList = ({
   }
 
   return (
-    <div className='tab-create-section shadow'>
+    <div className='tab-create tab-create-section shadow'>
       {/* Ingredients */}
       <h4 className='text-center py-3 mb-3'>Ingredients</h4>
       <div className="d-flex">

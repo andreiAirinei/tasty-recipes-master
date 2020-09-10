@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Switch, Route, withRouter } from 'react-router-dom';
+import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 
 // Components
 import DashboardNavigation from './DashboardNavigation';
@@ -22,10 +22,13 @@ const DashboardDirectory = ({ match }) => {
         </Col>
         <Col md={9} lg={10}>
           <Switch>
-            <Route exact path={`${match.url}/create`} component={TabCreate} />
+            <Route path={`${match.url}/create`} component={TabCreate} />
+            <Route path={`${match.url}/edit/:id`} component={TabCreate} />
             <Route exact path={`${match.url}/my-recipes`} component={TabMyRecipes} />
             <Route exact path={`${match.url}/favorites`} component={TabFavorites} />
             <Route exact path={`${match.url}/bookmarks`} component={TabBookmarks} />
+            <Route exact path={`${match.url}`} render={() => <Redirect to={`${match.url}/create`} />}
+            />
           </Switch>
         </Col>
       </Row>

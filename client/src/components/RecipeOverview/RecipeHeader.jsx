@@ -47,7 +47,7 @@ const RecipeHeader = ({ singleRecipe }) => {
                 <TimeAndDifficulty />
                 <div className="social-media text-right d-flex align-items-center mt-3 mt-md-0">
                   <p className='font-italic text-right mr-3 my-auto'>
-                    <abbr title='HyperText Markup Language'>
+                    <abbr title='Here is where we got the inspiration for this recipe!'>
                       <a href={singleRecipe.strSource} className='text-info' target='_blank' rel='noopener noreferrer'>Source</a>
                     </abbr>
                   </p>

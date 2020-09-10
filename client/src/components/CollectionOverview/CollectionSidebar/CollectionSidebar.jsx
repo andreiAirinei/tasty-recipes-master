@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Sticky } from 'react-sticky';
 
 // Redux
@@ -107,7 +108,9 @@ const CollectionSidebar = ({
               }
             </ExpandableList>
             <div className="mt-5">
-              <Button variant='outline-danger'>Create your own!</Button>
+              <Link to='/dashboard/create'>
+                <Button variant='outline-danger' >Create your own!</Button>
+              </Link>
             </div>
           </div>
         )

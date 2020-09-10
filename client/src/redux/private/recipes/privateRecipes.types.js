@@ -1,3 +1,4 @@
+// ##################### CREATE/EDIT RECIPE ###################
 export const CREATE_RECIPE = 'CREATE_RECIPE';
 
 export const SET_BASIC_FIELD_VALUES = 'SET_BASIC_FIELD_VALUES';
@@ -21,3 +22,10 @@ export const CANCEL_STEP_CHANGES = 'CANCEL_STEP_CHANGES';
 
 export const POPULATE_FROM_LOCALSTORAGE = 'POPULATE_FROM_LOCALSTORAGE'
 export const RESET_ALL_FIELDS = 'RESET_ALL_FIELDS';
+
+// ##################### MY RECIPES ###################
+export const FETCH_USER_RECIPES = 'FETCH_USER_RECIPE';
+export const UPDATE_RECIPE = 'UPDATE_RECIPE';
+export const REMOVE_RECIPE_BY_ID = 'REMOVE_RECIPE_BY_ID';
+export const EDIT_RECIPE_BY_ID = 'EDIT_RECIPE_BY_ID';
+export const TOGGLE_EDIT_MODE = 'TOGGLE_EDIT_MODE';
