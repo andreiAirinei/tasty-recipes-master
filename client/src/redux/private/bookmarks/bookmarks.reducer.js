@@ -7,7 +7,7 @@ import {
 
 const INITIAL_STATE = {
   current: null,
-  bookmarks: null
+  bookmarks: []
 };
 
 const bookmarksReducer = (state = INITIAL_STATE, action) => {
@@ -26,7 +26,7 @@ const bookmarksReducer = (state = INITIAL_STATE, action) => {
       }
 
     case REMOVE_BOOKMARK:
-      const filteredBookmarks = state.bookmarks.filter(bm => bm._id !== action.payload)
+      const filteredBookmarks = state.bookmarks.filter(bm => bm.recipeID !== action.payload)
       return {
         ...state,
         bookmarks: [...filteredBookmarks]

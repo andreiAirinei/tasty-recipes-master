@@ -6,8 +6,8 @@ import {
 } from './favorites.types';
 
 const INITIAL_STATE = {
-  current: null,
-  favorites: null
+  favorites: [],
+  current: null
 };
 
 
@@ -23,11 +23,12 @@ const favoritesReducer = (state = INITIAL_STATE, action) => {
     case ADD_FAVORITE:
       return {
         ...state,
+        favorites: [...state.favorites, action.payload],
         current: action.payload
       }
 
     case REMOVE_FAVORITE:
-      const filteredFavorites = state.favorites.filter(fav => fav._id !== action.payload)
+      const filteredFavorites = state.favorites.filter(fav => fav.recipeID !== action.payload)
       return {
         ...state,
         favorites: [...filteredFavorites]

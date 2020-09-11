@@ -53,7 +53,7 @@ router.post('/', auth, async (req, res) => {
 // @access  Private
 router.delete('/:id', auth, async (req, res) => {
   try {
-    let bookmark = await Bookmark.findById(req.params.id)
+    let bookmark = await Bookmark.findOne({ recipeID: req.params.id })
 
     if (!bookmark) return res.status(400).json({ msg: 'Bookmark not found' });
 
@@ -62,7 +62,7 @@ router.delete('/:id', auth, async (req, res) => {
       return res.status(401).json({ msg: 'Not authorized' });
     }
 
-    await Bookmark.findByIdAndRemove(req.params.id);
+    await Bookmark.findByIdAndRemove(bookmark._id);
 
     res.json({ msg: 'Bookmark removed!' });
   } catch (err) {

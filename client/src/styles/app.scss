@@ -93,6 +93,12 @@ $tasty: #418327;
   height: 30px;
 }
 
+.fav-icon--xlarge {
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+}
+
 .icon-white {
   fill: #fff !important;
 
@@ -744,8 +750,9 @@ $tasty: #418327;
     top: 0;
     left: 0;
     right: 0;
-    height: 400px;
+    height: 500px;
     background: linear-gradient(#f1f1f1, #fdfdfd);
+    background: linear-gradient(#f1f1f1, #fff);
     border-radius: 10px;
     z-index: -1;
   }

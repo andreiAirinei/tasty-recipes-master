@@ -53,7 +53,9 @@ router.post('/', auth, async (req, res) => {
 // @access  Private
 router.delete('/:id', auth, async (req, res) => {
   try {
-    let favorite = await Favorites.findById(req.params.id)
+    // let favorite = await Favorites.findById(req.params.id);
+
+    let favorite = await Favorites.findOne({ recipeID: req.params.id });
 
     if (!favorite) return res.status(400).json({ msg: 'Favorite recipe not found' });
 
@@ -62,7 +64,7 @@ router.delete('/:id', auth, async (req, res) => {
       return res.status(401).json({ msg: 'Not authorized' });
     }
 
-    await Favorites.findByIdAndRemove(req.params.id);
+    await Favorites.findByIdAndRemove(favorite._id);
 
     res.json({ msg: 'Favorite removed!' });
   } catch (err) {

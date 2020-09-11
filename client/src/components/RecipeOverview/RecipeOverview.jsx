@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 // Redux
 import { connect } from 'react-redux';
 import { getRecipeByID, clearSingleRecipe } from '../../redux/recipes/recipes.actions';
+import { fetchFavorites } from '../../redux/private/favorites/favorites.actions';
 
 // Selectors
 import { createStructuredSelector } from 'reselect';
@@ -18,9 +19,10 @@ import SectionTitle from '../layout/SectionTitle';
 // Bootstrap
 import Container from 'react-bootstrap/Container'
 
-const RecipeOverview = ({ match, getRecipeByID, clearSingleRecipe, singleRecipe }) => {
+const RecipeOverview = ({ match, getRecipeByID, clearSingleRecipe, singleRecipe, fetchFavorites }) => {
   useEffect(() => {
     getRecipeByID(match.params.recipeID);
+    fetchFavorites();
 
     return () => {
       clearSingleRecipe();
@@ -54,7 +56,8 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = dispatch => ({
   getRecipeByID: id => dispatch(getRecipeByID(id)),
-  clearSingleRecipe: () => dispatch(clearSingleRecipe())
+  clearSingleRecipe: () => dispatch(clearSingleRecipe()),
+  fetchFavorites: () => dispatch(fetchFavorites())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecipeOverview);

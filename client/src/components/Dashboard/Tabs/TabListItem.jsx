@@ -8,7 +8,7 @@ import Button from 'react-bootstrap/Button';
 const TabListItem = ({ recipe, handleRemove }) => {
   const [warning, setWarning] = useState(false);
 
-  const { _id, recipeID, recipeName, recipeImageUrl } = recipe;
+  const { recipeID, recipeName, recipeImageUrl } = recipe;
 
   const handleWarning = e => {
     e.preventDefault();
@@ -23,7 +23,7 @@ const TabListItem = ({ recipe, handleRemove }) => {
   }
 
   const handleDelete = e => {
-    handleRemove(e, _id);
+    handleRemove(e, recipeID);
   }
 
   return (

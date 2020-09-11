@@ -8,6 +8,10 @@ import { modalOpen, setVideoURL } from '../../../redux/modals/videoModal/videoMo
 import { createStructuredSelector } from 'reselect';
 import { selectSingleRecipe } from '../../../redux/recipes/recipes.selectors';
 
+// Bootstrap
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
+
 const RecipeInstructions = ({
   singleRecipe,
   setVideoURL,
@@ -42,9 +46,11 @@ const RecipeInstructions = ({
             <h2 className='mb-2 m-sm-0 text-center text-sm-left'>How to make it</h2>
             {
               singleRecipe.strYoutube &&
-              <button className="youtube-link" onClick={handleVideoButton}>
-                <img src={require('../../../assets/youtube.svg')} alt="Youtube Link" />
-              </button>
+              <OverlayTrigger placement='top' overlay={<Tooltip>See video instructions!</Tooltip>}>
+                <button className="youtube-link" onClick={handleVideoButton}>
+                  <img src={require('../../../assets/youtube.svg')} alt="Youtube Link" />
+                </button>
+              </OverlayTrigger>
             }
 
           </div>

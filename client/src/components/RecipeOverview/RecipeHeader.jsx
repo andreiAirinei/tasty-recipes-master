@@ -1,4 +1,6 @@
 import React from 'react';
+
+// Redux
 import { connect } from 'react-redux';
 
 // Selectors
@@ -13,14 +15,14 @@ import TimeAndDifficulty from '../TimeAndDifficulty/TimeAndDifficulty';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
-
+import FavIcons from './FavIcons';
 
 const RecipeHeader = ({ singleRecipe }) => {
 
   return (
     <div className='recipe-header mb-5'>
       {singleRecipe &&
-        <Row >
+        <Row>
           <Col xs={12} sm={5}>
             <div className="recipe-image-holder mx-auto">
               <Image
@@ -34,7 +36,15 @@ const RecipeHeader = ({ singleRecipe }) => {
           <Col xs={12} sm={7}>
             <div className="header-content">
               <div className="top text-center text-sm-left mt-3">
-                <h4 className='text-danger'>{singleRecipe.strCategory}</h4>
+                <div className="d-flex justify-content-between">
+                  <h4 className='text-danger'>{singleRecipe.strCategory}</h4>
+                  <FavIcons recipe={{
+                    recipeID: singleRecipe.idMeal,
+                    recipeName: singleRecipe.strMeal,
+                    recipeImageUrl: singleRecipe.strMealThumb
+                  }}
+                  />
+                </div>
                 <h1 className='font-weight-bold mb-4 mb-sm-5'>{singleRecipe.strMeal}</h1>
                 <div className="d-flex justify-content-center justify-content-sm-start align-items-center">
                   <img src={require(`../../assets/flags/${singleRecipe.strArea}.png`)}
