@@ -37,11 +37,11 @@ const TabListItem = ({ recipe, handleRemove }) => {
           <p className='item-name text-dark m-0 my-3'>{recipeName}</p>
         </div>
 
-        <div className={`question-popup p-3 bg-light text-size-09 ${!warning && 'd-none'}`}>
+        <div className={`question-popup p-3 text-size-09 ${!warning && 'd-none'}`}>
           <p className='text-dark'>Are you sure you want to remove the recipe from the list?</p>
           <div className="d-flex flex-row justify-content-center">
             <Button onClick={handleCancel} variant='dark' size='sm' className='mx-1'>CANCEL</Button>
-            <Button onClick={handleDelete} variant='secondary' size='sm' className='mx-1'>DELETE</Button>
+            <Button onClick={handleDelete} size='sm' className='mx-1 response-yes'>REMOVE</Button>
           </div>
         </div>
       </div>
