@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 // Redux
 import { connect } from 'react-redux';
@@ -30,6 +31,9 @@ const TabFavorites = ({ fetchFavorites, favorites, removeFavorite }) => {
     <div className='tab-favorites'>
       <h1>Favorites</h1>
       <hr />
+      {
+        favorites.length < 1 && <h6><em>You don't have any favorite recipes saved. <Link to='/recipes' className='text-danger'><u>Browse recipes!</u></Link></em></h6>
+      }
       <Row>
         {
           favorites && favorites.map(fav => (

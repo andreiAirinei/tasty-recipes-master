@@ -32,9 +32,13 @@ const authReducer = (state = INITIAL_STATE, action) => {
 
     case REGISTER_SUCCESS:
     case LOGIN_SUCCESS:
+      // Set token to LocalStorage
       localStorage.setItem('token', action.payload.token);
       // Set an empty private user object which will be later used
       localStorage.setItem('privateUser', JSON.stringify({ recipe: {} }));
+      // Set user history in local storage
+      localStorage.setItem('appHistory', JSON.stringify({ recipes: [] }));
+
       return {
         ...state,
         ...action.payload,
@@ -51,6 +55,8 @@ const authReducer = (state = INITIAL_STATE, action) => {
       localStorage.removeItem('token');
       // Remove private User recipe
       localStorage.removeItem('privateUser');
+      // Remove user's history
+      localStorage.removeItem('appHistory');
       // Delete 'x-auth-token' from default headers
       setAuthToken(false);
 

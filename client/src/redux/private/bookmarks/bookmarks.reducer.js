@@ -36,7 +36,7 @@ const bookmarksReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         current: null,
-        bookmarks: null
+        bookmarks: []
       }
 
     default:

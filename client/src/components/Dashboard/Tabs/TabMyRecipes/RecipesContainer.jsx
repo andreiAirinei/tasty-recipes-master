@@ -35,7 +35,7 @@ const RecipesContainer = ({ history, fetchUserRecipes, removeRecipeById, editRec
   return (
     <div className='recipes-container mb-5'>
       {
-        recipes.length < 1 && <h5><em>Seems like you don't have any recipes created. <Link to='/dashboard/create' className='text-danger'><u>Go and make one!</u></Link></em></h5>
+        recipes.length < 1 && <h6><em>You don't have any recipes created. <Link to='/dashboard/create' className='text-danger'><u>Go and make one!</u></Link></em></h6>
       }
       <Row>
         {

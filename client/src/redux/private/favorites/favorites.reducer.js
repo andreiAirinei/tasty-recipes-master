@@ -38,7 +38,7 @@ const favoritesReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         current: null,
-        favorites: null
+        favorites: []
       }
 
     default:

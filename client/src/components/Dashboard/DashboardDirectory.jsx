@@ -7,6 +7,7 @@ import TabCreate from './Tabs/TabCreate/TabCreate';
 import TabMyRecipes from './Tabs/TabMyRecipes/TabMyRecipes';
 import TabFavorites from './Tabs/TabFavorites/TabFavorites';
 import TabBookmarks from './Tabs/TabBookmarks/TabBookmarks';
+import TabHistory from './Tabs/TabHistory/TabHistory';
 
 // Bootstrap
 import Row from 'react-bootstrap/Row';
@@ -27,6 +28,7 @@ const DashboardDirectory = ({ match }) => {
             <Route exact path={`${match.url}/my-recipes`} component={TabMyRecipes} />
             <Route exact path={`${match.url}/favorites`} component={TabFavorites} />
             <Route exact path={`${match.url}/bookmarks`} component={TabBookmarks} />
+            <Route exact path={`${match.url}/history`} component={TabHistory} />
             <Route exact path={`${match.url}`} render={() => <Redirect to={`${match.url}/create`} />}
             />
           </Switch>

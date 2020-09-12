@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 // Redux
 import { connect } from 'react-redux';
@@ -30,12 +31,15 @@ const TabBookmarks = ({ fetchBookmarks, bookmarks, removeBookmark }) => {
     <div className='tab-bookmarks'>
       <h1>Bookmarks</h1>
       <hr />
+      {
+        bookmarks.length < 1 && <h6><em>You don't have any bookmarks. <Link to='/recipes' className='text-danger'><u>Browse recipes!</u></Link></em></h6>
+      }
       <Row>
         {
-          bookmarks && bookmarks.map(bm => (
-            <Col xs={6} sm={4} key={bm._id}>
+          bookmarks && bookmarks.map(bkm => (
+            <Col xs={6} sm={4} key={bkm._id}>
               <TabListItem
-                recipe={bm}
+                recipe={bkm}
                 handleRemove={handleRemove} />
             </Col>
           ))

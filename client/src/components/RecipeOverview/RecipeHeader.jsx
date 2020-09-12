@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 // Redux
 import { connect } from 'react-redux';
+import { addRecipeToHistory } from '../../redux/history/history.actions';
 
 // Selectors
 import { createStructuredSelector } from 'reselect';
@@ -17,7 +18,16 @@ import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
 import FavIcons from './FavIcons';
 
-const RecipeHeader = ({ singleRecipe }) => {
+const RecipeHeader = ({ singleRecipe, isAuthenticated, addRecipeToHistory }) => {
+
+  useEffect(() => {
+    singleRecipe && isAuthenticated && addRecipeToHistory({
+      id: singleRecipe.idMeal,
+      name: singleRecipe.strMeal,
+      image: singleRecipe.strMealThumb
+    });
+
+  }, [singleRecipe]);
 
   return (
     <div className='recipe-header mb-5'>
@@ -72,8 +82,9 @@ const RecipeHeader = ({ singleRecipe }) => {
   )
 }
 
-const mapStateToProps = createStructuredSelector({
-  singleRecipe: selectSingleRecipe
+const mapStateToProps = state => ({
+  singleRecipe: selectSingleRecipe(state),
+  isAuthenticated: state.auth.isAuthenticated
 });
 
-export default connect(mapStateToProps)(RecipeHeader);
+export default connect(mapStateToProps, { addRecipeToHistory })(RecipeHeader);

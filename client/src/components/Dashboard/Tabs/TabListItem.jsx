@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Image from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
 
-const TabListItem = ({ recipe, handleRemove }) => {
+const TabListItem = ({ recipe, handleRemove, canBeRemoved = true }) => {
   const [warning, setWarning] = useState(false);
 
   const { recipeID, recipeName, recipeImageUrl } = recipe;
@@ -31,9 +31,13 @@ const TabListItem = ({ recipe, handleRemove }) => {
       <div className='collection-list--item mb-4 mx-auto text-center'>
         <div className={`item-thumbnail p-1 ${warning && 'opacity-02'}`}>
           <Image src={recipeImageUrl} fluid rounded />
-          <button onClick={handleWarning} className="remove-item outline-none border-0 text-danger font-weight-bold m-0 p-0 d-flex align-items-center justify-content-center">
-            <p className='p-0 m-0'>X</p>
-          </button>
+          {
+            canBeRemoved &&
+            <button onClick={handleWarning} className="remove-item outline-none border-0 text-danger font-weight-bold m-0 p-0 d-flex align-items-center justify-content-center">
+              <p className='p-0 m-0'>X</p>
+            </button>
+          }
+
           <p className='item-name text-dark m-0 my-3'>{recipeName}</p>
         </div>
 

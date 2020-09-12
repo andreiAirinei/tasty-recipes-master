@@ -24,11 +24,9 @@ const TabCreate = ({ createRecipe, updateRecipe, populateFieldsFromLS, resetAllF
   const { ingredients, steps } = recipe;
 
   useEffect(() => {
-    console.log(editMode);
     !editMode && populateFieldsFromLS();
 
     return () => {
-      console.log('Unmounting TabCreate');
       toggleEditMode(false);
     }
   }, [editMode, toggleEditMode, populateFieldsFromLS]);

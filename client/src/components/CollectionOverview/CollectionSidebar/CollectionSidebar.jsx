@@ -10,6 +10,7 @@ import {
   fetchDishTypes
 } from '../../../redux/category/category.actions';
 import { setInfinityListSettings } from '../../../redux/ui/ui.actions';
+import { openModalCredentials } from '../../../redux/modals/credentialsModal/credentialsModal.actions';
 
 // Selectors
 import { createStructuredSelector } from 'reselect';
@@ -30,6 +31,8 @@ const CollectionSidebar = ({
   fetchDishTypes,
   countriesList,
   dishTypes,
+  isAuthenticated,
+  openModalCredentials
 }) => {
 
   const [isMobileDevice, setIsMobileDevice] = useState(null);
@@ -58,11 +61,19 @@ const CollectionSidebar = ({
 
   const handleWindowResize = () => {
     window.innerWidth < 576 ? setIsMobileDevice(true) : setIsMobileDevice(false);
-  }
+  };
 
   const scrollToCustomY = (posY) => {
     if (window.scrollY > posY) window.scrollTo(0, posY);
   };
+
+  // If user is not authenticated it will render Credentials Modal, otherwize it will Link to dashboard/create
+  const handleCreateButton = e => {
+    if (!isAuthenticated) {
+      e.preventDefault();
+      openModalCredentials();
+    }
+  }
 
   return (
     <Sticky
@@ -109,7 +120,7 @@ const CollectionSidebar = ({
             </ExpandableList>
             <div className="mt-5">
               <Link to='/dashboard/create'>
-                <Button variant='outline-danger' >Create your own!</Button>
+                <Button onClick={handleCreateButton} variant='outline-danger' >Create your own!</Button>
               </Link>
             </div>
           </div>
@@ -119,15 +130,17 @@ const CollectionSidebar = ({
   )
 }
 
-const mapStateToProps = createStructuredSelector({
-  countriesList: selectCountriesList,
-  dishTypes: selectDishTypes
+const mapStateToProps = state => ({
+  countriesList: selectCountriesList(state),
+  dishTypes: selectDishTypes(state),
+  isAuthenticated: state.auth.isAuthenticated
 })
 
 const maDispatchToProps = dispatch => ({
   setActiveCategory: category => dispatch(setActiveCategory(category)),
   fetchCountries: () => dispatch(fetchCountries()),
-  fetchDishTypes: () => dispatch(fetchDishTypes())
+  fetchDishTypes: () => dispatch(fetchDishTypes()),
+  openModalCredentials: () => dispatch(openModalCredentials())
 });
 
 export default connect(mapStateToProps, maDispatchToProps)(CollectionSidebar);

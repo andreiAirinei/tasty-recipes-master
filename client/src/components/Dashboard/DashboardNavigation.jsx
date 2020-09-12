@@ -9,6 +9,7 @@ import { ReactComponent as AddIcon } from '../../assets/plus.svg';
 import { ReactComponent as RecipesIcon } from '../../assets/myrecipes.svg';
 import { ReactComponent as FavoritesIcon } from '../../assets/favorites.svg';
 import { ReactComponent as BookmarksIcon } from '../../assets/bookmark2.svg';
+import { ReactComponent as HistoryIcon } from '../../assets/history.svg';
 
 const DashboardNavigation = ({ location, toggleEditMode }) => {
   const [currentTab, setCurrentTab] = useState('');
@@ -27,6 +28,11 @@ const DashboardNavigation = ({ location, toggleEditMode }) => {
         return;
       case '/dashboard/bookmarks':
         setCurrentTab('bookmarks');
+        return;
+      case '/dashboard/history':
+        setCurrentTab('history');
+        return;
+      default:
         return;
     }
   }, [location]);
@@ -79,6 +85,16 @@ const DashboardNavigation = ({ location, toggleEditMode }) => {
         <div className="d-flex flex-row align-items-center justify-content-between">
           <p className='m-0 mr-2'>Bookmarks</p>
           <BookmarksIcon className='icon-small' />
+        </div>
+      </Link>
+      <Link
+        to='/dashboard/history'
+        onClick={handleClick}
+        className={`dashboard-link text-decoration-none rounded-sm text-left outline-none p-2 ${currentTab === 'history' ? 'withBorder text-tasty' : 'text-dark'}`}
+      >
+        <div className="d-flex flex-row align-items-center justify-content-between">
+          <p className='m-0 mr-2'>History</p>
+          <HistoryIcon className='icon-small' />
         </div>
       </Link>
 

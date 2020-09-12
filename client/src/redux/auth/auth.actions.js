@@ -13,6 +13,7 @@ import {
 
 // Used in 'logout' function
 import { RESET_ALL_FIELDS } from '../private/recipes/privateRecipes.types';
+import { DELETE_SEEN_RECIPES_HISTORY } from '../history/history.types';
 
 // Load User
 export const loadUser = () => async dispatch => {
@@ -80,6 +81,8 @@ export const login = formData => async dispatch => {
 export const logout = () => dispatch => {
   // Remove USER dashboard details from Redux
   dispatch({ type: RESET_ALL_FIELDS });
+  // Remove History
+  dispatch({ type: DELETE_SEEN_RECIPES_HISTORY })
   // Remove token from LocalStorage
   dispatch({ type: LOGOUT });
   dispatch(loadUser());
