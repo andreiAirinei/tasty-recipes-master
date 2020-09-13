@@ -84,7 +84,7 @@ const Register = ({ setTopicLogin, register }) => {
         </Form.Group>
 
         <div className="submit-button text-center">
-          <Button variant="danger" type="submit" block>
+          <Button className='bg-tasty' type="submit" block>
             Register
           </Button>
         </div>

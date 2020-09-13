@@ -45,7 +45,7 @@ const Login = ({ setTopicLogin, login }) => {
         </Form.Group>
 
         <div className="submit-button text-center">
-          <Button variant="danger" type="submit" block>
+          <Button variant="" className='bg-tasty' type="submit" block>
             Log In
           </Button>
         </div>
