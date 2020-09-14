@@ -1180,22 +1180,42 @@ $tasty: #418327;
 // Footer.jsx
 .footer {
   position: relative;
-  height: 300px;
+  min-height: 500px;
   margin-top: 100px;
-  overflow: hidden;
+  background-image: url('../assets/footer.jpg');
+  background-color: #f7f7f7;
+  background-position-y: bottom;
+  background-repeat: repeat-x;
 
-  // &::before {
-  //   position: absolute;
-  //   content: url('../assets/grass2.png');
-  //   top: 0;
-  //   left: 0;
-  //   right: 0;
-  //   display: inline-block;
-  //   width: 100vw;
-  //   height: 120px;
-  //   transform: translateY(-97%);
-  //   z-index: 1;
-  // }
+  .input-group {
+    input {
+    display: block;
+    width: 300px;
+    max-width: 80%;
+    }
+    button {
+      border-radius: 0;
+    }
+  }
+
+  &-links {
+    ul li {
+      // text-align: left;
+      &:hover {
+        a {
+          background: #d7d7d7;
+        }
+      }
+    }
+    a {
+      background: #e8e8e8;
+      color: var(--dark);
+      padding: 5px 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+  }
 }
 
 // ############## MEDIA QUERIES #############
