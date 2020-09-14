@@ -15,8 +15,8 @@ const INITIAL_STATE = {
     {
       id: 0,
       name: 'Chicken',
-      imgURL: 'https://i.ibb.co/h7xdkrN/chicken.jpg',
-      icon: 'https://www.themealdb.com/images/category/chicken.png'
+      imgURL: 'https://i.ibb.co/pLdCmMV/rsz-chicken2.png',
+      icon: 'https://i.ibb.co/pLdCmMV/rsz-chicken2.png'
     },
     {
       id: 1,

@@ -108,6 +108,8 @@ const Header = ({ openMobileMenu, closeMobileMenu, openModalCredentials, isAuthe
         <hr className='mr-3' />
         <Link to='/dashboard' onClick={handleDashboardLink} className='d-block text-decoration-none'><h5 className='text-dark l-spacing-1'>&rsaquo; Dashboard</h5></Link>
         <hr className='mr-3' />
+        <Link to='/contact' onClick={closeMobileMenu} className='d-block text-decoration-none'><h5 className='text-dark l-spacing-1'>&rsaquo; Contact</h5></Link>
+        <hr className='mr-3' />
       </div>
 
     </Fragment>

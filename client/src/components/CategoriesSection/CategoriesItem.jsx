@@ -20,9 +20,7 @@ const CategoriesItem = ({ name, imgURL, setActiveCategory, history }) => {
     <Col xs={6} md={3} className='categories-item p-1' onClick={handleClick}>
       <div className="categories-card mx-auto">
         <Image src={imgURL} alt={name} rounded fluid />
-        {/* <div className="text-center my-3"> */}
         <h4 className='category-name text-dark font-weight-bold text-center mt-3 mb-5 l-spacing-1'>{name}</h4>
-        {/* </div> */}
       </div>
     </Col>
   )

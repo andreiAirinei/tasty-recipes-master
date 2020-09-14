@@ -595,6 +595,10 @@ $tasty: #418327;
     max-width: 300px;
     cursor: pointer;
 
+    img {
+      max-height: 173px;
+    }
+
     &:hover {
       .category-name, img {
         transition: all 0.15s;
@@ -1183,7 +1187,7 @@ $tasty: #418327;
 
 // ContactPage.jsx
 .contact-page {
-  margin: 100px 0 0 0;
+  margin-top: 100px;
   border-radius: 10px;
   .contact-form {
     position: relative;
@@ -1286,6 +1290,10 @@ $tasty: #418327;
     .cta-card {
       transform: translate(-50%, 40%);
     }
+  }
+
+  .contact-page {
+    margin-top: 50px;
   }
 }
 
