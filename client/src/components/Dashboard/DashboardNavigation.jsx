@@ -37,19 +37,11 @@ const DashboardNavigation = ({ location, toggleEditMode }) => {
     }
   }, [location]);
 
-  const handleClick = () => {
-    // setTimeout is used for this specific case so that it can execute AFTER ScrollToTop.jsx logic
-    setTimeout(() => {
-      // Puting this event in to Call Stack / Callback Queue 
-      window.scrollTo(0, 450);
-    }, 0);
-  }
-
   return (
     <div className="dashboard-navigation d-flex flex-row flex-md-column justify-content-center mb-4">
       <Link
         to='/dashboard/create'
-        onClick={() => { toggleEditMode(false); handleClick(); }}
+        onClick={() => toggleEditMode(false)}
         className={`dashboard-link text-decoration-none rounded-sm text-left outline-none p-2 ${currentTab === 'create' ? 'withBorder text-tasty' : 'text-dark'}`}
       >
         <div className="d-flex flex-row align-items-center justify-content-between">
@@ -59,7 +51,6 @@ const DashboardNavigation = ({ location, toggleEditMode }) => {
       </Link>
       <Link
         to='/dashboard/my-recipes'
-        onClick={handleClick}
         className={`dashboard-link text-decoration-none rounded-sm text-left outline-none p-2 ${currentTab === 'recipes' ? 'withBorder text-tasty' : 'text-dark'}`}
       >
         <div className="d-flex flex-row align-items-center justify-content-between">
@@ -69,7 +60,6 @@ const DashboardNavigation = ({ location, toggleEditMode }) => {
       </Link>
       <Link
         to='/dashboard/favorites'
-        onClick={handleClick}
         className={`dashboard-link text-decoration-none rounded-sm text-left outline-none p-2 ${currentTab === 'favorites' ? 'withBorder text-tasty' : 'text-dark'}`}
       >
         <div className="d-flex flex-row align-items-center justify-content-between">
@@ -79,7 +69,6 @@ const DashboardNavigation = ({ location, toggleEditMode }) => {
       </Link>
       <Link
         to='/dashboard/bookmarks'
-        onClick={handleClick}
         className={`dashboard-link text-decoration-none rounded-sm text-left outline-none p-2 ${currentTab === 'bookmarks' ? 'withBorder text-tasty' : 'text-dark'}`}
       >
         <div className="d-flex flex-row align-items-center justify-content-between">
@@ -89,7 +78,6 @@ const DashboardNavigation = ({ location, toggleEditMode }) => {
       </Link>
       <Link
         to='/dashboard/history'
-        onClick={handleClick}
         className={`dashboard-link text-decoration-none rounded-sm text-left outline-none p-2 ${currentTab === 'history' ? 'withBorder text-tasty' : 'text-dark'}`}
       >
         <div className="d-flex flex-row align-items-center justify-content-between">

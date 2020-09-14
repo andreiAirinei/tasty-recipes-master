@@ -25,7 +25,7 @@ const CategoriesContainer = ({ popularCategories }) => {
         }
       </Row>
       <div className="underlay-image">
-        <img src={require('../../assets/ingredients/oranges.png')} alt="Oranges" />
+        <img src={require('../../assets/ingredients/limes.png')} alt="Oranges" />
       </div>
     </Container>
   )

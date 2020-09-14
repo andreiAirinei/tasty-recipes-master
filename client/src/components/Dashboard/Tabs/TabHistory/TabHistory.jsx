@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 // Redux
 import { connect } from 'react-redux';
@@ -17,12 +18,13 @@ const TabHistory = ({ seenRecipes, populateHistoryFromLS }) => {
     populateHistoryFromLS();
   }, [])
 
-  console.log(seenRecipes);
-
   return (
     <div>
       <h1>Recently seen</h1>
       <hr />
+      {
+        seenRecipes.length < 1 && <h6><em>You haven't seen any recipes yet. <Link to='/recipes' className='text-danger'><u>Browse recipes!</u></Link></em></h6>
+      }
       <Row>
         {
           seenRecipes && seenRecipes.map(recipe => (
