@@ -10,10 +10,9 @@ const LettersMenu = ({ lettersRefList, handleClick }) => {
             {
               lettersRefList.current.length > 1 && lettersRefList.current.map((ref, idx) => (
                 <span key={idx}>
-                  <button className='btn btn-link p-1 text-danger text-size-09' onClick={(e) => handleClick(e, idx)} key={idx}>
+                  <button className='btn btn-link p-1 text-danger text-size-1' onClick={(e) => handleClick(e, idx)} key={idx}>
                     {ref.innerText}
                   </button>
-                  {idx < lettersRefList.current.length - 1 && '|'}
                 </span>
               ))
             }

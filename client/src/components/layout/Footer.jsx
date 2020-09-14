@@ -22,16 +22,21 @@ const Footer = () => {
             </InputGroup.Append>
           </InputGroup>
         </div>
-        <div className="footer-links d-flex flex-row justify-content-around">
+        <div className="footer-links d-flex flex-column flex-sm-row justify-content-around">
           <ul className='list-unstyled font-weight-bold text-center'>
             <li className='my-3'><a href='#'>Professionals</a></li>
             <li className='my-3'><a href='#'>Communities</a></li>
-            <li className='my-3'><a href='#'>Local Meetups</a></li>
+            <li className='my-3'><a href='#'>Webinars</a></li>
           </ul>
           <ul className='list-unstyled font-weight-bold text-center'>
-            <li className='my-3'><a href='#'>Webinars</a></li>
+            <li className='my-3'><a href='#'>Local Meetups</a></li>
             <li className='my-3'><a href='#'>Partners</a></li>
             <li className='my-3'><a href='#'>Stores</a></li>
+          </ul>
+          <ul className='list-unstyled font-weight-bold text-center'>
+            <li className='my-3'><a href='#'>Work with us</a></li>
+            <li className='my-3'><a href='#'>Our Initiatives</a></li>
+            <li className='my-3'><a href='#'>Giving Back</a></li>
           </ul>
         </div>
         <div className="text-center my-5">

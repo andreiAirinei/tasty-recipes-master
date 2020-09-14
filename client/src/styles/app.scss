@@ -82,6 +82,10 @@ $tasty: #418327;
   width: 120px !important;
 }
 
+.h-100 {
+  height: 100% !important;
+}
+
 .icon-small {
   width: 15px;
   height: 15px;
@@ -1177,6 +1181,31 @@ $tasty: #418327;
   }
 }
 
+// ContactPage.jsx
+.contact-page {
+  margin: 100px 0 0 0;
+  border-radius: 10px;
+  .contact-form {
+    position: relative;
+    border: 1px solid #d7d7d7;
+    background: #f7f7f7;
+    border-radius: 10px;
+
+    &::before {
+      position: absolute;
+      content: '';
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 7px;
+      border-top-right-radius: 10px;
+      border-top-left-radius: 10px;
+      // background: #418327;
+      background: var(--primary);
+    }
+  }
+}
+
 // Footer.jsx
 .footer {
   position: relative;
@@ -1200,7 +1229,6 @@ $tasty: #418327;
 
   &-links {
     ul li {
-      // text-align: left;
       &:hover {
         a {
           background: #d7d7d7;

@@ -20,6 +20,7 @@ import VideoModal from './components/Modals/VideoModal/VideoModal';
 import HomePage from './pages/HomePage';
 import RecipesDirectory from './pages/RecipesDirectory';
 import IngredientsPage from './pages/IngredientsPage';
+import ContactPage from './pages/ContactPage';
 import DashboardPage from './pages/DashboardPage';
 
 // If exists, set token on default global headers
@@ -40,6 +41,7 @@ const App = ({ getLatestRecipes, loadUser }) => {
           <Route exact path='/' component={HomePage} />
           <Route path='/recipes' component={RecipesDirectory} />
           <Route path='/ingredients' component={IngredientsPage} />
+          <Route path='/contact' component={ContactPage} />
           <PrivateRoute path='/dashboard' component={DashboardPage} />
         </Switch>
       </Layout>
