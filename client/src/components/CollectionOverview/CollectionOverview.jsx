@@ -22,10 +22,10 @@ const CollectionOverview = ({ activeCategory }) => {
       <SectionTitle title={`${activeCategory.type} Recipes`} />
       <StickyContainer className='mb-5'>
         <Row>
-          <Col xs={12} sm={3} md={2}>
+          <Col xs={12} md={3} >
             <CollectionSidebar />
           </Col>
-          <Col xs={12} sm={9} md={10}>
+          <Col xs={12} md={9} >
             <CollectionContent />
           </Col>
         </Row>

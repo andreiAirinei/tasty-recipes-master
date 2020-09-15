@@ -55,7 +55,7 @@ const CollectionList = ({ infinityList, infinityListSettings, setInfinityListSet
           <Row className='p-2'>
             {
               infinityList.data.map((recipe, idx) => (
-                <Col xs={6} md={4} key={idx} className='p-0 px-1'>
+                <Col xs={6} lg={4} key={idx} className='p-0 px-2'>
                   <CollectionListItem
                     key={recipe.idMeal}
                     recipeID={recipe.idMeal}

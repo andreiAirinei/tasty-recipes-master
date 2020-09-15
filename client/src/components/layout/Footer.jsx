@@ -44,7 +44,7 @@ const Footer = () => {
         </div>
       </Container>
       <div className='text-center mb-2'>
-        <p className='text-dark bg-light d-inline'>&copy; Copyright 2020 by <a href='https://aandrei.dev' target='_blank' className='text-dark'>Andrei Airinei</a></p>
+        <p className='text-dark bg-light d-inline'>Copyright &copy; 2020 <a href='https://aandrei.dev' target='_blank' className='text-dark'>Andrei Airinei</a></p>
       </div>
     </footer>
   )

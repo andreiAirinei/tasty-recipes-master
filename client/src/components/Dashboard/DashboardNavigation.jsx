@@ -38,7 +38,7 @@ const DashboardNavigation = ({ location, toggleEditMode }) => {
   }, [location]);
 
   return (
-    <div className="dashboard-navigation d-flex flex-row flex-md-column justify-content-center mb-4">
+    <div className="dashboard-navigation sidebar-menu d-flex flex-row flex-md-column justify-content-center mb-4">
       <Link
         to='/dashboard/create'
         onClick={() => toggleEditMode(false)}

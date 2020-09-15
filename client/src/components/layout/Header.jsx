@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { ReactComponent as IconDashboard } from '../../assets/dashboard.svg';
+import ReactLogo from '../../assets/hamburger_menu.svg';
 
 // Redux
 import { connect } from 'react-redux';
@@ -9,6 +10,7 @@ import {
   closeMobileMenu
 } from '../../redux/ui/ui.actions';
 import { openModalCredentials } from '../../redux/modals/credentialsModal/credentialsModal.actions';
+import { logout } from '../../redux/auth/auth.actions';
 
 // Components
 import LoginRegisterButtons from '../LoginRegisterButtons/LoginRegisterButtons';
@@ -18,9 +20,8 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-import ReactLogo from '../../assets/hamburger_menu.svg';
 
-const Header = ({ openMobileMenu, closeMobileMenu, openModalCredentials, isAuthenticated, isShowingMobileMenu, authSuccess, history }) => {
+const Header = ({ openMobileMenu, closeMobileMenu, openModalCredentials, isAuthenticated, isShowingMobileMenu, authSuccess, history, logout }) => {
   const [classes, setClasses] = useState({
     header: '',
     logo: ''
@@ -54,6 +55,16 @@ const Header = ({ openMobileMenu, closeMobileMenu, openModalCredentials, isAuthe
       e.preventDefault();
       openModalCredentials();
     }
+  }
+
+  const handleLogin = () => {
+    closeMobileMenu();
+    openModalCredentials();
+  }
+
+  const handleLogout = () => {
+    closeMobileMenu();
+    logout();
   }
 
   return (
@@ -110,6 +121,12 @@ const Header = ({ openMobileMenu, closeMobileMenu, openModalCredentials, isAuthe
         <hr className='mr-3' />
         <Link to='/contact' onClick={closeMobileMenu} className='d-block text-decoration-none'><h5 className='text-dark l-spacing-1'>&rsaquo; Contact</h5></Link>
         <hr className='mr-3' />
+        {
+          isAuthenticated ?
+            <Link to='/' onClick={handleLogout} className='d-block text-decoration-none my-5'><h5 className='text-danger l-spacing-1'>&rsaquo; LOGOUT</h5></Link>
+            :
+            <button onClick={handleLogin} className='btn btn-link m-0 p-0 d-block text-decoration-none my-5'><h5 className='text-tasty l-spacing-1'>&rsaquo; LOGIN</h5></button>
+        }
       </div>
 
     </Fragment>
@@ -125,7 +142,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   openMobileMenu: () => dispatch(openMobileMenu()),
   closeMobileMenu: () => dispatch(closeMobileMenu()),
-  openModalCredentials: () => dispatch(openModalCredentials())
+  openModalCredentials: () => dispatch(openModalCredentials()),
+  logout: () => dispatch(logout())
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));

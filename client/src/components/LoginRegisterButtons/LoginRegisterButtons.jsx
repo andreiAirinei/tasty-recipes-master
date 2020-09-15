@@ -1,12 +1,10 @@
 import React, { Fragment } from 'react';
 import { withRouter } from 'react-router-dom';
-import { ReactComponent as UserIcon } from '../../assets/user_profile.svg';
+import { ReactComponent as UserIcon } from '../../assets/login.svg';
 
 // Redux
 import { connect } from 'react-redux';
 import { logout } from '../../redux/auth/auth.actions';
-import { clearFavorites } from '../../redux/private/favorites/favorites.actions';
-import { clearBookmarks } from '../../redux/private/bookmarks/bookmarks.actions';
 import {
   openModalCredentials,
   setTopicLogin
@@ -15,7 +13,7 @@ import {
 // Bootstrap
 import Button from 'react-bootstrap/Button';
 
-const LoginRegisterButtons = ({ openModalCredentials, setTopicLogin, isAuthenticated, logout, clearBookmarks, clearFavorites, history }) => {
+const LoginRegisterButtons = ({ openModalCredentials, setTopicLogin, isAuthenticated, logout, history }) => {
 
   const handleClick = (e) => {
     e.target.id === 'registerBtn' ? setTopicLogin(false) : setTopicLogin(true);
@@ -25,8 +23,6 @@ const LoginRegisterButtons = ({ openModalCredentials, setTopicLogin, isAuthentic
   const onLogout = () => {
     logout();
     history.push('/');
-    clearBookmarks();
-    clearFavorites();
   }
 
   const guestLinks = (
@@ -48,9 +44,12 @@ const LoginRegisterButtons = ({ openModalCredentials, setTopicLogin, isAuthentic
       </div>
 
       {/* Devices under 992px width */}
-      <div className="login-register--mobile d-block d-lg-none">
+      { 
+        !isAuthenticated &&  
+      <div className="login-register--mobile d-block d-lg-none mx-2">
         <Button onClick={handleClick} id='profileBtn' variant='none' className='outline-none'><UserIcon className='icon-large' /></Button>
       </div>
+      }
     </Fragment>
   )
 }
@@ -62,9 +61,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   setTopicLogin: topic => dispatch(setTopicLogin(topic)),
   openModalCredentials: () => dispatch(openModalCredentials()),
-  logout: () => dispatch(logout()),
-  clearBookmarks: () => dispatch(clearBookmarks()),
-  clearFavorites: () => dispatch(clearFavorites())
+  logout: () => dispatch(logout())
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(LoginRegisterButtons));

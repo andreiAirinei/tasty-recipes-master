@@ -36,11 +36,12 @@ const CollectionSidebar = ({
 }) => {
 
   const [isMobileDevice, setIsMobileDevice] = useState(null);
+  const [showFilters, setShowFilters] = useState(true);
 
   useEffect(() => {
     fetchCountries();
     fetchDishTypes();
-    window.innerWidth < 576 ? setIsMobileDevice(true) : setIsMobileDevice(false);
+    handleWindowResize();
     window.addEventListener('resize', handleWindowResize);
   }, [fetchCountries, fetchDishTypes, isMobileDevice]);
 
@@ -51,6 +52,9 @@ const CollectionSidebar = ({
       isCountry: e.currentTarget.dataset.iscountry
     });
 
+    // On mobile devices close the menu after selecting an option
+    isMobileDevice && setShowFilters(false);
+
     setInfinityListSettings({
       idxStart: 0,
       idxEnd: 12
@@ -60,7 +64,13 @@ const CollectionSidebar = ({
   }
 
   const handleWindowResize = () => {
-    window.innerWidth < 576 ? setIsMobileDevice(true) : setIsMobileDevice(false);
+    if (window.innerWidth < 768) {
+      setIsMobileDevice(true);
+      setShowFilters(false);
+    } else {
+      setIsMobileDevice(false);
+      setShowFilters(true);
+    }
   };
 
   const scrollToCustomY = (posY) => {
@@ -83,46 +93,59 @@ const CollectionSidebar = ({
       {
         ({ style, isSticky }) => (
           <div
-            className='sidebar-category bg-white pb-2'
+            className='sidebar-category bg-white pb-2 pt-2'
             style={{ ...style, marginTop: isSticky ? (isMobileDevice ? '52px' : '150px') : '0px', zIndex: 2 }}
           >
-            <h4 className='text-dark'>Recipes</h4>
-            <SidebarButton
-              handleClick={handleSidebarButton}
-              text='All'
-            />
-            <SidebarButton handleClick={handleSidebarButton} text='Latest' />
-            <ExpandableList listName='Dish Type'>
-              {
-                dishTypes && dishTypes.map(dish => (
-                  <SidebarButton
-                    key={dish.strCategory}
-                    text={dish.strCategory}
-                    handleClick={handleSidebarButton}
-                    isListItem
-                  />
-                ))
-              }
-            </ExpandableList>
-            <ExpandableList listName='World Cuisine'>
-              {
-                countriesList && countriesList.map(country => (
-                  <SidebarButton
-                    key={country.strArea}
-                    text={country.strArea}
-                    iconName={country.strArea}
-                    handleClick={handleSidebarButton}
-                    isCountry
-                    isListItem
-                  />
-                ))
-              }
-            </ExpandableList>
-            <div className="mt-5">
-              <Link to='/dashboard/create'>
-                <Button onClick={handleCreateButton} variant='outline-danger' >Create your own!</Button>
+            <div className="text-center d-md-none mb-1">
+              <Button onClick={() => setShowFilters(!showFilters)} variant='dark'>
+                {showFilters ? 'Hide Filters' : 'Show Filters'}
+              </Button>
+              <Link to='/dashboard/create' className='ml-3'>
+                <Button onClick={handleCreateButton} variant='outline-danger'>Create meal!</Button>
               </Link>
             </div>
+            {
+              showFilters &&
+              <div className='sidebar-menu menu-on-mobile'>
+                <h4 className='text-dark d-none d-sm-block'>Recipes</h4>
+                <SidebarButton
+                  handleClick={handleSidebarButton}
+                  text='All'
+                />
+                <SidebarButton handleClick={handleSidebarButton} text='Latest' />
+                <ExpandableList listName='Dish Type'>
+                  {
+                    dishTypes && dishTypes.map(dish => (
+                      <SidebarButton
+                        key={dish.strCategory}
+                        text={dish.strCategory}
+                        handleClick={handleSidebarButton}
+                        isListItem
+                      />
+                    ))
+                  }
+                </ExpandableList>
+                <ExpandableList listName='World Cuisine'>
+                  {
+                    countriesList && countriesList.map(country => (
+                      <SidebarButton
+                        key={country.strArea}
+                        text={country.strArea}
+                        iconName={country.strArea}
+                        handleClick={handleSidebarButton}
+                        isCountry
+                        isListItem
+                      />
+                    ))
+                  }
+                </ExpandableList>
+                <div className="d-none d-md-block mt-2 mt-sm-5 text-center">
+                  <Link to='/dashboard/create'>
+                    <Button onClick={handleCreateButton} variant='outline-danger'>Create meal!</Button>
+                  </Link>
+                </div>
+              </div>
+            }
           </div>
         )
       }

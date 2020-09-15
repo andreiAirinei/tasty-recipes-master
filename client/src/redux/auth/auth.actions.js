@@ -11,9 +11,11 @@ import {
   CLEAR_ERRORS
 } from './auth.types';
 
-// Used in 'logout' function
+// Also used along 'logout' function
 import { RESET_ALL_FIELDS } from '../private/recipes/privateRecipes.types';
 import { DELETE_SEEN_RECIPES_HISTORY } from '../history/history.types';
+import { CLEAR_BOOKMARKS } from '../private/bookmarks/bookmarks.types';
+import { CLEAR_FAVORITES } from '../private/favorites/favorites.types';
 
 // Load User
 export const loadUser = () => async dispatch => {
@@ -83,6 +85,10 @@ export const logout = () => dispatch => {
   dispatch({ type: RESET_ALL_FIELDS });
   // Remove History
   dispatch({ type: DELETE_SEEN_RECIPES_HISTORY })
+  // Remove bookmarks
+  dispatch({ type: CLEAR_BOOKMARKS });
+  // Remove favorites
+  dispatch({ type: CLEAR_FAVORITES });
   // Remove token from LocalStorage
   dispatch({ type: LOGOUT });
   dispatch(loadUser());
