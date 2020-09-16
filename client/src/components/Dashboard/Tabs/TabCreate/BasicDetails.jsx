@@ -134,7 +134,7 @@ const BasicDetails = ({
           </InputGroup>
 
           {/* Youtube player button */}
-          <button className='youtube-button border-0' onClick={handleYoutubeBtn} type="button">
+          <button className='youtube-button border-0 mb-3' onClick={handleYoutubeBtn} type="button">
             <div className='d-flex flex-row align-items-center'>
               <div className="youtube-link">
                 <img src={require('../../../../assets/youtube.svg')} alt="Youtube Link" />

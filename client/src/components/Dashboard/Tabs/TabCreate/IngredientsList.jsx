@@ -58,7 +58,7 @@ const IngredientsList = ({
     <div className='tab-create tab-create-section shadow'>
       {/* Ingredients */}
       <h4 className='text-center py-3 mb-3'>Ingredients</h4>
-      <div className="d-flex">
+      <div className="d-flex flex-column flex-lg-row">
         <div className="mr-5 w-100 pt-4">
           {/* Ingredient name */}
           <InputGroup className="mb-3">
@@ -101,7 +101,7 @@ const IngredientsList = ({
           <button
             onClick={handleAddIngredient}
             type='button'
-            className='btn btn-dark outline-none text-size-08'
+            className='btn btn-dark outline-none text-size-08 d-block mx-auto mx-lg-0 mb-5'
           >
             ADD INGREDIENT
           </button>
@@ -113,7 +113,7 @@ const IngredientsList = ({
               ingredients.map(ing => (
                 <li key={ing.id} className='text-dark shadow-sm'>
                   <div
-                    className="d-flex flex-sm-column flex-md-row align-items-center py-1"
+                    className="d-flex flex-wrap align-items-center py-1"
                   >
                     <div className="d-flex align-items-center">
                       <img src={`https://www.themealdb.com/images/ingredients/${ing.name}-Small.png`} className='mr-1' />

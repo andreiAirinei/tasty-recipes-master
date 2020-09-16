@@ -60,7 +60,7 @@ const CollectionSidebar = ({
       idxEnd: 12
     })
 
-    scrollToCustomY(580);
+    scrollToCustomY(400);
   }
 
   const handleWindowResize = () => {

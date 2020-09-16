@@ -65,12 +65,12 @@ const TabCreate = ({ createRecipe, updateRecipe, populateFieldsFromLS, resetAllF
         {
           !editMode ?
             <div className="text-center">
-              <Button type='submit' variant='success mr-3'>SAVE RECIPE</Button>
-              <Button onClick={handleResetButton} variant='outline-secondary'>RESET FIELDS</Button>
+              <Button type='submit' variant='success' className='create-form-button mr-3'>SAVE RECIPE</Button>
+              <Button onClick={handleResetButton} variant='outline-secondary' className='create-form-button'>RESET FIELDS</Button>
             </div>
             : <div className="text-center">
-              <Button type='submit' variant='success mr-3'>UPDATE RECIPE</Button>
-              <Button onClick={() => window.history.back()} variant='outline-dark'>CANCEL</Button>
+              <Button type='submit' variant='success' className='mr-3' className='create-form-button'>UPDATE RECIPE</Button>
+              <Button onClick={() => window.history.back()} variant='outline-dark' className='create-form-button'>CANCEL</Button>
             </div>
         }
       </Form>

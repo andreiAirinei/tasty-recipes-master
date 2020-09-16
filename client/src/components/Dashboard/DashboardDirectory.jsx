@@ -16,9 +16,9 @@ import Col from 'react-bootstrap/Col';
 const DashboardDirectory = ({ match }) => {
 
   return (
-    <div className='dashboard-directory mt-3 mt-md-5'>
+    <div className='dashboard-directory mt-md-5'>
       <Row>
-        <Col md={3} lg={2} className='p-0'>
+        <Col md={3} lg={2} className='px-0 px-md-1 p-xl-0'>
           <DashboardNavigation />
         </Col>
         <Col md={9} lg={10}>

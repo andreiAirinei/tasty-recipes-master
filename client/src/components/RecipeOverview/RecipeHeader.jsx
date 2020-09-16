@@ -41,21 +41,29 @@ const RecipeHeader = ({ singleRecipe, isAuthenticated, addRecipeToHistory }) => 
                 fluid
                 className='shadow-sm'
               />
+              <FavIcons recipe={{
+                recipeID: singleRecipe.idMeal,
+                recipeName: singleRecipe.strMeal,
+                recipeImageUrl: singleRecipe.strMealThumb
+              }}
+              />
             </div>
           </Col>
           <Col xs={12} sm={7}>
             <div className="header-content">
               <div className="top text-center text-sm-left mt-3">
-                <div className="d-flex justify-content-between">
-                  <h4 className='text-danger'>{singleRecipe.strCategory}</h4>
-                  <FavIcons recipe={{
-                    recipeID: singleRecipe.idMeal,
-                    recipeName: singleRecipe.strMeal,
-                    recipeImageUrl: singleRecipe.strMealThumb
-                  }}
-                  />
+                <div className="d-flex flex-column flex-sm-row-reverse justify-content-between">
+                  <div className="d-none d-sm-block">
+                    <FavIcons recipe={{
+                      recipeID: singleRecipe.idMeal,
+                      recipeName: singleRecipe.strMeal,
+                      recipeImageUrl: singleRecipe.strMealThumb
+                    }}
+                    />
+                  </div>
+                  <h1 className='font-weight-bold mt-3 mt-sm-0'>{singleRecipe.strMeal}</h1>
                 </div>
-                <h1 className='font-weight-bold mb-4 mb-sm-5'>{singleRecipe.strMeal}</h1>
+                <h4 className='text-danger mb-4 mb-sm-5'>{singleRecipe.strCategory}</h4>
                 <div className="d-flex justify-content-center justify-content-sm-start align-items-center">
                   <img src={require(`../../assets/flags/${singleRecipe.strArea}.png`)}
                     alt={`${singleRecipe.strArea} flag`}

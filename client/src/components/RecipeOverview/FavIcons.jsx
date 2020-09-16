@@ -32,11 +32,11 @@ const FavIcons = ({ favorites, addFavorite, removeFavorite, recipe }) => {
       {
         state.isFavorite ?
           (<OverlayTrigger placement='top' overlay={<Tooltip>Remove from Favorites</Tooltip>}>
-            <StarFilled onClick={() => removeFavorite(recipe.recipeID)} className='fav-icon--xlarge mr-1' />
+            <StarFilled onClick={() => removeFavorite(recipe.recipeID)} className='fav-icon--xlarge' />
           </OverlayTrigger>)
           :
           (<OverlayTrigger placement='top' overlay={<Tooltip>Add to Favorites</Tooltip>}>
-            <StarEmpty onClick={() => addFavorite({ ...recipe })} className='fav-icon--xlarge mr-1' />
+            <StarEmpty onClick={() => addFavorite({ ...recipe })} className='fav-icon--xlarge' />
           </OverlayTrigger>)
       }
     </div>
