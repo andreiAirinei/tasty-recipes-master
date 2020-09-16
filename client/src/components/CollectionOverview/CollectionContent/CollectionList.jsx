@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { setInfinityListSettings } from '../../../redux/ui/ui.actions';
 import { addFavorite } from '../../../redux/private/favorites/favorites.actions';
 import { addBookmark } from '../../../redux/private/bookmarks/bookmarks.actions';
+import { setAlert } from '../../../redux/alert/alert.actions';
 
 // Selectors
 import { createStructuredSelector } from 'reselect';
@@ -82,9 +83,7 @@ const mapStateToProps = createStructuredSelector({
 const mapDispatchToProps = dispatch => ({
   setInfinityListSettings: settings => dispatch(setInfinityListSettings(settings)),
   addFavorite: recipe => dispatch(addFavorite(recipe)),
-  addBookmark: recipe => dispatch(addBookmark(recipe))
+  addBookmark: recipe => dispatch(addBookmark(recipe)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CollectionList);
-
-// #####################################

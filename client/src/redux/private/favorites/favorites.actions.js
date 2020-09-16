@@ -7,6 +7,9 @@ import {
   CLEAR_FAVORITES
 } from './favorites.types';
 
+import { setAlert } from '../../alert/alert.actions';
+import { getErrorType } from '../../errors.data';
+
 // Fetch user's favorite recipes
 export const fetchFavorites = () => async dispatch => {
   try {
@@ -36,22 +39,26 @@ export const addFavorite = favorite => async dispatch => {
       type: ADD_FAVORITE,
       payload: res.data
     });
+
+    dispatch(setAlert('Recipe successfully added to Favorites', 'success'));
   } catch (err) {
-    console.log(err.response.data.msg);
+    dispatch(setAlert(getErrorType(err.response.data.msg), 'fail'));
   }
 };
 
 // Remove favorite recipe from user's list
 export const removeFavorite = id => async dispatch => {
   try {
-    await axios.delete(`/api/favorites/${id}`);
+    const res = await axios.delete(`/api/favorites/${id}`);
 
     dispatch({
       type: REMOVE_FAVORITE,
       payload: id
     })
+
+    dispatch(setAlert(res.data.msg, 'success'));
   } catch (err) {
-    console.error(err.message);
+    dispatch(setAlert(getErrorType(err.response.data.msg), 'fail'));
   }
 }
 

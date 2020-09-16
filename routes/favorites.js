@@ -66,7 +66,7 @@ router.delete('/:id', auth, async (req, res) => {
 
     await Favorites.findByIdAndRemove(favorite._id);
 
-    res.json({ msg: 'Favorite removed!' });
+    res.json({ msg: 'Favorite successfully removed!' });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');

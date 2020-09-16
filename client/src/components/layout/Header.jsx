@@ -10,10 +10,12 @@ import {
   closeMobileMenu
 } from '../../redux/ui/ui.actions';
 import { openModalCredentials } from '../../redux/modals/credentialsModal/credentialsModal.actions';
+import { setAlert } from '../../redux/alert/alert.actions';
 import { logout } from '../../redux/auth/auth.actions';
 
 // Components
 import LoginRegisterButtons from '../LoginRegisterButtons/LoginRegisterButtons';
+import Alert from './Alert';
 
 // Bootstrap Components
 import Container from 'react-bootstrap/Container';
@@ -21,7 +23,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 
-const Header = ({ openMobileMenu, closeMobileMenu, openModalCredentials, isAuthenticated, isShowingMobileMenu, authSuccess, history, logout }) => {
+const Header = ({ openMobileMenu, closeMobileMenu, openModalCredentials, isAuthenticated, user, isShowingMobileMenu, authSuccess, history, setAlert, logout }) => {
   const [classes, setClasses] = useState({
     header: '',
     logo: ''
@@ -31,9 +33,12 @@ const Header = ({ openMobileMenu, closeMobileMenu, openModalCredentials, isAuthe
     // Why 'authSuccess' instead of 'isAuthenticated' for redirecting on login/register ?
     // Because 'authSuccess' state will change ONLY on successful Login/Register
     // 'isAuthenticated' state changes only when 'localStorage.token' is changing
-    authSuccess && history.push('/dashboard');
+    if (authSuccess) {
+      history.push('/dashboard');
+      user && setAlert(`Welcome, ${user.username}!`, 'success', 4000);
+    }
     window.addEventListener('scroll', handleScroll);
-  }, [authSuccess]);
+  }, [authSuccess, user]);
 
   const handleScroll = () => {
     if (window.scrollY > 100) {
@@ -103,6 +108,7 @@ const Header = ({ openMobileMenu, closeMobileMenu, openModalCredentials, isAuthe
           </Row>
         </Container>
         {isShowingMobileMenu && <div onClick={closeMobileMenu} className="header-navbar--overlay" />}
+        <Alert />
       </nav>
 
       <div className={`navbar-menu--sidebar bg-light pt-2 pl-3 ${isShowingMobileMenu && 'isActive'}`}>
@@ -136,6 +142,7 @@ const Header = ({ openMobileMenu, closeMobileMenu, openModalCredentials, isAuthe
 const mapStateToProps = state => ({
   isShowingMobileMenu: state.ui.isShowingMobileMenu,
   authSuccess: state.auth.authSuccess,
+  user: state.auth.user,
   isAuthenticated: state.auth.isAuthenticated
 });
 
@@ -143,6 +150,7 @@ const mapDispatchToProps = dispatch => ({
   openMobileMenu: () => dispatch(openMobileMenu()),
   closeMobileMenu: () => dispatch(closeMobileMenu()),
   openModalCredentials: () => dispatch(openModalCredentials()),
+  setAlert: (msg, type, time) => dispatch(setAlert(msg, type, time)),
   logout: () => dispatch(logout())
 })
 

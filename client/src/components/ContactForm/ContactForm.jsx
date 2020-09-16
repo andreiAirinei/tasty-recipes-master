@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 
+// Redux
+import { connect } from 'react-redux';
+import { setAlert } from '../../redux/alert/alert.actions';
+
 // Bootstrap
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-const ContactForm = () => {
+const ContactForm = ({ setAlert }) => {
   const [inputs, setInputs] = useState({
     name: '',
     email: '',
@@ -26,7 +30,8 @@ const ContactForm = () => {
       name: '',
       email: '',
       message: ''
-    })
+    });
+    setAlert('Message successfully sent. Thank you!', 'success');
   };
 
   return (
@@ -53,4 +58,5 @@ const ContactForm = () => {
   )
 }
 
-export default ContactForm;
+export default connect(null, { setAlert })(ContactForm);
+

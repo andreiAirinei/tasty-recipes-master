@@ -11,6 +11,8 @@ import {
   CLEAR_ERRORS
 } from './auth.types';
 
+import { setAlert } from '../alert/alert.actions';
+
 // Also used along 'logout' function
 import { RESET_ALL_FIELDS } from '../private/recipes/privateRecipes.types';
 import { DELETE_SEEN_RECIPES_HISTORY } from '../history/history.types';
@@ -50,7 +52,7 @@ export const register = formData => async dispatch => {
   } catch (err) {
     dispatch({
       type: REGISTER_FAIL,
-      payload: err.response.data.msg
+      payload: err.response.data.msg || err.message
     })
   }
 }
@@ -74,7 +76,7 @@ export const login = formData => async dispatch => {
   } catch (err) {
     dispatch({
       type: LOGIN_FAIL,
-      payload: err.response.data.msg
+      payload: err.response.data.msg || err.message
     })
   }
 };
@@ -92,6 +94,7 @@ export const logout = () => dispatch => {
   // Remove token from LocalStorage
   dispatch({ type: LOGOUT });
   dispatch(loadUser());
+  dispatch(setAlert('Logout successfully!', 'success'));
 }
 
 // Clear Errors

@@ -11,6 +11,7 @@ import privateRecipesReducer from './private/recipes/privateRecipes.reducer';
 import favoritesReducer from './private/favorites/favorites.reducer';
 import bookmarksReducer from './private/bookmarks/bookmarks.reducer';
 import historyReducer from './history/history.reducer';
+import alertReducer from './alert/alert.reducer';
 
 const rootReducer = combineReducers({
   recipes: recipesReducer,
@@ -24,7 +25,8 @@ const rootReducer = combineReducers({
   privateRecipes: privateRecipesReducer,
   favorites: favoritesReducer,
   bookmarks: bookmarksReducer,
-  history: historyReducer
+  history: historyReducer,
+  alert: alertReducer
 });
 
 export default rootReducer;

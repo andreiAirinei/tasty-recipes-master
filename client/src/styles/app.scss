@@ -222,6 +222,7 @@ $tasty: #418327;
 // Header.jsx
 .header-navbar {
   border-bottom: 1px solid var(--white);
+  // position: relative;
 
   &--overlay {
     position: absolute;
@@ -251,6 +252,30 @@ $tasty: #418327;
       }
     }
   }
+}
+
+// Alert.jsx
+.alerts-container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  opacity: 0.92;
+  .msg {
+    color: #fff;
+  }
+}
+
+.success {
+  background-color: $tasty;
+}
+
+.fail {
+  background-color: #ED4F32 !important;
+}
+
+.warning {
+  background-color: #a5744d;
+  // p { color: var(--dark)}
 }
 
 .header-on-scroll {

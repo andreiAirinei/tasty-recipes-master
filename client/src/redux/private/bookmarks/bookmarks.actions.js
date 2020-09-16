@@ -7,6 +7,9 @@ import {
   CLEAR_BOOKMARKS
 } from './bookmarks.types';
 
+import { setAlert } from '../../alert/alert.actions';
+import { getErrorType } from '../../errors.data';
+
 // Fetch user's bookmarks
 export const fetchBookmarks = () => async dispatch => {
   try {
@@ -36,22 +39,26 @@ export const addBookmark = bm => async dispatch => {
       type: ADD_BOOKMARK,
       payload: res.data
     });
+
+    dispatch(setAlert('Recipe successfully added to Bookmarks', 'success'));
   } catch (err) {
-    console.log(err.response.data.msg);
+    dispatch(setAlert(getErrorType(err.response.data.msg), 'fail'));
   }
 };
 
 // Remove bookmark from user's list
 export const removeBookmark = id => async dispatch => {
   try {
-    await axios.delete(`/api/bookmarks/${id}`);
+    const res = await axios.delete(`/api/bookmarks/${id}`);
 
     dispatch({
       type: REMOVE_BOOKMARK,
       payload: id
-    })
+    });
+
+    dispatch(setAlert(res.data.msg, 'success'));
   } catch (err) {
-    console.error(err.message);
+    dispatch(setAlert(getErrorType(err.response.data.msg), 'fail'));
   }
 }
 
