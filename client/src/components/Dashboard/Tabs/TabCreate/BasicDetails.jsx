@@ -139,7 +139,7 @@ const BasicDetails = ({
               <div className="youtube-link">
                 <img src={require('../../../../assets/youtube.svg')} alt="Youtube Link" />
               </div>
-              <p className='m-0 ml-2'>Play Video</p>
+              <p className='m-0 ml-2 text-size-09'>Play Video</p>
             </div>
           </button>
         </Col>
