@@ -37,7 +37,11 @@ const recipesReducer = (state = INITIAL_STATE, action) => {
     case GET_ALL_RECIPES:
       return {
         ...state,
-        allRecipes: action.payload,
+        allRecipes: action.payload && action.payload.sort((a, b) => {
+          let textA = a.strMeal.toUpperCase().trim();
+          let textB = b.strMeal.toUpperCase().trim();
+          return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+        }),
         isLoading: false
       }
     case GET_SINGLE_RECIPE:
@@ -73,10 +77,15 @@ const recipesReducer = (state = INITIAL_STATE, action) => {
       }
 
     case GET_RECIPES_BY_CATEGORY:
+      console.log(action.payload.data);
       return {
         ...state,
         recipesByCategory: {
-          data: action.payload.data,
+          data: action.payload.data && action.payload.data.sort((a, b) => {
+            let textA = a.strMeal.toUpperCase().trim();
+            let textB = b.strMeal.toUpperCase().trim();
+            return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+          }),
           isLoading: action.payload.isLoading
         }
       }

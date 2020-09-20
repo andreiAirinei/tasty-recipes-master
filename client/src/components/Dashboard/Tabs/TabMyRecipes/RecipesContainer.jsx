@@ -8,6 +8,9 @@ import {
 } from '../../../../redux/private/recipes/privateRecipes.actions';
 import RecipesItem from './RecipesItem';
 
+// Components
+import SectionTitle from '../../../layout/SectionTitle';
+
 // Bootstrap
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -25,15 +28,13 @@ const RecipesContainer = ({ history, fetchUserRecipes, removeRecipeById, editRec
 
   const handleEditRecipe = (e, id) => {
     e.preventDefault();
-    console.log(id, '------in edit');
     editRecipeById(id);
     history.push(`/dashboard/edit/${id}`);
   }
 
-  console.log(recipes);
-
   return (
     <div className='recipes-container mb-5'>
+      <SectionTitle title='My Recipes' />
       {
         recipes.length < 1 && <h6><em>You don't have any recipes created. <Link to='/dashboard/create' className='text-danger'><u>Go and make one!</u></Link></em></h6>
       }

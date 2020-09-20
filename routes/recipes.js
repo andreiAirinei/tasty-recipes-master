@@ -18,6 +18,19 @@ router.get('/', auth, async (req, res) => {
   }
 });
 
+// @route   GET api/recipes/:id
+// @desc    Get all recipes of a specific user
+// @access  Private
+router.get('/:id', auth, async (req, res) => {
+  try {
+    const recipe = await Recipe.findById(req.params.id);
+    res.json(recipe);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error!');
+  }
+});
+
 // @route   POST api/recipes
 // @desc    Add new recipe
 // @access  Private

@@ -1,17 +1,18 @@
 import React from 'react';
+import { Switch, Route, withRouter } from 'react-router-dom';
 
 // Components
 import RecipesContainer from './RecipesContainer.jsx';
-import SectionTitle from '../../../layout/SectionTitle.jsx';
+import ViewContainer from '../../ViewContainer/ViewContainer.jsx';
 
-const TabMyRecipes = () => {
+const TabMyRecipes = ({ match }) => {
 
   return (
-    <div>
-      <SectionTitle title='My Recipes' />
-      <RecipesContainer />
-    </div>
+    <Switch>
+      <Route exact path={match.url} component={RecipesContainer} />
+      <Route exact path={`${match.url}/:id`} component={ViewContainer} />
+    </Switch>
   )
 }
 
-export default TabMyRecipes;
+export default withRouter(TabMyRecipes);

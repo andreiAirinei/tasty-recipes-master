@@ -844,22 +844,21 @@ $tasty: #418327;
       }
     }
   }
-  .recipe-ingredients {
-    .ingredients-list li {
-      border-bottom: 1px dotted #d3d3d3;
+}
 
-      img { width: 40px; }
-      
-      .ingredient { width: 150px; }
+.ingredients-list li {
+  border-bottom: 1px dotted #d3d3d3;
 
-      &:hover {
-        background: var(--light);
-        cursor: pointer;
+  img { width: 40px; }
+  
+  .ingredient { width: 150px; }
 
-        .ingredient { 
-          text-decoration: underline;
-        }
-      }
+  &:hover {
+    background: var(--light);
+    cursor: pointer;
+
+    .ingredient { 
+      text-decoration: underline;
     }
   }
 }

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 
 // Components
@@ -22,9 +22,9 @@ const DashboardDirectory = ({ match }) => {
 
       <Container fluid='xl'>
         <Switch>
-          <Route path={`${match.url}/create`} component={TabCreate} />
-          <Route path={`${match.url}/edit/:id`} component={TabCreate} />
-          <Route exact path={`${match.url}/my-recipes`} component={TabMyRecipes} />
+          <Route exact path={`${match.url}/create`} component={TabCreate} />
+          <Route exact path={`${match.url}/edit/:id`} component={TabCreate} />
+          <Route path={`${match.url}/my-recipes`} component={TabMyRecipes} />
           <Route exact path={`${match.url}/favorites`} component={TabFavorites} />
           <Route exact path={`${match.url}/bookmarks`} component={TabBookmarks} />
           <Route exact path={`${match.url}/history`} component={TabHistory} />

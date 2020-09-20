@@ -11,6 +11,7 @@ import {
   SET_CURRENT_STEP_VALUE,
   ADD_RECIPE_STEP,
   REMOVE_RECIPE_STEP,
+  SET_CURRENT_RECIPE,
   SET_STEP_TO_EDIT,
   SET_EDIT_INPUT_VALUE,
   SAVE_STEP_CHANGES,
@@ -316,6 +317,12 @@ const privateRecipesReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         recipes: action.payload
+      }
+
+    case SET_CURRENT_RECIPE:
+      return {
+        ...state,
+        current: action.payload
       }
 
     case REMOVE_RECIPE_BY_ID:

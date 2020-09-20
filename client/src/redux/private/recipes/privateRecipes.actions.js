@@ -20,6 +20,7 @@ import {
   SET_EDIT_INPUT_VALUE,
   POPULATE_FROM_LOCALSTORAGE,
   FETCH_USER_RECIPES,
+  SET_CURRENT_RECIPE,
   REMOVE_RECIPE_BY_ID,
   EDIT_RECIPE_BY_ID,
   UPDATE_RECIPE,
@@ -62,7 +63,7 @@ export const setImgbbImage = file => async dispatch => {
   const formData = new FormData();
   formData.append("image", file);
   // Create a new AXIOS instance just for this API call in order to send a request without 'x-auth-token' in Headers
-  const instance = axios.create({ timeout: 10000 });
+  const instance = axios.create({ timeout: 20000 });
   delete instance.defaults.headers.common['x-auth-token'];
 
   const res = await instance.post('https://api.imgbb.com/1/upload', formData, {
@@ -189,6 +190,19 @@ export const fetchUserRecipes = () => async dispatch => {
     });
   } catch (error) {
     console.log(error);
+  }
+}
+
+export const setCurrentRecipe = id => async dispatch => {
+  try {
+    const res = await axios.get(`/api/recipes/${id}`);
+
+    dispatch({
+      type: SET_CURRENT_RECIPE,
+      payload: res.data
+    });
+  } catch (err) {
+    console.error(err);
   }
 }
 

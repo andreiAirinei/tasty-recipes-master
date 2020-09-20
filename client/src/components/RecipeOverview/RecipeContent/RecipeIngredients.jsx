@@ -10,9 +10,6 @@ import {
 // Selectors
 import { selectSingleRecipe } from '../../../redux/recipes/recipes.selectors';
 
-// Bootstrap
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Tooltip from 'react-bootstrap/Tooltip';
 
 const RecipeIngredients = ({ singleRecipe, setModalIngredient, modalOpenIngredient }) => {
   const [state, setState] = useState(null);
