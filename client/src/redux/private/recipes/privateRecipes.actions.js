@@ -132,7 +132,7 @@ export const populateFieldsFromLS = () => ({ type: POPULATE_FROM_LOCALSTORAGE })
 
 // RESET all fields
 export const resetAllFields = () => dispatch => {
-  dispatch({ type: RESET_ALL_FIELDS })
+  dispatch({ type: RESET_ALL_FIELDS });
   dispatch(setAlert('Fields have been Cleared!', 'warning'));
 }
 

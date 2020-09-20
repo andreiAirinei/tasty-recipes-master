@@ -254,8 +254,25 @@ const privateRecipesReducer = (state = INITIAL_STATE, action) => {
       }
 
     case CREATE_RECIPE:
+      resetFieldsFromLocalStorage();
       return {
         ...state,
+        recipe: {
+          ...state.recipe,
+          name: '',
+          category: '',
+          area: '',
+          youtubeURL: '',
+          localImage: '',
+          imageFromIMGBB: '',
+          ingredients: [],
+          currentStep: '',
+          steps: [],
+          editStep: {
+            id: null,
+            value: ''
+          }
+        },
         current: action.payload,
         actionSuccessful: true
       }
