@@ -11,6 +11,7 @@ import {
 } from '../../../../redux/private/recipes/privateRecipes.actions';
 
 // Components
+import SectionTitle from '../../../layout/SectionTitle';
 import BasicDetails from './BasicDetails';
 import IngredientsList from './IngredientsList';
 import Instructions from './Instructions';
@@ -56,8 +57,7 @@ const TabCreate = ({ createRecipe, updateRecipe, populateFieldsFromLS, resetAllF
   return (
     <div className={`tab-create ${editMode && 'theme-edit'}`}>
 
-      {!editMode ? <h1>Create new recipe</h1> : <h1>Edit Recipe</h1>}
-      <hr />
+      <SectionTitle title={!editMode ? 'Create new recipe' : 'Edit Recipe'} />
       <Form onSubmit={handleSubmit}>
         <BasicDetails />
         <IngredientsList />

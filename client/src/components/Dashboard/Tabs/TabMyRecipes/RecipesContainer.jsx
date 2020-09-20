@@ -40,7 +40,7 @@ const RecipesContainer = ({ history, fetchUserRecipes, removeRecipeById, editRec
       <Row>
         {
           !recipes.length < 1 && recipes.map(recipe => (
-            <Col xs={12} sm={6} lg={4} key={recipe._id} >
+            <Col xs={12} sm={6} lg={3} key={recipe._id} >
               <RecipesItem
                 recipe={recipe}
                 handleDeleteRecipe={handleDeleteRecipe}

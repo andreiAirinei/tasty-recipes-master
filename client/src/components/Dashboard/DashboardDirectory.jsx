@@ -10,30 +10,28 @@ import TabBookmarks from './Tabs/TabBookmarks/TabBookmarks';
 import TabHistory from './Tabs/TabHistory/TabHistory';
 
 // Bootstrap
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import Container from 'react-bootstrap/Container';
 
 const DashboardDirectory = ({ match }) => {
 
   return (
-    <div className='dashboard-directory mt-md-5'>
-      <Row>
-        <Col md={3} lg={2} className='px-0 px-md-1 p-xl-0'>
-          <DashboardNavigation />
-        </Col>
-        <Col md={9} lg={10}>
-          <Switch>
-            <Route path={`${match.url}/create`} component={TabCreate} />
-            <Route path={`${match.url}/edit/:id`} component={TabCreate} />
-            <Route exact path={`${match.url}/my-recipes`} component={TabMyRecipes} />
-            <Route exact path={`${match.url}/favorites`} component={TabFavorites} />
-            <Route exact path={`${match.url}/bookmarks`} component={TabBookmarks} />
-            <Route exact path={`${match.url}/history`} component={TabHistory} />
-            <Route exact path={`${match.url}`} render={() => <Redirect to={`${match.url}/create`} />}
-            />
-          </Switch>
-        </Col>
-      </Row>
+    <div className='dashboard-directory mt-md-2'>
+      <Container fluid='xl' className='px-0'>
+        <DashboardNavigation />
+      </Container>
+
+      <Container fluid='xl'>
+        <Switch>
+          <Route path={`${match.url}/create`} component={TabCreate} />
+          <Route path={`${match.url}/edit/:id`} component={TabCreate} />
+          <Route exact path={`${match.url}/my-recipes`} component={TabMyRecipes} />
+          <Route exact path={`${match.url}/favorites`} component={TabFavorites} />
+          <Route exact path={`${match.url}/bookmarks`} component={TabBookmarks} />
+          <Route exact path={`${match.url}/history`} component={TabHistory} />
+          <Route exact path={`${match.url}`} render={() => <Redirect to={`${match.url}/create`} />}
+          />
+        </Switch>
+      </Container>
     </div>
   )
 }

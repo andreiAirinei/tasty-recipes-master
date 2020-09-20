@@ -9,6 +9,7 @@ import {
 } from '../../../../redux/private/favorites/favorites.actions';
 
 // Components
+import SectionTitle from '../../../layout/SectionTitle';
 import TabListItem from '../TabListItem';
 
 // Bootstrap
@@ -29,15 +30,14 @@ const TabFavorites = ({ fetchFavorites, favorites, removeFavorite }) => {
 
   return (
     <div className='tab-favorites'>
-      <h1>Favorites</h1>
-      <hr />
+      <SectionTitle title='Favorites' />
       {
         favorites.length < 1 && <h6><em>You don't have any favorite recipes saved. <Link to='/recipes' className='text-danger'><u>Browse recipes!</u></Link></em></h6>
       }
       <Row>
         {
           favorites && favorites.map(fav => (
-            <Col xs={6} sm={4} key={fav._id}>
+            <Col xs={6} sm={4} lg={3} key={fav._id}>
               <TabListItem
                 recipe={fav}
                 handleRemove={handleRemove} />

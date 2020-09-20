@@ -10,6 +10,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 // Components
+import SectionTitle from '../../../layout/SectionTitle';
 import TabListItem from '../TabListItem';
 
 const TabHistory = ({ seenRecipes, populateHistoryFromLS }) => {
@@ -20,15 +21,14 @@ const TabHistory = ({ seenRecipes, populateHistoryFromLS }) => {
 
   return (
     <div>
-      <h1>Recently seen</h1>
-      <hr />
+      <SectionTitle title='Recently Seen' />
       {
         seenRecipes.length < 1 && <h6><em>You haven't seen any recipes yet. <Link to='/recipes' className='text-danger'><u>Browse recipes!</u></Link></em></h6>
       }
       <Row>
         {
           seenRecipes && seenRecipes.map(recipe => (
-            <Col xs={6} sm={4} key={recipe.id}>
+            <Col xs={6} sm={4} lg={3} key={recipe.id}>
               <TabListItem
                 canBeRemoved={false}
                 recipe={{

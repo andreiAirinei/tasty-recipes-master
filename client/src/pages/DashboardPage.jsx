@@ -4,9 +4,6 @@ import React from 'react';
 import Jumbotron from '../components/Jumbotron/Jumbotron';
 import DashboardDirectory from '../components/Dashboard/DashboardDirectory';
 
-// Bootstrap
-import Container from 'react-bootstrap/Container';
-
 const DashboardPage = () => {
   return (
     <div className='dashboard-page'>
@@ -26,9 +23,7 @@ const DashboardPage = () => {
           <span className='text-success'>share</span></h6>
         <h6 className='text-white text-center hero-text'>your most beloved recipes!</h6>
       </Jumbotron>
-      <Container fluid='xl'>
-        <DashboardDirectory />
-      </Container>
+      <DashboardDirectory />
     </div>
   )
 }

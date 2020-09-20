@@ -10,6 +10,7 @@ import {
 
 // Components
 import TabListItem from '../TabListItem';
+import SectionTitle from '../../../layout/SectionTitle';
 
 // Bootstrap
 import Row from 'react-bootstrap/Row';
@@ -29,15 +30,14 @@ const TabBookmarks = ({ fetchBookmarks, bookmarks, removeBookmark }) => {
 
   return (
     <div className='tab-bookmarks'>
-      <h1>Bookmarks</h1>
-      <hr />
+      <SectionTitle title='Bookmarks' />
       {
         bookmarks.length < 1 && <h6><em>You don't have any bookmarks. <Link to='/recipes' className='text-danger'><u>Browse recipes!</u></Link></em></h6>
       }
       <Row>
         {
           bookmarks && bookmarks.map(bkm => (
-            <Col xs={6} sm={4} key={bkm._id}>
+            <Col xs={6} sm={4} lg={3} key={bkm._id}>
               <TabListItem
                 recipe={bkm}
                 handleRemove={handleRemove} />
