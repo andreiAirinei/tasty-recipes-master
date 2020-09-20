@@ -22,7 +22,8 @@ import {
   EDIT_RECIPE_BY_ID,
   UPDATE_RECIPE,
   TOGGLE_EDIT_MODE,
-  SET_ACTION_SUCCESSFUL_TO_FALSE
+  SET_ACTION_SUCCESSFUL_TO_FALSE,
+  SET_IMAGE_LOADING
 } from './privateRecipes.types';
 
 import {
@@ -61,7 +62,8 @@ const INITIAL_STATE = {
   recipes: [],
   editMode: false,
   current: null,
-  actionSuccessful: false
+  actionSuccessful: false,
+  imgbbLoading: false
 };
 
 const privateRecipesReducer = (state = INITIAL_STATE, action) => {
@@ -105,6 +107,7 @@ const privateRecipesReducer = (state = INITIAL_STATE, action) => {
       !state.editMode && setFieldValueToLocalStorage({ fieldName: 'imageFromIMGBB', value: action.payload });
       return {
         ...state,
+        imgbbLoading: false,
         recipe: {
           ...state.recipe,
           imageFromIMGBB: action.payload
@@ -359,6 +362,12 @@ const privateRecipesReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         actionSuccessful: false
+      }
+
+    case SET_IMAGE_LOADING:
+      return {
+        ...state,
+        imgbbLoading: true
       }
 
     default:

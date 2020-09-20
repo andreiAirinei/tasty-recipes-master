@@ -22,8 +22,9 @@ import Instructions from './Instructions';
 // Bootstrap
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import Spinner from 'react-bootstrap/Spinner';
 
-const TabCreate = ({ createRecipe, updateRecipe, populateFieldsFromLS, resetAllFields, editMode, toggleEditMode, recipe, setAlert, actionSuccessful, setActionSuccessfulToFalse, history }) => {
+const TabCreate = ({ createRecipe, updateRecipe, populateFieldsFromLS, resetAllFields, editMode, toggleEditMode, recipe, setAlert, actionSuccessful, imgbbLoading, setActionSuccessfulToFalse, history }) => {
 
   const { ingredients, steps } = recipe;
 
@@ -71,11 +72,39 @@ const TabCreate = ({ createRecipe, updateRecipe, populateFieldsFromLS, resetAllF
         {
           !editMode ?
             <div className="text-center">
-              <Button type='submit' variant='success' className='create-form-button mr-3'>SAVE RECIPE</Button>
+              <Button type='submit' variant='success' className='create-form-button mr-3' disabled={imgbbLoading}>
+                {
+                  imgbbLoading ? (
+                    <>
+                      <Spinner
+                        as="span"
+                        animation="border"
+                        size="sm"
+                        role="status"
+                        aria-hidden="true"
+                      /> Processing image...
+                  </>
+                  ) : 'SAVE RECIPE'
+                }
+              </Button>
               <Button onClick={handleResetButton} variant='outline-secondary' className='create-form-button'>RESET FIELDS</Button>
             </div>
             : <div className="text-center">
-              <Button type='submit' variant='success' className='create-form-button mr-3'>UPDATE RECIPE</Button>
+              <Button type='submit' variant='success' className='create-form-button mr-3' disabled={imgbbLoading}>
+                {
+                  imgbbLoading ? (
+                    <>
+                      <Spinner
+                        as="span"
+                        animation="border"
+                        size="sm"
+                        role="status"
+                        aria-hidden="true"
+                      /> Processing image...
+                  </>
+                  ) : 'UPDATE RECIPE'
+                }
+              </Button>
               <Button onClick={() => window.history.back()} variant='outline-dark' className='create-form-button'>CANCEL</Button>
             </div>
         }
@@ -87,7 +116,8 @@ const TabCreate = ({ createRecipe, updateRecipe, populateFieldsFromLS, resetAllF
 const mapStateToProps = state => ({
   recipe: state.privateRecipes.recipe,
   editMode: state.privateRecipes.editMode,
-  actionSuccessful: state.privateRecipes.actionSuccessful
+  actionSuccessful: state.privateRecipes.actionSuccessful,
+  imgbbLoading: state.privateRecipes.imgbbLoading
 })
 
 const mapDispatchToProps = dispatch => ({

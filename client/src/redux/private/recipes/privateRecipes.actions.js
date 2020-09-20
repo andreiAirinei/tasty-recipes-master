@@ -24,7 +24,8 @@ import {
   EDIT_RECIPE_BY_ID,
   UPDATE_RECIPE,
   TOGGLE_EDIT_MODE,
-  SET_ACTION_SUCCESSFUL_TO_FALSE
+  SET_ACTION_SUCCESSFUL_TO_FALSE,
+  SET_IMAGE_LOADING
 } from './privateRecipes.types';
 import { setAlert } from '../../alert/alert.actions';
 
@@ -55,6 +56,7 @@ export const removeImage = () => dispatch => {
 
 // Set recipe image on IMGBB API
 export const setImgbbImage = file => async dispatch => {
+  dispatch({ type: SET_IMAGE_LOADING });
   // There is a CORS error while 'x-auth-token' is included in the Headers when trying to do a request to IMGUR API 
   // I could have used 'fetch' instead of 'axios' in order to avoid this problem, same as I have used 'fetch' for TheMealDB API
   const formData = new FormData();
@@ -72,6 +74,7 @@ export const setImgbbImage = file => async dispatch => {
     }
   });
 
+  console.log(res);
   dispatch({
     type: SET_IMGBB_IMAGE,
     payload: res.data.data.image.url
