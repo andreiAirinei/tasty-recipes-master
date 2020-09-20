@@ -1,4 +1,5 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect } from 'react';
+import { withRouter } from 'react-router-dom';
 
 // Redux
 import { connect } from 'react-redux';
@@ -7,8 +8,10 @@ import {
   updateRecipe,
   populateFieldsFromLS,
   resetAllFields,
-  toggleEditMode
+  toggleEditMode,
+  setActionSuccessfulToFalse
 } from '../../../../redux/private/recipes/privateRecipes.actions';
+import { setAlert } from '../../../../redux/alert/alert.actions';
 
 // Components
 import SectionTitle from '../../../layout/SectionTitle';
@@ -20,17 +23,21 @@ import Instructions from './Instructions';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-const TabCreate = ({ createRecipe, updateRecipe, populateFieldsFromLS, resetAllFields, editMode, toggleEditMode, recipe }) => {
+const TabCreate = ({ createRecipe, updateRecipe, populateFieldsFromLS, resetAllFields, editMode, toggleEditMode, recipe, setAlert, actionSuccessful, setActionSuccessfulToFalse, history }) => {
 
   const { ingredients, steps } = recipe;
 
   useEffect(() => {
     !editMode && populateFieldsFromLS();
+    if (actionSuccessful) {
+      history.push('/dashboard/my-recipes');
+      setActionSuccessfulToFalse();
+    }
 
     return () => {
       toggleEditMode(false);
     }
-  }, [editMode, toggleEditMode, populateFieldsFromLS]);
+  }, [editMode, toggleEditMode, populateFieldsFromLS, actionSuccessful]);
 
 
   const handleResetButton = () => {
@@ -41,16 +48,15 @@ const TabCreate = ({ createRecipe, updateRecipe, populateFieldsFromLS, resetAllF
   const handleSubmit = e => {
     e.preventDefault();
     if (!ingredients.length > 0) {
-      console.log('Atleast 1 ingredient needed');
+      setAlert('Atleast 1 ingredient needed', 'fail');
       window.scrollTo(0, 1012);
       return;
     };
     if (!steps.length > 0) {
-      console.log('Atleast 1 cooking step needed');
+      setAlert('Atleast 1 cooking step needed', 'fail');
       window.scrollTo(0, 1400);
       return;
     };
-    console.log(recipe);
     !editMode ? createRecipe(recipe) : updateRecipe(recipe);
   };
 
@@ -69,7 +75,7 @@ const TabCreate = ({ createRecipe, updateRecipe, populateFieldsFromLS, resetAllF
               <Button onClick={handleResetButton} variant='outline-secondary' className='create-form-button'>RESET FIELDS</Button>
             </div>
             : <div className="text-center">
-              <Button type='submit' variant='success' className='mr-3' className='create-form-button'>UPDATE RECIPE</Button>
+              <Button type='submit' variant='success' className='create-form-button mr-3'>UPDATE RECIPE</Button>
               <Button onClick={() => window.history.back()} variant='outline-dark' className='create-form-button'>CANCEL</Button>
             </div>
         }
@@ -80,7 +86,8 @@ const TabCreate = ({ createRecipe, updateRecipe, populateFieldsFromLS, resetAllF
 
 const mapStateToProps = state => ({
   recipe: state.privateRecipes.recipe,
-  editMode: state.privateRecipes.editMode
+  editMode: state.privateRecipes.editMode,
+  actionSuccessful: state.privateRecipes.actionSuccessful
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -88,7 +95,9 @@ const mapDispatchToProps = dispatch => ({
   updateRecipe: recipe => dispatch(updateRecipe(recipe)),
   populateFieldsFromLS: () => dispatch(populateFieldsFromLS()),
   resetAllFields: () => dispatch(resetAllFields()),
-  toggleEditMode: value => dispatch(toggleEditMode(value))
+  toggleEditMode: value => dispatch(toggleEditMode(value)),
+  setAlert: (msg, type) => dispatch(setAlert(msg, type)),
+  setActionSuccessfulToFalse: () => dispatch(setActionSuccessfulToFalse())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TabCreate);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TabCreate));

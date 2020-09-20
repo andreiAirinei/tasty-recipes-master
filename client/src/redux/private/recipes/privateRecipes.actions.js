@@ -23,8 +23,10 @@ import {
   REMOVE_RECIPE_BY_ID,
   EDIT_RECIPE_BY_ID,
   UPDATE_RECIPE,
-  TOGGLE_EDIT_MODE
+  TOGGLE_EDIT_MODE,
+  SET_ACTION_SUCCESSFUL_TO_FALSE
 } from './privateRecipes.types';
+import { setAlert } from '../../alert/alert.actions';
 
 // ###################################################################################
 // ##################################### CREATE RECIPE ###############################
@@ -129,7 +131,10 @@ export const cancelStepChanges = () => ({ type: CANCEL_STEP_CHANGES });
 export const populateFieldsFromLS = () => ({ type: POPULATE_FROM_LOCALSTORAGE });
 
 // RESET all fields
-export const resetAllFields = () => ({ type: RESET_ALL_FIELDS })
+export const resetAllFields = () => dispatch => {
+  dispatch({ type: RESET_ALL_FIELDS })
+  dispatch(setAlert('Fields have been Cleared!', 'warning'));
+}
 
 // ADD RECIPE
 export const createRecipe = recipe => async dispatch => {
@@ -157,8 +162,12 @@ export const createRecipe = recipe => async dispatch => {
       type: CREATE_RECIPE,
       payload: res.data
     })
+
+    dispatch(setAlert('Recipe Created!', 'success'));
+
   } catch (err) {
-    console.log(err.response.data.msg);
+    // dispatch(setAlert(err.response.data.msg, 'fail'));
+    console.log(err);
   }
 };
 
@@ -205,8 +214,10 @@ export const updateRecipe = recipe => async dispatch => {
       type: UPDATE_RECIPE,
       payload: res.data
     })
+
+    dispatch(setAlert('Recipe Updated!', 'success'));
   } catch (err) {
-    console.log(err.response.data.msg);
+    dispatch(setAlert(err.response.data.msg, 'fail'));
   }
 }
 
@@ -219,9 +230,9 @@ export const removeRecipeById = id => async dispatch => {
       payload: id
     })
 
-    console.log(res);
+    dispatch(setAlert(res.data.msg, 'success'));
   } catch (err) {
-    console.log(err);
+    dispatch(setAlert(err.response.data.msg, 'fail'));
   }
 }
 
@@ -238,3 +249,5 @@ export const toggleEditMode = value => dispatch => {
     payload: value
   })
 }
+
+export const setActionSuccessfulToFalse = () => ({ type: SET_ACTION_SUCCESSFUL_TO_FALSE });

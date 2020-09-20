@@ -21,7 +21,8 @@ import {
   REMOVE_RECIPE_BY_ID,
   EDIT_RECIPE_BY_ID,
   UPDATE_RECIPE,
-  TOGGLE_EDIT_MODE
+  TOGGLE_EDIT_MODE,
+  SET_ACTION_SUCCESSFUL_TO_FALSE
 } from './privateRecipes.types';
 
 import {
@@ -59,7 +60,8 @@ const INITIAL_STATE = {
   },
   recipes: [],
   editMode: false,
-  current: null
+  current: null,
+  actionSuccessful: false
 };
 
 const privateRecipesReducer = (state = INITIAL_STATE, action) => {
@@ -254,7 +256,8 @@ const privateRecipesReducer = (state = INITIAL_STATE, action) => {
     case CREATE_RECIPE:
       return {
         ...state,
-        current: action.payload
+        current: action.payload,
+        actionSuccessful: true
       }
 
     case RESET_ALL_FIELDS: {
@@ -304,6 +307,7 @@ const privateRecipesReducer = (state = INITIAL_STATE, action) => {
     case EDIT_RECIPE_BY_ID:
       const toEdit = state.recipes.find(recipe => recipe._id === action.payload);
       const { _id, name, category, area, imageFromIMGBB, youtubeURL, ingredients, steps } = toEdit;
+
       return {
         ...state,
         recipe: {
@@ -324,13 +328,20 @@ const privateRecipesReducer = (state = INITIAL_STATE, action) => {
     case UPDATE_RECIPE:
       return {
         ...state,
-        current: action.payload
+        current: action.payload,
+        actionSuccessful: true
       }
 
     case TOGGLE_EDIT_MODE:
       return {
         ...state,
         editMode: action.payload
+      }
+
+    case SET_ACTION_SUCCESSFUL_TO_FALSE:
+      return {
+        ...state,
+        actionSuccessful: false
       }
 
     default:
