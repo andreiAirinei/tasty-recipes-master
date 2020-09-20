@@ -12,7 +12,8 @@ const User = require('../models/User');
 // @access  Public
 router.post('/', [
   check('email', 'Please include a valid email!').isEmail(),
-  check('password', 'Please enter a password with 6 ore more characters!').isLength({ min: 6 })
+  check('username', 'Minimum 4 characters required!').isLength({ min: 4 }),
+  check('password', 'Minimum 6 characters required!').isLength({ min: 6 })
 ], async (req, res) => {
   // Get errors if any
   const errors = validationResult(req);
@@ -21,13 +22,28 @@ router.post('/', [
     return res.status(400).json({ msg: errors.array() });
   }
 
-  const { username, email, password } = req.body;
+  const { username, email, password, password2 } = req.body;
+
+  if (password !== password2) {
+    return res.status(400).json({
+      msg: [{
+        msg: "Passwords do not match!",
+        param: "password2"
+      }]
+    })
+  }
 
   try {
     let user = await User.findOne({ email });
 
     if (user) {
-      return res.status(400).json({ msg: "User already exists!" });
+      // Message is formated in such way to look similar to errors sent from validationResult
+      return res.status(400).json({
+        msg: [{
+          msg: "User already exists!",
+          param: "email"
+        }]
+      });
     }
 
     user = new User({

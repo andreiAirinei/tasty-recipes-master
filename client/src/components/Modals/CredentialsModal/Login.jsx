@@ -9,7 +9,7 @@ import { setTopicLogin } from '../../../redux/modals/credentialsModal/credential
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-const Login = ({ setTopicLogin, login }) => {
+const Login = ({ setTopicLogin, login, error }) => {
 
   const [credentials, setCredentials] = useState({
     email: 'test@test.com',
@@ -35,6 +35,11 @@ const Login = ({ setTopicLogin, login }) => {
 
   return (
     <div className='credentials-modal--login'>
+      {
+        error && error.map(err =>
+          err.param === 'credentials' && (<p className='text-red text-center text-size-09 m-0 mb-2'><em>{err.msg}</em></p>))
+      }
+
       <Form onSubmit={handleSubmit} className='mb-3'>
         <Form.Group controlId="formBasicEmail">
           <Form.Control name="email" type="email" placeholder="Email" onChange={handleChange} value={email} required />
@@ -58,9 +63,13 @@ const Login = ({ setTopicLogin, login }) => {
   )
 }
 
+const mapStateToProps = state => ({
+  error: state.auth.error
+});
+
 const mapDispatchToProps = dispatch => ({
   setTopicLogin: topic => dispatch(setTopicLogin(topic)),
   login: formData => dispatch(login(formData))
 });
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

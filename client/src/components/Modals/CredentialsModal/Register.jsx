@@ -9,7 +9,7 @@ import { register } from '../../../redux/auth/auth.actions';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-const Register = ({ setTopicLogin, register }) => {
+const Register = ({ setTopicLogin, register, error }) => {
 
   const [credentials, setCredentials] = useState({
     email: '',
@@ -32,7 +32,8 @@ const Register = ({ setTopicLogin, register }) => {
     register({
       email,
       username,
-      password
+      password,
+      password2
     });
   };
 
@@ -40,7 +41,14 @@ const Register = ({ setTopicLogin, register }) => {
     <div className='credentials-modal--register'>
       <Form onSubmit={handleSubmit} className='mb-3'>
         <Form.Group controlId="formBasicEmail">
-          <Form.Label>Email *</Form.Label>
+          <Form.Label>Email *
+            {
+              error && error.map(err => (
+                err.param === 'email' && <span className='text-size-08 text-red'><em>{err.msg}</em></span>
+              ))
+
+            }
+          </Form.Label>
           <Form.Control
             type="email"
             name="email"
@@ -51,7 +59,13 @@ const Register = ({ setTopicLogin, register }) => {
         </Form.Group>
 
         <Form.Group controlId="formBasicUsername">
-          <Form.Label>Username *</Form.Label>
+          <Form.Label>Username *
+            {
+              error && error.map(err => (
+                err.param === 'username' && <span className='text-size-08 text-red'><em>{err.msg}</em></span>
+              ))
+            }
+          </Form.Label>
           <Form.Control
             type="text"
             name="username"
@@ -62,7 +76,13 @@ const Register = ({ setTopicLogin, register }) => {
         </Form.Group>
 
         <Form.Group controlId="formBasicPassword">
-          <Form.Label>Password *</Form.Label>
+          <Form.Label>Password *
+            {
+              error && error.map(err => (
+                err.param === 'password' && <span className='text-size-08 text-red'><em>{err.msg}</em></span>
+              ))
+            }
+          </Form.Label>
           <Form.Control
             type="password"
             name="password"
@@ -73,7 +93,13 @@ const Register = ({ setTopicLogin, register }) => {
         </Form.Group>
 
         <Form.Group controlId="formBasicConfirmPassword">
-          <Form.Label>Confirm Password *</Form.Label>
+          <Form.Label>Confirm Password *
+            {
+              error && error.map(err => (
+                err.param === 'password2' && <span className='text-size-08 text-red'><em>{err.msg}</em></span>
+              ))
+            }
+          </Form.Label>
           <Form.Control
             type="password"
             name="password2"
@@ -97,9 +123,13 @@ const Register = ({ setTopicLogin, register }) => {
   )
 }
 
+const mapStateToProps = state => ({
+  error: state.auth.error
+})
+
 const mapDispatchToProps = dispatch => ({
   setTopicLogin: topic => dispatch(setTopicLogin(topic)),
   register: formData => dispatch(register(formData))
 });
 
-export default connect(null, mapDispatchToProps)(Register);
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

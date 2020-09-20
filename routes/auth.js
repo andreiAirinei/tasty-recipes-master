@@ -32,7 +32,7 @@ router.post('/', [
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     // Return bad request
-    return res.status(400).json({ errors: errors.array() });
+    return res.status(400).json({ msg: errors.array() });
   }
 
   const { email, password } = req.body;
@@ -42,14 +42,24 @@ router.post('/', [
     let user = await User.findOne({ email });
 
     if (!user) {
-      return res.status(400).json({ msg: "Invalid credentials! " });
+      return res.status(400).json({
+        msg: [{
+          msg: "Invalid Credentials!",
+          param: "credentials"
+        }]
+      });
     }
 
     // Compare passwords
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
-      return res.status(400).json({ msg: "Invalid credentials!" });
+      return res.status(400).json({
+        msg: [{
+          msg: "Invalid Credentials!",
+          param: "credentials"
+        }]
+      });
     }
 
     // Get JWT token if everyting is OK
