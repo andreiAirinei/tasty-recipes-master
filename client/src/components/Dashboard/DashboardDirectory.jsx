@@ -1,16 +1,19 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 
 // Components
+import LoadingSpinner from '../layout/LoadingSpinner';
 import DashboardNavigation from './DashboardNavigation';
-import TabCreate from './Tabs/TabCreate/TabCreate';
-import TabMyRecipes from './Tabs/TabMyRecipes/TabMyRecipes';
-import TabFavorites from './Tabs/TabFavorites/TabFavorites';
-import TabBookmarks from './Tabs/TabBookmarks/TabBookmarks';
-import TabHistory from './Tabs/TabHistory/TabHistory';
 
 // Bootstrap
 import Container from 'react-bootstrap/Container';
+
+// Lazy Loaded Tabs
+const TabCreate = lazy(() => import('./Tabs/TabCreate/TabCreate'));
+const TabMyRecipes = lazy(() => import('./Tabs/TabMyRecipes/TabMyRecipes'));
+const TabFavorites = lazy(() => import('./Tabs/TabFavorites/TabFavorites'));
+const TabBookmarks = lazy(() => import('./Tabs/TabBookmarks/TabBookmarks'));
+const TabHistory = lazy(() => import('./Tabs/TabHistory/TabHistory'));
 
 const DashboardDirectory = ({ match }) => {
 
@@ -22,14 +25,15 @@ const DashboardDirectory = ({ match }) => {
 
       <Container fluid='xl'>
         <Switch>
-          <Route exact path={`${match.url}/create`} component={TabCreate} />
-          <Route exact path={`${match.url}/edit/:id`} component={TabCreate} />
-          <Route path={`${match.url}/my-recipes`} component={TabMyRecipes} />
-          <Route exact path={`${match.url}/favorites`} component={TabFavorites} />
-          <Route exact path={`${match.url}/bookmarks`} component={TabBookmarks} />
-          <Route exact path={`${match.url}/history`} component={TabHistory} />
-          <Route exact path={`${match.url}`} render={() => <Redirect to={`${match.url}/create`} />}
-          />
+          <Suspense fallback={<LoadingSpinner />}>
+            <Route exact path={`${match.url}/create`} component={TabCreate} />
+            <Route exact path={`${match.url}/edit/:id`} component={TabCreate} />
+            <Route path={`${match.url}/my-recipes`} component={TabMyRecipes} />
+            <Route exact path={`${match.url}/favorites`} component={TabFavorites} />
+            <Route exact path={`${match.url}/bookmarks`} component={TabBookmarks} />
+            <Route exact path={`${match.url}/history`} component={TabHistory} />
+            <Route exact path={`${match.url}`} render={() => <Redirect to={`${match.url}/create`} />} />
+          </Suspense>
         </Switch>
       </Container>
     </div>

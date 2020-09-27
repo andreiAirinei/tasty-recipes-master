@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, Suspense, lazy } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import PrivateRoute from './routing/PrivateRoute';
 
@@ -15,18 +15,19 @@ import Layout from './components/layout/Layout';
 import CredentialsModal from './components/Modals/CredentialsModal/CredentialsModal';
 import IngredientsModal from './components/Modals/IngredientModal/IngredientModal';
 import VideoModal from './components/Modals/VideoModal/VideoModal';
-
-// Pages
-import HomePage from './pages/HomePage';
-import RecipesDirectory from './pages/RecipesDirectory';
-import IngredientsPage from './pages/IngredientsPage';
-import ContactPage from './pages/ContactPage';
-import DashboardPage from './pages/DashboardPage';
+import LoadingSpinner from './components/layout/LoadingSpinner';
 
 // If exists, set token on default global headers
 if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
+
+// Lazy Loaded Pages
+const HomePage = lazy(() => import('./pages/HomePage'));
+const RecipesDirectory = lazy(() => import('./pages/RecipesDirectory'));
+const IngredientsPage = lazy(() => import('./pages/IngredientsPage'));
+const ContactPage = lazy(() => import('./pages/ContactPage'));
+const DashboardPage = lazy(() => import('./pages/DashboardPage'));
 
 const App = ({ getLatestRecipes, loadUser }) => {
   useEffect(() => {
@@ -38,11 +39,13 @@ const App = ({ getLatestRecipes, loadUser }) => {
     <Fragment>
       <Layout>
         <Switch>
-          <Route exact path='/' component={HomePage} />
-          <Route path='/recipes' component={RecipesDirectory} />
-          <Route path='/ingredients' component={IngredientsPage} />
-          <Route path='/contact' component={ContactPage} />
-          <PrivateRoute path='/dashboard' component={DashboardPage} />
+          <Suspense fallback={<LoadingSpinner />}>
+            <Route exact path='/' component={HomePage} />
+            <Route path='/recipes' component={RecipesDirectory} />
+            <Route path='/ingredients' component={IngredientsPage} />
+            <Route path='/contact' component={ContactPage} />
+            <PrivateRoute path='/dashboard' component={DashboardPage} />
+          </Suspense>
         </Switch>
       </Layout>
       <CredentialsModal />
