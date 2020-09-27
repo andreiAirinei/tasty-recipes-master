@@ -2,7 +2,19 @@
 const getLocalStorageUser = () => JSON.parse(localStorage.getItem('privateUser'));
 const setLocalStorageUser = (user) => { localStorage.setItem('privateUser', JSON.stringify(user)) };
 
-
+// Check localStorage disk space before setting the item.
+// If error, item will not be saved in LS for a component rehydration on mount/unmount
+const checkAndSave = (item) => {
+  try {
+    setLocalStorageUser(item);
+  } catch (e) {
+    if (e.name === 'QuotaExceededError') {
+      console.log("LocalStorage space is full!");
+    } else {
+      alert("LocalStorage: Something went wrong.");
+    }
+  }
+}
 
 export const setFieldValueToLocalStorage = payload => {
   const user = getLocalStorageUser();
@@ -14,7 +26,8 @@ export const setFieldValueToLocalStorage = payload => {
       [payload.fieldName]: payload.value
     }
   }
-  setLocalStorageUser(item);
+  // setLocalStorageUser(item);
+  checkAndSave(item);
 };
 
 // ### RECIPE INGREDIENTS
