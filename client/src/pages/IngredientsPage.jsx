@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import ReactGA from 'react-ga';
 
 // Redux
 import { connect } from 'react-redux';
@@ -13,6 +14,7 @@ import Container from 'react-bootstrap/Container';
 
 const IngredientsPage = ({ fetchAllIngredients, ingredientsList }) => {
   useEffect(() => {
+    ReactGA.pageview(window.location.pathname + window.location.search);
     !ingredientsList && fetchAllIngredients();
     // eslint-disable-next-line
   }, [ingredientsList]);

@@ -2,6 +2,7 @@ import React, { Fragment, useEffect, Suspense, lazy } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import PrivateRoute from './routing/PrivateRoute';
+import ReactGA from 'react-ga';
 
 // JWToken
 import setAuthToken from './utils/setAuthToken';
@@ -34,6 +35,8 @@ const App = ({ getLatestRecipes, loadUser }) => {
   useEffect(() => {
     loadUser();
     getLatestRecipes();
+    ReactGA.initialize('UA-145876927-2');
+    ReactGA.pageview(window.location.pathname + window.location.search);
   }, [getLatestRecipes, loadUser]);
 
   return (

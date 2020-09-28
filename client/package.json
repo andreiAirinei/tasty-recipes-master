@@ -2,7 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://andrei-airinei.com/tasty-recipes",
+  "homepage": "https://andrei-airinei.com/",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.13.0",
     "@testing-library/jest-dom": "^4.2.4",
@@ -15,6 +15,7 @@
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.0",
     "react-dom": "^16.13.1",
+    "react-ga": "^3.1.2",
     "react-helmet": "^6.0.0",
     "react-infinite-scroll-component": "^5.0.4",
     "react-player": "^1.15.3",

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import ReactGA from 'react-ga';
 
 // Components
 import Jumbotron from '../components/Jumbotron/Jumbotron';
@@ -8,6 +9,10 @@ import CollectionOverview from '../components/CollectionOverview/CollectionOverv
 import Container from 'react-bootstrap/Container';
 
 const CollectionPage = () => {
+
+  useEffect(() => {
+    ReactGA.pageview(window.location.pathname + window.location.search);
+  }, []);
 
   return (
     <>

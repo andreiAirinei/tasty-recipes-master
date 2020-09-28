@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import ReactGA from 'react-ga';
 
 // Components
 import Jumbotron from '../components/Jumbotron/Jumbotron';
 import DashboardDirectory from '../components/Dashboard/DashboardDirectory';
 
 const DashboardPage = () => {
+
+  useEffect(() => {
+    ReactGA.pageview(window.location.pathname + window.location.search);
+  }, []);
+
   return (
     <div className='dashboard-page'>
       <Jumbotron imgURL='woman-cooking.jpg' title='Dashboard' isLightBackground >
