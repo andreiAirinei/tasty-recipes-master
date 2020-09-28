@@ -16,6 +16,7 @@ const IngredientModal = ({ isActive, closeModalIngredient, ingredient, recipesBy
 
   useEffect(() => {
     ingredient && getRecipesByIngredient(ingredient);
+    // eslint-disable-next-line
   }, [ingredient]);
 
   return (

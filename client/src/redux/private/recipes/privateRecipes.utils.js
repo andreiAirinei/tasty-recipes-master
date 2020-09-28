@@ -9,7 +9,7 @@ const checkAndSave = (item) => {
     setLocalStorageUser(item);
   } catch (e) {
     if (e.name === 'QuotaExceededError') {
-      console.log("LocalStorage space is full!");
+      console.log("LocalStorage space is full! You need to upload images with a size of 4MB or less");
     } else {
       alert("LocalStorage: Something went wrong.");
     }

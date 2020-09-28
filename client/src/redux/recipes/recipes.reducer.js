@@ -77,7 +77,6 @@ const recipesReducer = (state = INITIAL_STATE, action) => {
       }
 
     case GET_RECIPES_BY_CATEGORY:
-      console.log(action.payload.data);
       return {
         ...state,
         recipesByCategory: {

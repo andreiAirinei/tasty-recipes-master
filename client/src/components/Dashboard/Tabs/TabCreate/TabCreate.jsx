@@ -35,10 +35,10 @@ const TabCreate = ({ createRecipe, updateRecipe, populateFieldsFromLS, resetAllF
       setActionSuccessfulToFalse();
     }
 
-    return () => {
-      toggleEditMode(false);
-    }
-  }, [editMode, toggleEditMode, populateFieldsFromLS, actionSuccessful]);
+    // return () => {
+    //   toggleEditMode(false);
+    // }
+  }, [editMode, toggleEditMode, populateFieldsFromLS, actionSuccessful, history, setActionSuccessfulToFalse]);
 
 
   const handleResetButton = () => {

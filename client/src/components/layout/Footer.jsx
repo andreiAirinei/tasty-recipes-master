@@ -43,19 +43,19 @@ const Footer = ({ setAlert }) => {
         </div>
         <div className="footer-links d-flex flex-column flex-sm-row justify-content-around">
           <ul className='list-unstyled font-weight-bold text-center'>
-            <li className='my-3'><a href='#'>Professionals</a></li>
-            <li className='my-3'><a href='#'>Communities</a></li>
-            <li className='my-3'><a href='#'>Webinars</a></li>
+            <li className='my-3'><button className='border-0'>Professionals</button></li>
+            <li className='my-3'><button className='border-0'>Communities</button></li>
+            <li className='my-3'><button className='border-0'>Webinars</button></li>
           </ul>
           <ul className='list-unstyled font-weight-bold text-center'>
-            <li className='my-3'><a href='#'>Local Meetups</a></li>
-            <li className='my-3'><a href='#'>Partners</a></li>
-            <li className='my-3'><a href='#'>Stores</a></li>
+            <li className='my-3'><button className='border-0'>Local Meetups</button></li>
+            <li className='my-3'><button className='border-0'>Partners</button></li>
+            <li className='my-3'><button className='border-0'>Stores</button></li>
           </ul>
           <ul className='list-unstyled font-weight-bold text-center'>
-            <li className='my-3'><a href='#'>Work with us</a></li>
-            <li className='my-3'><a href='#'>Our Initiatives</a></li>
-            <li className='my-3'><a href='#'>Giving Back</a></li>
+            <li className='my-3'><button className='border-0'>Work with us</button></li>
+            <li className='my-3'><button className='border-0'>Our Initiatives</button></li>
+            <li className='my-3'><button className='border-0'>Giving Back</button></li>
           </ul>
         </div>
         <div className="text-center my-5">
@@ -63,7 +63,7 @@ const Footer = ({ setAlert }) => {
         </div>
       </Container>
       <div className='text-center mb-2'>
-        <p className='text-dark bg-light d-inline'>Copyright &copy; 2020 <a href='https://aandrei.dev' target='_blank' className='text-dark'>Andrei Airinei</a></p>
+        <p className='text-dark bg-light d-inline'>Copyright &copy; 2020 <a href='https://aandrei.dev' target='_blank' rel="noopener noreferrer" className='text-dark'>Andrei Airinei</a></p>
       </div>
     </footer>
   )

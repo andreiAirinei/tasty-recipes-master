@@ -43,8 +43,8 @@ const Register = ({ setTopicLogin, register, error }) => {
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Email *
             {
-              error && error.map(err => (
-                err.param === 'email' && <span className='text-size-08 text-red'><em>{err.msg}</em></span>
+              error && error.map((err, idx) => (
+                err.param === 'email' && <span key={idx} className='text-size-08 text-red'><em>{err.msg}</em></span>
               ))
 
             }
@@ -61,8 +61,8 @@ const Register = ({ setTopicLogin, register, error }) => {
         <Form.Group controlId="formBasicUsername">
           <Form.Label>Username *
             {
-              error && error.map(err => (
-                err.param === 'username' && <span className='text-size-08 text-red'><em>{err.msg}</em></span>
+              error && error.map((err, idx) => (
+                err.param === 'username' && <span key={idx} className='text-size-08 text-red'><em>{err.msg}</em></span>
               ))
             }
           </Form.Label>
@@ -78,8 +78,8 @@ const Register = ({ setTopicLogin, register, error }) => {
         <Form.Group controlId="formBasicPassword">
           <Form.Label>Password *
             {
-              error && error.map(err => (
-                err.param === 'password' && <span className='text-size-08 text-red'><em>{err.msg}</em></span>
+              error && error.map((err, idx) => (
+                err.param === 'password' && <span key={idx} className='text-size-08 text-red'><em>{err.msg}</em></span>
               ))
             }
           </Form.Label>
@@ -95,8 +95,8 @@ const Register = ({ setTopicLogin, register, error }) => {
         <Form.Group controlId="formBasicConfirmPassword">
           <Form.Label>Confirm Password *
             {
-              error && error.map(err => (
-                err.param === 'password2' && <span className='text-size-08 text-red'><em>{err.msg}</em></span>
+              error && error.map((err, idx) => (
+                err.param === 'password2' && <span key={idx} className='text-size-08 text-red'><em>{err.msg}</em></span>
               ))
             }
           </Form.Label>

@@ -20,7 +20,7 @@ const TabBookmarks = ({ fetchBookmarks, bookmarks, removeBookmark }) => {
 
   useEffect(() => {
     fetchBookmarks();
-  }, []);
+  }, [fetchBookmarks]);
 
   const handleRemove = (e, id) => {
     e.preventDefault();

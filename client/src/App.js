@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect, Suspense, lazy } from 'react';
 import { Switch, Route } from 'react-router-dom';
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 import PrivateRoute from './routing/PrivateRoute';
 
 // JWToken
@@ -38,15 +39,23 @@ const App = ({ getLatestRecipes, loadUser }) => {
   return (
     <Fragment>
       <Layout>
-        <Switch>
-          <Suspense fallback={<LoadingSpinner />}>
-            <Route exact path='/' component={HomePage} />
-            <Route path='/recipes' component={RecipesDirectory} />
-            <Route path='/ingredients' component={IngredientsPage} />
-            <Route path='/contact' component={ContactPage} />
-            <PrivateRoute path='/dashboard' component={DashboardPage} />
-          </Suspense>
-        </Switch>
+        <TransitionGroup>
+          <CSSTransition
+            // key={1}
+            timeout={{ enter: 300, exit: 300 }}
+            classNames="fade"
+          >
+            <Switch>
+              <Suspense fallback={<LoadingSpinner />}>
+                <Route exact path='/' component={HomePage} />
+                <Route path='/recipes' component={RecipesDirectory} />
+                <Route path='/ingredients' component={IngredientsPage} />
+                <Route path='/contact' component={ContactPage} />
+                <PrivateRoute path='/dashboard' component={DashboardPage} />
+              </Suspense>
+            </Switch>
+          </CSSTransition>
+        </TransitionGroup>
       </Layout>
       <CredentialsModal />
       <IngredientsModal />

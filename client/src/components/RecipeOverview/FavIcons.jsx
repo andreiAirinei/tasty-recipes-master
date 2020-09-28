@@ -19,6 +19,7 @@ const FavIcons = ({ favorites, addFavorite, removeFavorite, recipe }) => {
 
   useEffect(() => {
     findFavorite(recipe.recipeID);
+    // eslint-disable-next-line
   }, [favorites]);
 
   const findFavorite = id => {

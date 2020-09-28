@@ -38,7 +38,7 @@ const Header = ({ openMobileMenu, closeMobileMenu, openModalCredentials, isAuthe
       user && setAlert(`Welcome, ${user.username}!`, 'success', 4000);
     }
     window.addEventListener('scroll', handleScroll);
-  }, [authSuccess, user]);
+  }, [authSuccess, user, history, setAlert]);
 
   const handleScroll = () => {
     if (window.scrollY > 100) {

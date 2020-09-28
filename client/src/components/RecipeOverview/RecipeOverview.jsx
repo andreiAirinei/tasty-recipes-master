@@ -27,7 +27,7 @@ const RecipeOverview = ({ match, getRecipeByID, clearSingleRecipe, singleRecipe,
     return () => {
       clearSingleRecipe();
     }
-  }, [getRecipeByID, match.params.recipeID, clearSingleRecipe]);
+  }, [getRecipeByID, match.params.recipeID, clearSingleRecipe, fetchFavorites]);
 
   return (
     <>

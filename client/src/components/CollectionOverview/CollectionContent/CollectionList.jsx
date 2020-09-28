@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import { setInfinityListSettings } from '../../../redux/ui/ui.actions';
 import { addFavorite } from '../../../redux/private/favorites/favorites.actions';
 import { addBookmark } from '../../../redux/private/bookmarks/bookmarks.actions';
-import { setAlert } from '../../../redux/alert/alert.actions';
 
 // Selectors
 import { createStructuredSelector } from 'reselect';
@@ -53,9 +52,11 @@ const CollectionList = ({ infinityList, infinityListSettings, setInfinityListSet
           next={fetchMoreItems}
           loader={<LoadingSpinner />}
         >
+
           <Row className='p-2'>
             {
               infinityList.data.map((recipe, idx) => (
+
                 <Col xs={6} lg={4} key={idx} className='p-0 px-2'>
                   <CollectionListItem
                     key={recipe.idMeal}
@@ -69,6 +70,7 @@ const CollectionList = ({ infinityList, infinityListSettings, setInfinityListSet
               ))
             }
           </Row>
+
         </InfiniteScroll>
       }
     </div>

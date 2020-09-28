@@ -75,7 +75,6 @@ export const setImgbbImage = file => async dispatch => {
     }
   });
 
-  console.log(res);
   dispatch({
     type: SET_IMGBB_IMAGE,
     payload: res.data.data.image.url
@@ -180,7 +179,6 @@ export const createRecipe = recipe => async dispatch => {
 
 // Fetch users's recipes
 export const fetchUserRecipes = () => async dispatch => {
-  console.log('FETCHING USER RECIPES');
   try {
     const res = await axios.get('/api/recipes');
 

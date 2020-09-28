@@ -19,7 +19,7 @@ const CredentialsModal = ({ isActive, topicLogin, closeModalCredentials, isAuthe
       closeModalCredentials();
       clearErrors();
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, closeModalCredentials, clearErrors]);
 
   const handleClosingModal = () => {
     closeModalCredentials();

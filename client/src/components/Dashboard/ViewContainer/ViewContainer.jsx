@@ -21,12 +21,11 @@ import Image from 'react-bootstrap/Image';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 
-const ViewContainer = ({ current, setCurrentRecipe, modalOpen, setVideoURL, setModalIngredient,
-  modalOpenIngredient, match }) => {
+const ViewContainer = ({ current, setCurrentRecipe, modalOpen, setVideoURL, setModalIngredient, modalOpenIngredient, match }) => {
 
   useEffect(() => {
     setCurrentRecipe(match.params.id);
-  }, []);
+  }, [setCurrentRecipe, match.params.id]);
 
   const handleVideoButton = () => {
     setVideoURL(current.youtubeURL);
@@ -96,10 +95,10 @@ const ViewContainer = ({ current, setCurrentRecipe, modalOpen, setVideoURL, setM
               </div>
               {
                 current.steps.map((step, idx) => (
-                  <>
+                  <div key={idx}>
                     <h5 className='text-info'>Step {idx + 1}</h5>
                     <p>{step.value}</p>
-                  </>
+                  </div>
                 ))
               }
             </Col>

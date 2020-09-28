@@ -32,7 +32,7 @@ const IngredientsList = ({
 
   useEffect(() => {
     fetchAllIngredients();
-  }, []);
+  }, [fetchAllIngredients]);
 
   const { quantity } = ingredient;
 
@@ -116,7 +116,7 @@ const IngredientsList = ({
                     className="d-flex flex-wrap align-items-center py-1"
                   >
                     <div className="d-flex align-items-center">
-                      <img src={`https://www.themealdb.com/images/ingredients/${ing.name}-Small.png`} className='mr-1' />
+                      <img src={`https://www.themealdb.com/images/ingredients/${ing.name}-Small.png`} alt={ing.name} className='mr-1' />
                       <p className='ingredient m-0 ml-1'><em>{ing.name}</em></p>
                     </div>
                     <p className='m-0'><strong>{ing.quantity}</strong></p>

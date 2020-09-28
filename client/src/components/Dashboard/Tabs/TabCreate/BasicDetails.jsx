@@ -35,7 +35,7 @@ const BasicDetails = ({
   useEffect(() => {
     fetchDishTypes();
     fetchCountries();
-  }, []);
+  }, [fetchDishTypes, fetchCountries]);
 
   // Dynamically set form field values
   const handleInputChange = e => {

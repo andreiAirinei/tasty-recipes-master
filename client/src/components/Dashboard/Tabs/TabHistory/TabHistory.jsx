@@ -17,13 +17,14 @@ const TabHistory = ({ seenRecipes, populateHistoryFromLS }) => {
 
   useEffect(() => {
     populateHistoryFromLS();
+    // eslint-disable-next-line
   }, [])
 
   return (
     <div>
       <SectionTitle title='Recently Seen' />
       {
-        seenRecipes.length < 1 && <h6><em>You haven't seen any recipes yet. <Link to='/recipes' className='text-danger'><u>Browse recipes!</u></Link></em></h6>
+        seenRecipes.length < 1 && <h6><em>You haven't seen any recipes this session yet. <Link to='/recipes' className='text-danger'><u>Browse recipes!</u></Link></em></h6>
       }
       <Row>
         {

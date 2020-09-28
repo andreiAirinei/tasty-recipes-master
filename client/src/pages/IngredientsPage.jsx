@@ -7,7 +7,6 @@ import { fetchAllIngredients } from '../redux/ingredients/ingredients.actions';
 // Components
 import Jumbotron from '../components/Jumbotron/Jumbotron';
 import IngredientsOverview from '../components/IngredientsOverview/IngredientsOverview';
-import CallToActionCard from '../components/CallToActionCard/CallToActionCard';
 
 // Bootstrap
 import Container from 'react-bootstrap/Container';

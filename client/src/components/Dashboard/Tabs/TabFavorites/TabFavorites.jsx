@@ -20,7 +20,7 @@ const TabFavorites = ({ fetchFavorites, favorites, removeFavorite }) => {
 
   useEffect(() => {
     fetchFavorites();
-  }, []);
+  }, [fetchFavorites]);
 
   const handleRemove = (e, id) => {
     e.preventDefault();

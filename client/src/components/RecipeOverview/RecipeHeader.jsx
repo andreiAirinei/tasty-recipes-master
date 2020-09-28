@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { addRecipeToHistory } from '../../redux/history/history.actions';
 
 // Selectors
-import { createStructuredSelector } from 'reselect';
 import { selectSingleRecipe } from '../../redux/recipes/recipes.selectors';
 
 // Components
@@ -27,7 +26,7 @@ const RecipeHeader = ({ singleRecipe, isAuthenticated, addRecipeToHistory }) => 
       image: singleRecipe.strMealThumb
     });
 
-  }, [singleRecipe]);
+  }, [singleRecipe, addRecipeToHistory, isAuthenticated]);
 
   return (
     <div className='recipe-header mb-5'>

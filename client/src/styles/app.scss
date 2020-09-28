@@ -1277,16 +1277,16 @@ $tasty: #418327;
   &-links {
     ul li {
       &:hover {
-        a {
+        button {
           background: #d7d7d7;
         }
       }
     }
-    a {
+    button {
       background: #e8e8e8;
       color: var(--dark);
       padding: 5px 10px;
-      margin: 10px 0;
+      // margin: 10px 0;
       border-radius: 5px;
       text-decoration: none;
     }
@@ -1429,4 +1429,43 @@ $tasty: #418327;
       }
     }
   }
+}
+
+
+
+
+
+
+/*  Animation TRANSITION GROUP */
+// .item-enter {
+//   opacity: 0;
+// }
+// .item-enter-active {
+//   opacity: 1;
+//   transition: opacity 300ms ease-in;
+// }
+// .item-exit {
+//   opacity: 1;
+// }
+// .item-exit-active {
+//   opacity: 0;
+//   transition: opacity 300ms ease-in;
+// }
+
+.fade-enter {
+  opacity: 0.01;
+}
+
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  transition: opacity 300ms ease-in;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit.fade-exit-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
 }

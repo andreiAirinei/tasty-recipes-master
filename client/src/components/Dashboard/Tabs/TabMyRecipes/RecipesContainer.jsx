@@ -19,6 +19,7 @@ const RecipesContainer = ({ history, fetchUserRecipes, removeRecipeById, editRec
 
   useEffect(() => {
     fetchUserRecipes();
+    // eslint-disable-next-line
   }, []);
 
   const handleDeleteRecipe = (e, id) => {
