@@ -159,7 +159,7 @@ export const createRecipe = recipe => async dispatch => {
   };
 
   try {
-    const res = await axios.post('/api/recipes', toPost, config);
+    const res = await axios.post(`${process.env.REACT_APP_SERVER}/api/recipes`, toPost, config);
 
     dispatch({
       type: CREATE_RECIPE,
@@ -180,7 +180,7 @@ export const createRecipe = recipe => async dispatch => {
 // Fetch users's recipes
 export const fetchUserRecipes = () => async dispatch => {
   try {
-    const res = await axios.get('/api/recipes');
+    const res = await axios.get(`${process.env.REACT_APP_SERVER}/api/recipes`);
 
     dispatch({
       type: FETCH_USER_RECIPES,
@@ -193,7 +193,7 @@ export const fetchUserRecipes = () => async dispatch => {
 
 export const setCurrentRecipe = id => async dispatch => {
   try {
-    const res = await axios.get(`/api/recipes/${id}`);
+    const res = await axios.get(`${process.env.REACT_APP_SERVER}/api/recipes/${id}`);
 
     dispatch({
       type: SET_CURRENT_RECIPE,
@@ -223,7 +223,7 @@ export const updateRecipe = recipe => async dispatch => {
   };
 
   try {
-    const res = await axios.put(`/api/recipes/${id}`, toPost, config);
+    const res = await axios.put(`${process.env.REACT_APP_SERVER}/api/recipes/${id}`, toPost, config);
 
     dispatch({
       type: UPDATE_RECIPE,
@@ -238,7 +238,7 @@ export const updateRecipe = recipe => async dispatch => {
 
 export const removeRecipeById = id => async dispatch => {
   try {
-    const res = await axios.delete(`/api/recipes/${id}`);
+    const res = await axios.delete(`${process.env.REACT_APP_SERVER}/api/recipes/${id}`);
 
     dispatch({
       type: REMOVE_RECIPE_BY_ID,

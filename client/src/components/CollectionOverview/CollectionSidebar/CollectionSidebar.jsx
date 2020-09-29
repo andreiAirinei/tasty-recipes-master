@@ -38,11 +38,11 @@ const CollectionSidebar = ({
   const [showFilters, setShowFilters] = useState(true);
 
   useEffect(() => {
-    !countriesList && fetchCountries();
-    !dishTypes && fetchDishTypes();
+    fetchCountries();
+    fetchDishTypes();
     handleWindowResize();
     window.addEventListener('resize', handleWindowResize);
-  }, [fetchCountries, fetchDishTypes, isMobileDevice, countriesList, dishTypes]);
+  }, [fetchCountries, fetchDishTypes, isMobileDevice]);
 
   // The 'currentTarget' read-only property of the Event interface identifies the current target for the event, as the event traverses the DOM. It always refers to the element to which the event handler has been attached, as opposed to Event.target, which identifies the element on which the event occurred and which may be its descendant.
   const handleSidebarButton = e => {

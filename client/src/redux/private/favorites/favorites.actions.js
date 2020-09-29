@@ -13,7 +13,7 @@ import { getErrorType } from '../../errors.data';
 // Fetch user's favorite recipes
 export const fetchFavorites = () => async dispatch => {
   try {
-    const res = await axios.get('/api/favorites');
+    const res = await axios.get(`${process.env.REACT_APP_SERVER}/api/favorites`);
 
     dispatch({
       type: FETCH_FAVORITES,
@@ -33,7 +33,7 @@ export const addFavorite = favorite => async dispatch => {
   };
 
   try {
-    const res = await axios.post('/api/favorites', favorite, config);
+    const res = await axios.post(`${process.env.REACT_APP_SERVER}/api/favorites`, favorite, config);
 
     dispatch({
       type: ADD_FAVORITE,
@@ -49,7 +49,7 @@ export const addFavorite = favorite => async dispatch => {
 // Remove favorite recipe from user's list
 export const removeFavorite = id => async dispatch => {
   try {
-    const res = await axios.delete(`/api/favorites/${id}`);
+    const res = await axios.delete(`${process.env.REACT_APP_SERVER}/api/favorites/${id}`);
 
     dispatch({
       type: REMOVE_FAVORITE,

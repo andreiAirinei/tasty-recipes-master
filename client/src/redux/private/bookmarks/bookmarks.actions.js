@@ -13,7 +13,7 @@ import { getErrorType } from '../../errors.data';
 // Fetch user's bookmarks
 export const fetchBookmarks = () => async dispatch => {
   try {
-    const res = await axios.get('/api/bookmarks');
+    const res = await axios.get(`${process.env.REACT_APP_SERVER}/api/bookmarks`);
 
     dispatch({
       type: FETCH_BOOKMARKS,
@@ -33,7 +33,7 @@ export const addBookmark = bm => async dispatch => {
   };
 
   try {
-    const res = await axios.post('/api/bookmarks', bm, config);
+    const res = await axios.post(`${process.env.REACT_APP_SERVER}/api/bookmarks`, bm, config);
 
     dispatch({
       type: ADD_BOOKMARK,
@@ -49,7 +49,7 @@ export const addBookmark = bm => async dispatch => {
 // Remove bookmark from user's list
 export const removeBookmark = id => async dispatch => {
   try {
-    const res = await axios.delete(`/api/bookmarks/${id}`);
+    const res = await axios.delete(`${process.env.REACT_APP_SERVER}/api/bookmarks/${id}`);
 
     dispatch({
       type: REMOVE_BOOKMARK,
