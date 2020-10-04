@@ -6,10 +6,6 @@ import { ReactComponent as StarFilled } from '../../assets/star_filled.svg';
 import { connect } from 'react-redux';
 import { addFavorite, removeFavorite } from '../../redux/private/favorites/favorites.actions';
 
-// Bootstrap
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Tooltip from 'react-bootstrap/Tooltip';
-
 const FavIcons = ({ favorites, addFavorite, removeFavorite, recipe }) => {
 
   const [state, setState] = useState({
@@ -32,13 +28,9 @@ const FavIcons = ({ favorites, addFavorite, removeFavorite, recipe }) => {
     <div className='fav-icons'>
       {
         state.isFavorite ?
-          (<OverlayTrigger placement='top' overlay={<Tooltip>Remove from Favorites</Tooltip>}>
-            <StarFilled onClick={() => removeFavorite(recipe.recipeID)} className='fav-icon--xlarge' />
-          </OverlayTrigger>)
+          (<StarFilled onClick={() => removeFavorite(recipe.recipeID)} className='fav-icon--xlarge' />)
           :
-          (<OverlayTrigger placement='top' overlay={<Tooltip>Add to Favorites</Tooltip>}>
-            <StarEmpty onClick={() => addFavorite({ ...recipe })} className='fav-icon--xlarge' />
-          </OverlayTrigger>)
+          (<StarEmpty onClick={() => addFavorite({ ...recipe })} className='fav-icon--xlarge' />)
       }
     </div>
   )
